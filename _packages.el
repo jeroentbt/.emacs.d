@@ -19,6 +19,7 @@
      ido-ubiquitous
      ido-at-point
      smex
+     magit
      )))
 
 (condition-case nil

@@ -60,4 +60,8 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
+;; Magit
+(global-set-key (kbd "C-x m") 'magit-status)
+(autoload 'magit-status "magit")
+
 (provide '_key_bindings)
