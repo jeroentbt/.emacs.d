@@ -5,7 +5,9 @@
 (setq magit-restore-window-configuration t)
 
 ;; open commit in a new buffer (pop new window not a new frame)
-(setq magit-server-window-for-commit 'pop-to-buffer)
+;; currently broken in magit. using magit-log-edit.el from
+;; https://github.com/magit/magit-log-edit as a temp patch
+;;(setq magit-server-window-for-commit nil)
 
 ;; open status in a new buffer (pop new window not a new frame)
 (setq magit-status-buffer-switch-function 'pop-to-buffer)

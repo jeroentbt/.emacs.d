@@ -20,6 +20,7 @@
      ido-at-point
      smex
      magit
+     magit-log-edit ;; old commit mode (new one opens in new frame 28/10/2013
      )))
 
 (condition-case nil
@@ -31,5 +32,5 @@
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
 
-
 (provide '_packages)
+;;(require 'setup-magit)
