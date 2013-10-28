@@ -64,4 +64,7 @@
 (global-set-key (kbd "C-x m") 'magit-status)
 (autoload 'magit-status "magit")
 
+;; iBuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 (provide '_key_bindings)
