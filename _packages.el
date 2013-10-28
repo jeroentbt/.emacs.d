@@ -26,6 +26,7 @@
      editorconfig
      projectile
      web-mode
+     spaces
      )))
 
 (condition-case nil
@@ -36,7 +37,7 @@
 
 ;; simple requires
 (require 'editorconfig)
-
+(require 'spaces)
 
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
