@@ -11,6 +11,7 @@
 (defun init--install-packages ()
   (packages-install
    '(zenburn-theme
+     heroku-theme
      undo-tree
      smooth-scrolling
      flx

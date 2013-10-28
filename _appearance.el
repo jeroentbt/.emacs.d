@@ -1,4 +1,4 @@
-(load-theme 'zenburn t)
+(load-theme 'heroku t)
 
 ;; don't beep but flash the screen
 ;; font-lock-mode provides the colors for spec languages, set max fontification (1-3)
