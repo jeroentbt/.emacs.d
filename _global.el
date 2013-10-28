@@ -12,6 +12,11 @@
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
+;; Autosave to temp
+;; ($TMPDIR in shell)
+(setq auto-save-file-name-transforms
+          `((".*" ,temporary-file-directory t)))
+
 ;; Save point position between sessions
 (require 'saveplace)
 (setq-default save-place t)
