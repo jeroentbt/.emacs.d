@@ -23,6 +23,7 @@
      magit
      magit-log-edit ;; old commit mode (new one opens in new frame 28/10/2013
      s
+     editorconfig
      )))
 
 (condition-case nil
@@ -31,8 +32,12 @@
    (package-refresh-contents)
    (init--install-packages)))
 
+;; simple requires
+(require 'editorconfig)
+
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
+;;(require 'setup-magit)
 
 (provide '_packages)
-;;(require 'setup-magit)
+
