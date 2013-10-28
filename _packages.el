@@ -21,6 +21,7 @@
      smex
      magit
      magit-log-edit ;; old commit mode (new one opens in new frame 28/10/2013
+     s
      )))
 
 (condition-case nil
