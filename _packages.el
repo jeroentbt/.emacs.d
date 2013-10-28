@@ -25,6 +25,7 @@
      s
      editorconfig
      projectile
+     web-mode
      )))
 
 (condition-case nil
@@ -40,6 +41,7 @@
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
 (require 'setup-projectile)
+(require 'setup-webmode)
 ;;(require 'setup-magit)
 
 (provide '_packages)
