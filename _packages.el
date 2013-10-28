@@ -27,6 +27,7 @@
      projectile
      web-mode
      spaces
+     emmet-mode
      )))
 
 (condition-case nil
