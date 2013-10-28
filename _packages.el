@@ -24,6 +24,7 @@
      magit-log-edit ;; old commit mode (new one opens in new frame 28/10/2013
      s
      editorconfig
+     projectile
      )))
 
 (condition-case nil
@@ -35,8 +36,10 @@
 ;; simple requires
 (require 'editorconfig)
 
+
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
+(require 'setup-projectile)
 ;;(require 'setup-magit)
 
 (provide '_packages)
