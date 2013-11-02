@@ -28,6 +28,7 @@
      web-mode
      spaces
      emmet-mode
+     smartparens
      )))
 
 (condition-case nil
@@ -44,6 +45,7 @@
 (require 'setup-ido)
 (require 'setup-projectile)
 (require 'setup-webmode)
+(require 'setup-smartparens)
 ;;(require 'setup-magit)
 
 (provide '_packages)
