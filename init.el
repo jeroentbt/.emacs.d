@@ -28,3 +28,4 @@
   (when (file-regular-p file)
     (load file)))
 
+(when is-mac (require '_mac))
