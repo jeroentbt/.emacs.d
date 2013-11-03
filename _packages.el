@@ -30,6 +30,8 @@
      emmet-mode
      gist
      smartparens
+     auto-complete
+     jedi ;; python auto completion
      )))
 
 (condition-case nil
@@ -49,6 +51,9 @@
 (require 'setup-webmode)
 (require 'setup-smartparens)
 ;;(require 'setup-magit)
+
+;; setup languages
+(require 'setup-python)
 
 (provide '_packages)
 
