@@ -34,6 +34,7 @@
      jedi ;; python auto completion
      flycheck
      dash-at-point ;; search dash.app for stuff at point
+     guide-key ;; list available keys
      )))
 
 (condition-case nil
@@ -52,6 +53,7 @@
 (require 'setup-projectile)
 (require 'setup-webmode)
 (require 'setup-smartparens)
+(require 'setup-guidekey)
 ;;(require 'setup-magit)
 
 ;; setup languages
