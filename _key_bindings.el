@@ -69,4 +69,7 @@
 
 (global-set-key (kbd "C-c d") 'dash-at-point)
 
+;; expand region
+(global-set-key (kbd "C-=") 'er/expand-region)
+
 (provide '_key_bindings)

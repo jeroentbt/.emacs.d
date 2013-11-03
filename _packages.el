@@ -35,6 +35,7 @@
      flycheck
      dash-at-point ;; search dash.app for stuff at point
      guide-key ;; list available keys
+     expand-region
      )))
 
 (condition-case nil
@@ -47,6 +48,7 @@
 (require 'editorconfig)
 (require 'spaces)
 (require 'gist)
+(require 'expand-region)
 
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
