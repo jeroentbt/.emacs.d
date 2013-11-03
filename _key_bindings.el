@@ -67,4 +67,6 @@
 ;; iBuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+(global-set-key (kbd "C-c d") 'dash-at-point)
+
 (provide '_key_bindings)
