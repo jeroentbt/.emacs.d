@@ -5,3 +5,5 @@ elpa
 .places
 recentf
 .DS_store
+projectile-bookmarks.eld
+var/
