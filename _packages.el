@@ -28,6 +28,7 @@
      web-mode
      spaces
      emmet-mode
+     gist
      smartparens
      )))
 
@@ -40,6 +41,7 @@
 ;; simple requires
 (require 'editorconfig)
 (require 'spaces)
+(require 'gist)
 
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
