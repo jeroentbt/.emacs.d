@@ -1,15 +1,16 @@
-;; Add melpa to package repos
+(require 'package)
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-;; Setup packages
-(require 'setup-package)
+(package-refresh-contents)
 
-;; Install extensions if they're missing
-(defun init--install-packages ()
-  (packages-install
+(defun install-if-needed (package)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+(setq to-install
    '(zenburn-theme
      heroku-theme
      undo-tree
@@ -36,13 +37,9 @@
      dash-at-point ;; search dash.app for stuff at point
      guide-key ;; list available keys
      expand-region
-     )))
+     ))
 
-(condition-case nil
-    (init--install-packages)
-  (error
-   (package-refresh-contents)
-   (init--install-packages)))
+(mapc 'install-if-needed to-install)
 
 ;; simple requires
 (require 'editorconfig)
