@@ -36,6 +36,7 @@
      dash-at-point ;; search dash.app for stuff at point
      guide-key ;; list available keys
      expand-region
+     exec-path-from-shell ;; loads in $PATH (used in _mac.el)
      )))
 
 (condition-case nil
