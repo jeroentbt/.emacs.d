@@ -35,10 +35,7 @@
      gist
      smartparens
      auto-complete
-     ;; python stuff
-     python-mode ;; better than the built in python.el
      jedi ;; python auto completion
-     ;; /python stuff
      flycheck
      dash-at-point ;; search dash.app for stuff at point
      guide-key ;; list available keys
