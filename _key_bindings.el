@@ -28,7 +28,7 @@
 (global-set-key (kbd "C-x M-g") 'browse-url-at-point)
 
 ;; Comment/uncomment block
-(global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-c c") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "C-c u") 'uncomment-region)
 
 ;; Move windows, even in org-mode
