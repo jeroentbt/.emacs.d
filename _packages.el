@@ -42,6 +42,7 @@
      expand-region
      exec-path-from-shell ;; loads in $PATH (used in _mac.el)
      column-marker ;; highlight a (or more) columns (used for 80 column limit)
+     highlight-indentation ;; minor mode to highlight indentation
      ))
 
 (mapc 'install-if-needed to-install)
@@ -59,6 +60,7 @@
 (require 'setup-webmode)
 (require 'setup-smartparens)
 (require 'setup-guidekey)
+(require 'setup-highlight-indentation)
 ;;(require 'setup-magit)
 
 ;; setup languages
