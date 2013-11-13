@@ -41,6 +41,7 @@
      guide-key ;; list available keys
      expand-region
      exec-path-from-shell ;; loads in $PATH (used in _mac.el)
+     column-marker ;; highlight a (or more) columns (used for 80 column limit)
      ))
 
 (mapc 'install-if-needed to-install)
@@ -50,6 +51,7 @@
 (require 'spaces)
 (require 'gist)
 (require 'expand-region)
+(require 'column-marker) ;; setup in language setups
 
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
