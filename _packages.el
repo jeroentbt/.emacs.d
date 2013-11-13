@@ -44,6 +44,7 @@
      column-marker ;; highlight a (or more) columns (used for 80 column limit)
      highlight-indentation ;; minor mode to highlight indentation
      persp-mode ;; saves window config and buffers
+     buffer-move ;; easily move buffers to other windows
      ))
 
 (mapc 'install-if-needed to-install)

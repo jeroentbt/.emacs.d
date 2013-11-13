@@ -43,6 +43,12 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
+;; move buffer to window
+(global-set-key (kbd "<M-s-up>")     'buf-move-up)
+(global-set-key (kbd "<M-s-down>")   'buf-move-down)
+(global-set-key (kbd "<M-s-left>")   'buf-move-left)
+(global-set-key (kbd "<M-s-right>")  'buf-move-right)
+
 ;; Fold the active region
 (global-set-key (kbd "C-c C-f") 'fold-this-all)
 (global-set-key (kbd "C-c C-F") 'fold-this)
