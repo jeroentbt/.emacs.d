@@ -68,6 +68,7 @@
 
 ;; setup languages
 (require 'setup-python)
+(require 'setup-php)
 
 (provide '_packages)
 
