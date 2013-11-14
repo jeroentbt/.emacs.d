@@ -78,4 +78,7 @@
 ;; expand region
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+;; jump around, jump around, jump up, jump up and get down
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+
 (provide '_key_bindings)

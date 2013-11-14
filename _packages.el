@@ -45,6 +45,7 @@
      highlight-indentation ;; minor mode to highlight indentation
      persp-mode ;; saves window config and buffers
      buffer-move ;; easily move buffers to other windows
+     ace-jump-mode ;; C-c SPACE to jump to chars
      ))
 
 (mapc 'install-if-needed to-install)
