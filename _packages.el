@@ -57,6 +57,10 @@
 (require 'expand-region)
 (require 'column-marker) ;; setup in language setups
 
+;;;; a bit more for autocomplete
+(require 'auto-complete-config)
+(ac-config-default)
+
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
 (require 'setup-projectile)
