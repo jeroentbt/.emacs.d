@@ -67,8 +67,6 @@
 ;;(require 'setup-magit)
 
 ;; setup languages
-(require 'setup-python)
-(require 'setup-php)
+(require 'setup-langs)
 
 (provide '_packages)
-
