@@ -56,6 +56,7 @@
 (require 'gist)
 (require 'expand-region)
 (require 'column-marker) ;; setup in language setups
+(require 'persp-mode) (persp-mode t)
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)
