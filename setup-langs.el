@@ -14,4 +14,9 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js2-mode-hook 'flycheck-mode)
 
+;; web mode
+(add-to-list 'auto-mode-alist '("\\.txp\\'" . web-mode))
+(add-hook 'web-mode-hook 'emmet-mode)
+(add-hook 'web-mode-hook 'flycheck-mode)
+
 (provide 'setup-langs)
