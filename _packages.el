@@ -47,6 +47,7 @@
      buffer-move ;; easily move buffers to other windows
      ace-jump-mode ;; C-c SPACE to jump to chars
      smart-mode-line ;; A more readable modeline
+     markdown-mode
      ))
 
 (mapc 'install-if-needed to-install)
