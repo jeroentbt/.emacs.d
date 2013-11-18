@@ -46,6 +46,7 @@
      persp-mode ;; saves window config and buffers
      buffer-move ;; easily move buffers to other windows
      ace-jump-mode ;; C-c SPACE to jump to chars
+     smart-mode-line ;; A more readable modeline
      ))
 
 (mapc 'install-if-needed to-install)
@@ -69,6 +70,7 @@
 (require 'setup-smartparens)
 (require 'setup-guidekey)
 (require 'setup-highlight-indentation)
+(require 'setup-modeline)
 ;;(require 'setup-magit)
 
 ;; setup languages
