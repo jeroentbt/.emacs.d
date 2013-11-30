@@ -52,6 +52,14 @@
 
 (mapc 'install-if-needed to-install)
 
+;; tern is a special case...
+(add-to-list 'load-path "~/.tern/emacs")
+(autoload 'tern-mode "tern.el" nil t)
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
+
 ;; simple requires
 (require 'editorconfig)
 (require 'spaces)
