@@ -48,6 +48,7 @@
      ace-jump-mode ;; C-c SPACE to jump to chars
      smart-mode-line ;; A more readable modeline
      markdown-mode
+     key-chord
      ))
 
 (mapc 'install-if-needed to-install)
@@ -68,6 +69,7 @@
 (require 'column-marker) ;; setup in language setups
 (require 'persp-mode) (persp-mode t)
 (require 'emmet-mode)
+(require 'key-chord)
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)

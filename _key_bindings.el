@@ -81,4 +81,14 @@
 ;; jump around, jump around, jump up, jump up and get down
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 
+;; Key chords
+(key-chord-define-global "jj" 'ace-jump-word-mode)
+(key-chord-define-global "jk" 'ace-jump-char-mode)
+(key-chord-define-global "jl" 'ace-jump-line-mode)
+(key-chord-define-global "uu" 'undo-tree-visualize)
+
+(key-chord-mode +1)
+
+
+
 (provide '_key_bindings)
