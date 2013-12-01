@@ -49,6 +49,7 @@
      smart-mode-line ;; A more readable modeline
      markdown-mode
      key-chord
+     multiple-cursors
      ))
 
 (mapc 'install-if-needed to-install)
@@ -70,6 +71,7 @@
 (require 'persp-mode) (persp-mode t)
 (require 'emmet-mode)
 (require 'key-chord)
+(require 'multiple-cursors)
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)

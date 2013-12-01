@@ -81,6 +81,12 @@
 ;; jump around, jump around, jump up, jump up and get down
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 
+;; multiple cursors
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c C->") 'mc/edit-lines) ;; adds a cursor to all lines in current region
+
 ;; Key chords
 (key-chord-define-global "jj" 'ace-jump-word-mode)
 (key-chord-define-global "jk" 'ace-jump-char-mode)
