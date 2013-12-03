@@ -50,6 +50,7 @@
      markdown-mode
      key-chord
      multiple-cursors
+     php-mode
      ))
 
 (mapc 'install-if-needed to-install)
