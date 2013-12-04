@@ -70,6 +70,7 @@
 (require 'expand-region)
 (require 'column-marker) ;; setup in language setups
 (require 'persp-mode) (persp-mode t)
+(setq wg-morph-on nil) ;; no animation when setting a perspective
 (require 'emmet-mode)
 (require 'key-chord)
 (require 'multiple-cursors)
