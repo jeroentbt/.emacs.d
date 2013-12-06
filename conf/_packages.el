@@ -51,6 +51,7 @@
      key-chord
      multiple-cursors
      php-mode
+     js2-mode     
      ))
 
 (mapc 'install-if-needed to-install)
