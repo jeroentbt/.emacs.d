@@ -51,7 +51,8 @@
      key-chord
      multiple-cursors
      php-mode
-     js2-mode     
+     js2-mode
+     adaptive-wrap ;; indents wrapped lines (indentation by spaces)
      ))
 
 (mapc 'install-if-needed to-install)
