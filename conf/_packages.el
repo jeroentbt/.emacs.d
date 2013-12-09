@@ -53,6 +53,7 @@
      php-mode
      js2-mode
      adaptive-wrap ;; indents wrapped lines (indentation by spaces)
+     w3m ;; web browsing in emacs (needs w3m installed)
      ))
 
 (mapc 'install-if-needed to-install)
