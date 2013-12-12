@@ -54,6 +54,7 @@
      js2-mode
      adaptive-wrap ;; indents wrapped lines (indentation by spaces)
      w3m ;; web browsing in emacs (needs w3m installed)
+     weechat ;; connects to weechat ("/relay add weechat 9000" in weechat)
      ))
 
 (mapc 'install-if-needed to-install)
@@ -89,6 +90,7 @@
 (require 'setup-guidekey)
 (require 'setup-highlight-indentation)
 (require 'setup-modeline)
+(require 'setup-weechat)
 ;;(require 'setup-magit)
 
 ;; setup languages
