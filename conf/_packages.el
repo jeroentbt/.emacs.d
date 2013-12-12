@@ -55,6 +55,7 @@
      adaptive-wrap ;; indents wrapped lines (indentation by spaces)
      w3m ;; web browsing in emacs (needs w3m installed)
      weechat ;; connects to weechat ("/relay add weechat 9000" in weechat)
+     rainbow-delimiters ;; colors [{()}] pairs according to depth (setup via smartparens)
      ))
 
 (mapc 'install-if-needed to-install)
