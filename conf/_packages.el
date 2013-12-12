@@ -16,6 +16,7 @@
 (setq to-install
    '(zenburn-theme
      heroku-theme
+     solarized-theme
      undo-tree
      smooth-scrolling
      flx
