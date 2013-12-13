@@ -5,6 +5,7 @@
 (setq rtog/mode-repl-alist '((js2-mode . nodejs-repl)
                              (js3-mode . nodejs-repl)
                              (emacs-lisp-mode . ielm)
+                             (php-mode . php-boris)
                              ))
 
 ;; php
