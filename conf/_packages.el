@@ -61,7 +61,7 @@
      nodejs-repl ;; based on comint-mode https://github.com/abicky/nodejs-repl.el
      js3-mode ;; more node stylish
      repl-toggle ;; bind buffer to repl
-     php-boris
+     php-boris ;; php repl
      ))
 
 (mapc 'install-if-needed to-install)
