@@ -2,7 +2,7 @@
 
 (setq weechat-modules '(weechat-button
                         weechat-complete
-                        weechat-tracking
+                        ;;weechat-tracking
                         ;;weechat-notifications
                         ))
 
@@ -32,7 +32,8 @@
      (set-face-foreground 'weechat-highlight-face "light grey")
      (add-hook 'weechat-mode-hook 'visual-line-mode)
      ;; (add-hook 'weechat-mode-hook (lambda nil (load-theme-buffer-local 'tango (current-buffer))))
-     (tracking-mode)))
+     ;; (tracking-mode) /TODO Get tracking to work...
+     ))
 
 
 (provide 'setup-weechat)
