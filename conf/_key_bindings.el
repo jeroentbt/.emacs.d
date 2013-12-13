@@ -1,3 +1,8 @@
+;; I don't need to kill emacs that easily
+;; the mnemonic is C-x REALLY QUIT
+(global-set-key (kbd "C-x r q") 'my/server-stop)
+(global-set-key (kbd "C-x C-c") 'delete-frame)
+
 ;; ido-mode
 ;; set keys for ido-vertical
 (defun sd/ido-define-keys () 
