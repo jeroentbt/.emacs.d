@@ -28,6 +28,10 @@
 (add-hook 'js3-mode-hook (lambda () (tern-mode t)))
 (add-hook 'js3-mode-hook 'repl-toggle-mode)
 
+;; json
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+(add-hook 'json-mode-hook 'flycheck-mode)
+
 
 ;; web mode
 (add-to-list 'auto-mode-alist '("\\.txp\\'" . web-mode))

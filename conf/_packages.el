@@ -62,6 +62,7 @@
      js3-mode ;; more node stylish
      repl-toggle ;; bind buffer to repl
      php-boris ;; php repl
+     json-mode
      ))
 
 (mapc 'install-if-needed to-install)
