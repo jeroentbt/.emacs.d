@@ -58,6 +58,9 @@
      weechat ;; connects to weechat ("/relay add weechat 9000" in weechat)
      rainbow-delimiters ;; colors [{()}] pairs according to depth (setup via smartparens)
      haste ;; interface to http://hastebin.com/about
+     nodejs-repl ;; based on comint-mode https://github.com/abicky/nodejs-repl.el
+     js3-mode ;; more node stylish
+     repl-toggle ;; bind buffer to repl
      ))
 
 (mapc 'install-if-needed to-install)
@@ -80,6 +83,7 @@
 (require 'key-chord)
 (require 'multiple-cursors)
 (autoload 'haste "haste" nil t)
+(require 'repl-toggle) ;; config in setup-langs
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)

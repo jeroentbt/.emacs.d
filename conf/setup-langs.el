@@ -1,5 +1,11 @@
 ;; do stuff for langs
 
+;; set up mode - repl pairs
+;; if you add one here that works, report @ https://github.com/tomterl/repl-toggle
+(setq rtog/mode-repl-alist '((js2-mode . nodejs-repl)
+                             (js3-mode . nodejs-repl)
+                             ))
+
 ;; php
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 (add-hook 'php-mode-hook 'flycheck-mode)
@@ -14,6 +20,12 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js2-mode-hook 'flycheck-mode)
 (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+(add-hook 'js2-mode-hook 'repl-toggle-mode)
+;; repeat for js3-mode /TODO there must be a better way to define these
+(add-hook 'js3-mode-hook 'flycheck-mode)
+(add-hook 'js3-mode-hook (lambda () (tern-mode t)))
+(add-hook 'js3-mode-hook 'repl-toggle-mode)
+
 
 ;; web mode
 (add-to-list 'auto-mode-alist '("\\.txp\\'" . web-mode))
