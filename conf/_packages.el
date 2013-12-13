@@ -57,6 +57,7 @@
      w3m ;; web browsing in emacs (needs w3m installed)
      weechat ;; connects to weechat ("/relay add weechat 9000" in weechat)
      rainbow-delimiters ;; colors [{()}] pairs according to depth (setup via smartparens)
+     haste ;; interface to http://hastebin.com/about
      ))
 
 (mapc 'install-if-needed to-install)
@@ -78,6 +79,7 @@
 (require 'emmet-mode)
 (require 'key-chord)
 (require 'multiple-cursors)
+(autoload 'haste "haste" nil t)
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)
