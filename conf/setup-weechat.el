@@ -20,7 +20,7 @@
                          "light cyan" "gray" "white")
            weechat-prompt "> "
            weechat-notification-mode t
-           weechat-auto-monitor-buffers '("#trickle" "#meteor")
+           ;; weechat-auto-monitor-buffers '("#trickle" "#meteor")
            weechat-complete-nick-ignore-self nil
            weechat-button-buttonize-nicks nil
            weechat-tracking-types '(:highlight (".+#weechat.el" . :message))
