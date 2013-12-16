@@ -2,7 +2,7 @@
 
 (setq weechat-modules '(weechat-button
                         weechat-complete
-                        ;;weechat-tracking
+                        weechat-tracking
                         ;;weechat-notifications
                         ))
 
@@ -19,11 +19,11 @@
                          "dark magenta" "magenta" "dark cyan"
                          "light cyan" "gray" "white")
            weechat-prompt "> "
-           weechat-notification-mode t
-           weechat-auto-monitor-buffers '("highmon")
+           ;; weechat-notification-mode t
+           weechat-auto-monitor-buffers '("highmon" "#trickle")
            weechat-complete-nick-ignore-self nil
            weechat-button-buttonize-nicks nil
-           weechat-tracking-types '(:highlight (".+#weechat.el" . :message))
+           weechat-tracking-types '(:highlight (".+#trickle" . :message))
            weechat-sync-active-buffer t
 	   )
      ;;(require 'gnutls)
@@ -32,7 +32,7 @@
      (set-face-foreground 'weechat-highlight-face "light grey")
      (add-hook 'weechat-mode-hook 'visual-line-mode)
      ;; (add-hook 'weechat-mode-hook (lambda nil (load-theme-buffer-local 'tango (current-buffer))))
-     ;; (tracking-mode) /TODO Get tracking to work...
+     (tracking-mode)
      ))
 
 
