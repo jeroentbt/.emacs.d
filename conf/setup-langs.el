@@ -38,4 +38,8 @@
 (add-hook 'web-mode-hook 'emmet-mode)
 (add-hook 'web-mode-hook 'flycheck-mode)
 
+;; puppet mode
+(add-to-list 'auto-mode-alist '("\\.pp\\'" . puppet-mode))
+
+
 (provide 'setup-langs)

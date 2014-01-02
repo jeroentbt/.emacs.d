@@ -63,6 +63,7 @@
      repl-toggle ;; bind buffer to repl
      php-boris ;; php repl
      json-mode
+     puppet-mode
      ))
 
 (mapc 'install-if-needed to-install)
