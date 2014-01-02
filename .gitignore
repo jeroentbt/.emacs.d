@@ -9,3 +9,7 @@ projectile-bookmarks.eld
 var/
 ac-comphist.dat
 /url/cookies
+.mc-lists.el
+eshell
+persp-confs
+tramp
