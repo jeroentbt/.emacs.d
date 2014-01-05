@@ -64,6 +64,7 @@
      php-boris ;; php repl
      json-mode
      puppet-mode
+     popwin ;; pop up window that gets out of the way after use
      ))
 
 (mapc 'install-if-needed to-install)
@@ -87,6 +88,7 @@
 (require 'multiple-cursors)
 (autoload 'haste "haste" nil t)
 (require 'repl-toggle) ;; config in setup-langs
+(require 'popwin) (popwin-mode t) ;; Much more to set up here! https://github.com/m2ym/popwin-el
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)
