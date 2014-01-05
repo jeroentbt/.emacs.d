@@ -136,5 +136,7 @@
 (require 'smex)
 (smex-initialize)
 
+;; Hide mousepointer when typing
+(setq make-pointer-invisible t)
 
 (provide '_global)
