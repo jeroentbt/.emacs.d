@@ -28,6 +28,9 @@
 (global-set-key (kbd "C-x C-p") 'find-or-create-file-at-point)
 (global-set-key (kbd "C-x M-p") 'find-or-create-file-at-point-other-window)
 
+;; Dired
+(global-set-key (kbd "C-x C-j") 'dired-jump)
+
 ;; Webjump let's you quickly search google, wikipedia, emacs wiki
 (global-set-key (kbd "C-x g") 'webjump)
 (global-set-key (kbd "C-x M-g") 'browse-url-at-point)
