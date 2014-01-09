@@ -13,7 +13,8 @@
 (setq inhibit-startup-message t)
 
 ;; Set up load path
-(add-to-list 'load-path (expand-file-name "conf" user-emacs-directory))
+(setq loadpath-mine (expand-file-name "conf" user-emacs-directory))
+(add-to-list 'load-path loadpath-mine)
 
 (require '_packages)
 (require '_global)
