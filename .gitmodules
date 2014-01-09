@@ -1,0 +1,3 @@
+[submodule "vendor/ZNC.el"]
+	path = vendor/ZNC.el
+	url = git@github.com:sshirokov/ZNC.el.git
