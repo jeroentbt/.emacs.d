@@ -14,7 +14,16 @@
 
 ;; Set up load path
 (setq loadpath-mine (expand-file-name "conf" user-emacs-directory))
+(setq loadpath-vendor (expand-file-name "vendor" user-emacs-directory))
+
 (add-to-list 'load-path loadpath-mine)
+(add-to-list 'load-path loadpath-vendor)
+
+;;;; add projects from vendor..
+(dolist (project (directory-files loadpath-vendor t "\\w+"))
+ (when (file-directory-p project)
+   (add-to-list 'load-path project)))
+
 
 (require '_packages)
 (require '_global)
