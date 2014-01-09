@@ -89,6 +89,7 @@
 (autoload 'haste "haste" nil t)
 (require 'repl-toggle) ;; config in setup-langs
 (require 'popwin) (popwin-mode t) ;; Much more to set up here! https://github.com/m2ym/popwin-el
+(require 'znc) ;; in vendor
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)
