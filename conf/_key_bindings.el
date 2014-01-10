@@ -28,8 +28,11 @@
 (global-set-key (kbd "C-x C-p") 'find-or-create-file-at-point)
 (global-set-key (kbd "C-x M-p") 'find-or-create-file-at-point-other-window)
 
+;; TODO: write defun that does dired jump when not in project
 ;; Dired
-(global-set-key (kbd "C-x C-j") 'dired-jump)
+;; (global-set-key (kbd "C-x C-j") 'dired-jump)
+;; Direx
+(global-set-key (kbd "C-x C-j") 'direx-project:jump-to-project-root-other-window)
 
 ;; Webjump let's you quickly search google, wikipedia, emacs wiki
 (global-set-key (kbd "C-x g") 'webjump)

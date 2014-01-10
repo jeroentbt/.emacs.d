@@ -65,6 +65,7 @@
      puppet-mode
      popwin ;; pop up window that gets out of the way after use
      erc-hl-nicks
+     direx ;; tree explorer
      ))
 
 (mapc 'install-if-needed to-install)
@@ -104,6 +105,7 @@
 (require 'setup-modeline)
 (require 'setup-weechat)
 (require 'setup-znc-erc)
+(require 'setup-direx)
 ;;(require 'setup-magit)
 
 ;; setup languages
