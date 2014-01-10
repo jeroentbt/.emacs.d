@@ -65,6 +65,7 @@
      json-mode
      puppet-mode
      popwin ;; pop up window that gets out of the way after use
+     erc-hl-nicks
      ))
 
 (mapc 'install-if-needed to-install)
@@ -89,7 +90,6 @@
 (autoload 'haste "haste" nil t)
 (require 'repl-toggle) ;; config in setup-langs
 (require 'popwin) (popwin-mode t) ;; Much more to set up here! https://github.com/m2ym/popwin-el
-(require 'znc) ;; in vendor
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)
@@ -104,6 +104,7 @@
 (require 'setup-highlight-indentation)
 (require 'setup-modeline)
 (require 'setup-weechat)
+(require 'setup-znc-erc)
 ;;(require 'setup-magit)
 
 ;; setup languages
