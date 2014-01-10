@@ -1,3 +1,4 @@
+(add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/solarized-theme")
 (load-theme 'solarized-dark t)
 
 ;; don't beep but flash the screen
