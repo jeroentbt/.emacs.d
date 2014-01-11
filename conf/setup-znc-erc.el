@@ -1,5 +1,6 @@
 ;; I'm using znc...
 (require 'znc) ;; in vendor
+(require 'erc-terminal-notifier)
 
 ;; modules..
 (setq erc-modules '(autojoin
@@ -40,6 +41,15 @@
       erc-input-line-position -1
       erc-prompt ">"
       erc-current-nick-highlight-type (quote all) ;; highlight full message to me
+      erc-fill-column 85
+      ;; matches
+      erc-text-matched-hook '(erc-log-matches 
+                              erc-terminal-notifier-text-matched)
+      erc-match-exclude-server-buffer t ;; don't bother matching the server buffer
+      ;; log matches
+      erc-log-matches-flag t ;; log mentions and keywords in their own buffer
+      erc-log-matches-types-alist '((keyword . "#ERC Keywords") 
+                                    (current-nick . "#ERC Mentions"))
       )
 
 (provide 'setup-znc-erc)
