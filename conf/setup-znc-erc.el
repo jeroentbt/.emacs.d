@@ -28,6 +28,9 @@
 (require 'erc-hl-nicks)
 (add-hook 'erc-mode-hook 'erc-hl-nicks-mode)
 
+;; wrap lines to buffer when typing
+(add-hook 'erc-mode-hook 'visual-line-mode)
+
 
 (setq erc-timestamp-only-if-changed-flag nil ;; always timestamp
       erc-timestamp-format "%H:%M:%S "
