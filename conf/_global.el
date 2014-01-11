@@ -135,4 +135,8 @@
 ;; Hide mousepointer when typing
 (setq make-pointer-invisible t)
 
+;; erc made the pointer go off screen, forcing a recenter
+;; oufo on #emacs suggested this: (works great)
+(setq scroll-conservatively 1000)
+
 (provide '_global)
