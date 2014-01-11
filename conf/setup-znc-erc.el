@@ -36,6 +36,7 @@
       erc-hide-list '("JOIN" "PART" "QUIT") ;; hide pesky stuff
       erc-input-line-position -1
       erc-prompt ">"
+      erc-current-nick-highlight-type (quote all) ;; highlight full message to me
       )
 
 (provide 'setup-znc-erc)
