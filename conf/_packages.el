@@ -67,6 +67,7 @@
      erc-hl-nicks
      direx ;; tree explorer
      erc-terminal-notifier ;; OSX only (brew or gem install terminal-notifier)
+     ace-jump-buffer ;; ace-jump for buffer, duh
      ))
 
 (mapc 'install-if-needed to-install)
@@ -91,6 +92,7 @@
 (autoload 'haste "haste" nil t)
 (require 'repl-toggle) ;; config in setup-langs
 (require 'popwin) (popwin-mode t) ;; Much more to set up here! https://github.com/m2ym/popwin-el
+(require 'ace-jump-buffer)
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)
