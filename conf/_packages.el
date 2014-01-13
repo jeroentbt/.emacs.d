@@ -66,7 +66,7 @@
      popwin ;; pop up window that gets out of the way after use
      erc-hl-nicks
      direx ;; tree explorer
-     erc-terminal-notifier ;; OSX only (brew or gem install terminal-notifier)
+     ;; erc-terminal-notifier ;; OSX only (brew or gem install terminal-notifier)
      ace-jump-buffer ;; ace-jump for buffer, duh
      ))
 
