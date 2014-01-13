@@ -12,6 +12,9 @@
 ;; No splash screen
 (setq inhibit-startup-message t)
 
+;; load $PATH in to GUI app (see conf/_mac.el for more info)
+(when is-mac (exec-path-from-shell-initialize))
+
 ;; Set up load path
 (setq loadpath-mine (expand-file-name "conf" user-emacs-directory))
 (setq loadpath-vendor (expand-file-name "vendor" user-emacs-directory))
