@@ -71,6 +71,14 @@
 
 (mapc 'install-if-needed to-install)
 
+;; load $PATH in to GUI app (see conf/_mac.el for more info)
+(when is-mac (exec-path-from-shell-initialize))
+
+;;;; add packages from vendor directory
+(dolist (project (directory-files loadpath-vendor t "\\w+"))
+ (when (file-directory-p project)
+   (add-to-list 'load-path project)))
+
 ;; tern is a special case...
 (add-to-list 'load-path "~/.tern/emacs")
 (autoload 'tern-mode "tern.el" nil t)
