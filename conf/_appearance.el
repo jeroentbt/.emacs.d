@@ -1,6 +1,9 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/solarized-theme")
 (load-theme 'solarized-dark t)
 
+;; default font
+(set-face-attribute 'default nil :family "Source_Code_Pro")
+
 ;; don't beep but flash the screen
 ;; font-lock-mode provides the colors for spec languages, set max fontification (1-3)
 ;; force color theme (no increments)
