@@ -3,6 +3,10 @@
 (global-set-key (kbd "C-x r q") 'my/server-stop)
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
+;; Start apps
+(global-set-key (kbd "H-x e") 'znc-all)
+(global-set-key (kbd "H-x m") 'mu4e)
+
 ;; ido-mode
 ;; set keys for ido-vertical
 (defun sd/ido-define-keys () 

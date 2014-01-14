@@ -7,6 +7,7 @@
                                      "C-x v" ;; generic version controll
                                      "C-x 8" ;; special chars
                                      "C-x x" ;; persp
+                                     "H-x" ;; start apps
                                      ))
 (guide-key-mode 1)
 (setq guide-key/recursive-key-sequence-flag t)
