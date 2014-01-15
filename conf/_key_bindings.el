@@ -72,6 +72,10 @@
 ;; Toggle quotes
 (global-set-key (kbd "C-\"") 'toggle-quotes)
 
+;; Toggle linum-mode, remap count-lines
+(global-set-key (kbd "C-x l") 'linum-mode)
+(global-set-key (kbd "C-x M-l") 'count-lines-page)
+
 ;; kill whole line with C-; (because ; is close to k)
 (global-set-key (kbd "C-;") 'kill-whole-line)
 
