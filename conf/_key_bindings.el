@@ -72,6 +72,9 @@
 ;; Toggle quotes
 (global-set-key (kbd "C-\"") 'toggle-quotes)
 
+;; kill whole line with C-; (because ; is close to k)
+(global-set-key (kbd "C-;") 'kill-whole-line)
+
 ;; Browse the kill ring
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)
 
