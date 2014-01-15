@@ -116,6 +116,7 @@
 (require 'setup-weechat)
 (require 'setup-znc-erc)
 (require 'setup-direx)
+(require 'setup-mu4e)
 ;;(require 'setup-magit)
 
 ;; setup languages
