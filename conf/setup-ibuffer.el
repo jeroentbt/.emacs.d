@@ -8,6 +8,7 @@
           (or
            (name . "^\\*scratch\\*$")
            (name . "^\\*Messages\\*$")
+           (name . "^\\*Help\\*$")
            (name . "^\\*Compile-Log\\*$")))
          ("Code"
           (or
