@@ -101,6 +101,8 @@
 (global-set-key (kbd "C-c d") 'dash-at-point)
 
 ;; expand region
+;; first unset key binding to make follow up = - 0 work
+(global-unset-key (kbd "C-="))
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; jump around, jump around, jump up, jump up and get down
