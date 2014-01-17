@@ -9,6 +9,8 @@
            (name . "^\\*scratch\\*$")
            (name . "^\\*Messages\\*$")
            (name . "^\\*Help\\*$")
+           (name . "^\\*Completions\\*$")
+           (name . "^\\*Quail Completions\\*$")
            (name . "^\\*Compile-Log\\*$")))
          ("Code"
           (or
