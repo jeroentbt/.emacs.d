@@ -100,6 +100,8 @@
 (require 'repl-toggle) ;; config in setup-langs
 (require 'popwin) (popwin-mode t) ;; Much more to set up here! https://github.com/m2ym/popwin-el
 (require 'ace-jump-buffer)
+(require 'epa-file) ;; support for handling .gpg files transparently
+(epa-file-enable)
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)
