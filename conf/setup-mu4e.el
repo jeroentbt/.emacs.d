@@ -67,13 +67,13 @@
 (add-to-list 'mu4e-headers-actions
              '("retag-message" . mu4e-action-retag-message) t)
 
-(defun mu4e-action-archive-message (msg)
+(defun my/mu4e-action-archive-message (msg)
   (mu4e-action-retag-message msg "-\\Inbox"))
 
 (add-to-list 'mu4e-view-actions
-             '("earchive-message" . mu4e-action-archive-message) t)
+             '("earchive-message" . my/mu4e-action-archive-message) t)
 (add-to-list 'mu4e-headers-actions
-             '("earchive-message" . mu4e-action-archive-message) t)
+             '("earchive-message" . my/mu4e-action-archive-message) t)
 (add-to-list 'mu4e-view-actions
              '("View in browser" . mu4e-action-view-in-browser) t)
 
