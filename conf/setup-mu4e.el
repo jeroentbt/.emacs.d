@@ -80,7 +80,12 @@
 (add-to-list 'mu4e-bookmarks '("tag:\\\\Sent and date:1w..now" "Sent this week" ?s))
 (add-to-list 'mu4e-bookmarks '("flag:unread and date:today..now" "Today's unread messages" ?d))
 (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox and date:today..now" "Today's inbox" ?n))
-(add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox" "Unified inbox" ?i))
+(add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox" "Unified inbox" ?I))
+(add-to-list 'mu4e-bookmarks '("tag:-Social" "Category Social" ?S) t)
+(add-to-list 'mu4e-bookmarks '("tag:-Promotions" "Category Promotions" ?P) t)
+(add-to-list 'mu4e-bookmarks '("tag:-Updates" "Category Updates" ?U) t)
+(add-to-list 'mu4e-bookmarks '("tag:-Forums" "Category Forums" ?F) t)
+(add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox NOT tag:-Social NOT tag:-Forums NOT tag:-Updates NOT tag:-Promotions" "Unified inbox Clean" ?i))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DEFUNS
