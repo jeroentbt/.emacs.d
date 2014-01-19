@@ -10,6 +10,7 @@
       mu4e-maildir "~/Maildir"
       mu4e-attachment-dir  "~/Downloads/mail-attachments"
       mu4e-action-tags-header "X-Keywords" ;; thanks to offlineimap gmail
+      mu4e-attachment-dir "~/Downloads"
       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
