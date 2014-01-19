@@ -49,6 +49,9 @@
 ;; apply marks when leaving headers buffer
 (setq mu4e-headers-leave-behavior 'apply)
 
+;; Crypto
+(setq mu4e-auto-retrieve-keys t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SHORTCUTS ETC
 
