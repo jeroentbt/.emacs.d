@@ -47,8 +47,7 @@
 (setq mu4e-compose-dont-reply-to-self t)
 
 ;; apply marks when leaving headers buffer
-;; TODO bugged?
-;; (setq mu4e-headers-leave-behavior 'apply)
+(setq mu4e-headers-leave-behavior 'apply)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SHORTCUTS ETC
