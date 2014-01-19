@@ -116,7 +116,9 @@
 ;; package 'gnutls-bin' in Debian/Ubuntu
      
 (require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
+(require 'smtpmail-async)
+(setq send-mail-function 'async-smtpmail-send-it 
+      message-send-mail-function 'async-smtpmail-send-it
       starttls-use-gnutls t
       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
       smtpmail-auth-credentials

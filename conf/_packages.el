@@ -67,6 +67,7 @@
      erc-hl-nicks
      direx ;; tree explorer
      ace-jump-buffer ;; ace-jump for buffer, duh
+     async
      ))
 
 (mapc 'install-if-needed to-install)
