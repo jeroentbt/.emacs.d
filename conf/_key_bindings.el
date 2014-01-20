@@ -23,8 +23,8 @@
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c C-<return>") 'delete-blank-lines)
 
-;; M-i for back-to-indentation
-(global-set-key (kbd "M-i") 'back-to-indentation)
+;; Toggle between indentation and beginning of line
+(global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
