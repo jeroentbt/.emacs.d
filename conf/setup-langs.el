@@ -21,11 +21,11 @@
 ;; javascript (js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js2-mode-hook 'flycheck-mode)
-;; (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
 (add-hook 'js2-mode-hook 'repl-toggle-mode)
 ;; repeat for js3-mode /TODO there must be a better way to define these
 (add-hook 'js3-mode-hook 'flycheck-mode)
-;; (add-hook 'js3-mode-hook (lambda () (tern-mode t)))
+(add-hook 'js3-mode-hook (lambda () (tern-mode t)))
 (add-hook 'js3-mode-hook 'repl-toggle-mode)
 
 ;; json
@@ -35,6 +35,7 @@
 
 ;; web mode
 (add-to-list 'auto-mode-alist '("\\.txp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-hook 'web-mode-hook 'emmet-mode)
 (add-hook 'web-mode-hook 'flycheck-mode)
 
