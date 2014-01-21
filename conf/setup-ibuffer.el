@@ -11,6 +11,8 @@
            (name . "^\\*Help\\*$")
            (name . "^\\*Completions\\*$")
            (name . "^\\*Quail Completions\\*$")
+           (name . "^\\*Packages\\*$")
+           (name . "^\\*Backtrace\\*$")
            (name . "^\\*Compile-Log\\*$")))
          ("Code"
           (or
