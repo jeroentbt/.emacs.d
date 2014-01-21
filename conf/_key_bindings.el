@@ -36,6 +36,7 @@
 ;; Dired
 ;; (global-set-key (kbd "C-x C-j") 'dired-jump)
 ;; Direx
+(global-unset-key (kbd "C-x C-j"))
 (global-set-key (kbd "C-x C-j") 'direx-project:jump-to-project-root-other-window)
 
 ;; Webjump let's you quickly search google, wikipedia, emacs wiki
