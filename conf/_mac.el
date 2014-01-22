@@ -13,8 +13,9 @@
 ;; This should be no problem in *nix's
 (setenv "GPG_AGENT_INFO" "~/.gnupg/S.gpg-agent")
 
-(setq mac-option-modifier 'super)
-(setq mac-command-modifier 'meta)
+;; switch modifiers in system prefs
+;; (setq mac-option-modifier 'super)
+;; (setq mac-command-modifier 'meta)
 (setq ns-function-modifier 'hyper)
 
 ;; Ignore .DS_Store files with ido mode
