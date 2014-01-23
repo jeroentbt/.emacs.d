@@ -70,9 +70,6 @@
 ;; Never insert tabs
 (set-default 'indent-tabs-mode nil)
 
-;; Show me empty lines after buffer end
-(set-default 'indicate-empty-lines t)
-
 ;; Easily navigate sillycased words
 (global-subword-mode 1)
 

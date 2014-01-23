@@ -42,5 +42,7 @@
 ;; Fontify org-mode code blocks
 (setq org-src-fontify-natively t)
 
+;; Show me empty lines after buffer end
+(set-default 'indicate-empty-lines t)
 
 (provide '_appearance)
