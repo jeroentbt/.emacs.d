@@ -136,4 +136,7 @@
 ;; oufo on #emacs suggested this: (works great)
 (setq scroll-conservatively 1000)
 
+;; truncate comint buffers
+(require 'setup-comint)
+
 (provide '_global)
