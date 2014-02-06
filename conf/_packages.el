@@ -111,7 +111,7 @@
 ;; now configure some packages in their own .el file
 (require 'setup-ido)
 (require 'setup-projectile)
-(require 'setup-persp)
+;; (require 'setup-persp)
 (require 'setup-smartparens)
 (require 'setup-guidekey)
 (require 'setup-highlight-indentation)
