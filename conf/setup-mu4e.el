@@ -70,10 +70,34 @@
 (defun my/mu4e-action-archive-message (msg)
   (mu4e-action-retag-message msg "-\\Inbox"))
 
+(defun my/mu4e-action-trash-message (msg)
+  (mu4e-action-retag-message msg "-\\Inbox +\\Trash")
+    (mu4e~proc-move docid nil  "+T-N"))
+
+;; TODO: look in to mu4e-mark-execute-all
+;; TODO: check if tags are gmail tags before executing
+;; this would probably be better if executed by mu4e-mark-execute-all
+(defun my/mu4e-action-all-marked (ignored)
+  (mu4e-headers-for-each
+   (lambda (msg)
+     (let ((docid (mu4e-message-field msg :docid)))
+      (when (mu4e-mark-docid-marked-p docid)
+        (my/mu4e-action-trash-message msg))))))
+
+(add-to-list 'mu4e-headers-actions
+             '("xtrash all marked" . my/mu4e-action-all-marked) t)
+(add-to-list 'mu4e-view-actions
+             '("xtrash all marked" . my/mu4e-action-all-marked) t)
+
+
 (add-to-list 'mu4e-view-actions
              '("earchive-message" . my/mu4e-action-archive-message) t)
 (add-to-list 'mu4e-headers-actions
              '("earchive-message" . my/mu4e-action-archive-message) t)
+(add-to-list 'mu4e-view-actions
+             '("trash message" . my/mu4e-action-trash-message) t)
+(add-to-list 'mu4e-headers-actions
+             '("trash message" . my/mu4e-action-trash-message) t)
 (add-to-list 'mu4e-view-actions
              '("View in browser" . mu4e-action-view-in-browser) t)
 
