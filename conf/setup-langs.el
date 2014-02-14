@@ -23,10 +23,14 @@
 (add-hook 'js2-mode-hook 'flycheck-mode)
 (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
 (add-hook 'js2-mode-hook 'repl-toggle-mode)
+(add-hook 'js2-mode-hook 'hs-minor-mode)
+(add-hook 'js2-mode-hook 'skewer-mode)
 ;; repeat for js3-mode /TODO there must be a better way to define these
 (add-hook 'js3-mode-hook 'flycheck-mode)
 (add-hook 'js3-mode-hook (lambda () (tern-mode t)))
 (add-hook 'js3-mode-hook 'repl-toggle-mode)
+(add-hook 'js3-mode-hook 'hs-minor-mode)
+(add-hook 'js3-mode-hook 'skewer-mode)
 
 ;; json
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
@@ -38,6 +42,9 @@
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-hook 'web-mode-hook 'emmet-mode)
 (add-hook 'web-mode-hook 'flycheck-mode)
+
+;; (add-hook 'css-mode-hook 'skewer-css-mode)
+;; (add-hook 'html-mode-hook 'skewer-html-mode)
 
 ;; puppet mode
 (add-to-list 'auto-mode-alist '("\\.pp\\'" . puppet-mode))
