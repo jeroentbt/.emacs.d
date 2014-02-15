@@ -69,6 +69,7 @@
      ace-jump-buffer ;; ace-jump for buffer, duh
      async
      skewer-mode ;; interact with a browser (js (also REPL!), html, css)
+     js2-refactor ;; JavaScript refactoring library for emacs
      ))
 
 (mapc 'install-if-needed to-install)

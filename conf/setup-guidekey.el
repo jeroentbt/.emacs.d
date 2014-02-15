@@ -8,6 +8,7 @@
                                      "C-x 8" ;; special chars
                                      "C-x x" ;; persp
                                      "H-x" ;; start apps
+                                     "C-c C-m" ;; js2-refactor
                                      ))
 (guide-key-mode 1)
 (setq guide-key/recursive-key-sequence-flag t)

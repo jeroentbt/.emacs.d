@@ -125,6 +125,7 @@
 
 (key-chord-mode +1)
 
-
+;; js2-refactor keybindings start with:
+(js2r-add-keybindings-with-prefix "C-c C-m")
 
 (provide '_key_bindings)
