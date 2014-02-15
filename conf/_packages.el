@@ -70,6 +70,7 @@
      async
      skewer-mode ;; interact with a browser (js (also REPL!), html, css)
      js2-refactor ;; JavaScript refactoring library for emacs
+     discover ;; adds magit style context menus to commands
      ))
 
 (mapc 'install-if-needed to-install)
