@@ -124,6 +124,7 @@
 (require 'setup-direx)
 (require 'setup-mu4e)
 (require 'setup-ibuffer)
+(require 'setup-org)
 ;;(require 'setup-magit)
 
 ;; setup languages

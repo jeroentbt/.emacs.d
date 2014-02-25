@@ -50,6 +50,8 @@
           (or
            (mode . dired-mode)
            (mode . direx-mode)))
+         ("Org"
+          (mode . org-mode))
          )))
 
 (setq ibuffer-show-empty-filter-groups nil)

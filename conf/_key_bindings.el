@@ -128,4 +128,10 @@
 ;; js2-refactor keybindings start with:
 (js2r-add-keybindings-with-prefix "C-c C-m")
 
+;; org-mode
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c b") 'org-iswitchb)
+
 (provide '_key_bindings)
