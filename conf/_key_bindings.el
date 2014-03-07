@@ -134,4 +134,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
 
+;; god mode
+(global-set-key (kbd "<escape>") 'god-local-mode)
+
 (provide '_key_bindings)

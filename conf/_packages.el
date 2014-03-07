@@ -71,6 +71,7 @@
      skewer-mode ;; interact with a browser (js (also REPL!), html, css)
      js2-refactor ;; JavaScript refactoring library for emacs
      discover ;; adds magit style context menus to commands
+     god-mode ;; trying out a bit of modal editing...
      ))
 
 (mapc 'install-if-needed to-install)
@@ -125,6 +126,7 @@
 (require 'setup-mu4e)
 (require 'setup-ibuffer)
 (require 'setup-org)
+(require 'setup-god)
 ;;(require 'setup-magit)
 
 ;; setup languages
