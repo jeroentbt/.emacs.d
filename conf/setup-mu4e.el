@@ -1,6 +1,7 @@
 (require 'mu4e)
 (require 'setup-gnus-dired) ;; attachments from dired, mark C-c RET C-a
 (require 'setup-mu4e-PRIVATE) ;; adresses etc
+(require 'org-mu4e)
 
 ;; use mu4e as default mailclient
 (setq mail-user-agent 'mu4e-user-agent ;; default mail client
@@ -58,9 +59,9 @@
 
 ;; setup some maildir shortcuts
 ;; Syncing only All Mail for gmail, of limited use     
-(setq mu4e-maildir-shortcuts
-      '( (my/mu4e-maildir-pers . ?j)
-         (my/mu4e-maildir-pro . ?t)))
+;; (setq mu4e-maildir-shortcuts
+;;      '( (my/mu4e-maildir-pers . ?j)
+;;         (my/mu4e-maildir-pro . ?t)))
 
 (add-to-list 'mu4e-view-actions
              '("retag-message" . mu4e-action-retag-message) t)
@@ -164,3 +165,13 @@
 ;;     smtpmail-smtp-service 587)
      
 (provide 'setup-mu4e)
+
+
+;; TODO:
+;; http://pablo.rauzy.name/dev/init.el.html
+;; https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/setup-mu4e.el
+;; https://github.com/agpchil/mu4e-maildirs-extension
+;; https://bitbucket.org/seanfarley/dotfiles/src/69cbcf0dd9d6cb2c7aaa18e7a196315035ad4181/emacs/init/mail.el?at=default
+
+;; reference 
+;; https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
