@@ -75,8 +75,8 @@
   (mu4e-action-retag-message msg "-\\Inbox"))
 
 (defun my/mu4e-action-trash-message (msg)
-  (mu4e-action-retag-message msg "-\\Inbox +\\Trash")
-    (mu4e~proc-move docid nil  "+T-N"))
+  (mu4e-action-retag-message msg "-\\Inbox +\\Trash"))
+    ;;(mu4e~proc-move docid nil  "+T-N"))
 
 ;; TODO: look in to mu4e-mark-execute-all
 ;; TODO: check if tags are gmail tags before executing
