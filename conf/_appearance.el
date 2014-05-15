@@ -4,7 +4,13 @@
 (load-theme 'tango t)
 
 ;; default font
-(set-face-attribute 'default nil :family "Source_Code_Pro")
+
+;; for mac
+;; (set-face-attribute 'default nil :family "source code pro" :weight "light")
+
+;;(set-default-font "source code pro-10:light")
+(set-default-font "SourceCodePro-10")
+;;(set-default-font "terminus-11")
 
 ;; don't beep but flash the screen
 ;; font-lock-mode provides the colors for spec languages, set max fontification (1-3)
