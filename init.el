@@ -5,7 +5,9 @@
 ;; Turn off mouse interface early in startup to avoid momentary display
 ;;;; Do show menu bar (running as cocoa app)
 ;;;; TODO turn of menu bar when running emacs from terminal
-;;(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+;; menu bas can exist on osx
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
