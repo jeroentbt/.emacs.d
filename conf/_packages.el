@@ -35,7 +35,7 @@
      gist
      smartparens
      auto-complete
-     jedi ;; python auto completion
+     ;; jedi ;; python auto completion
      flycheck
      dash-at-point ;; search dash.app for stuff at point
      guide-key ;; list available keys
@@ -68,10 +68,16 @@
      direx ;; tree explorer
      ace-jump-buffer ;; ace-jump for buffer, duh
      async
+     indicators ;; low level lib to put things in the fringe
      skewer-mode ;; interact with a browser (js (also REPL!), html, css)
      js2-refactor ;; JavaScript refactoring library for emacs
      discover ;; adds magit style context menus to commands
+     js-doc ;; easily add js docs
+     google-contacts ;; google addressbook interface
      god-mode ;; trying out a bit of modal editing...
+     manage-minor-mode ;; list and activate-deactivate minor modes
+     ox-reveal ;; org exporter for reveal presentations
+     htmlize ;; for code hightlighting with org reveal (uses the current theme in emacs)
      ))
 
 (mapc 'install-if-needed to-install)
