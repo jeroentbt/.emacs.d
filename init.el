@@ -35,3 +35,4 @@
     (load file)))
 
 (when is-mac (require '_mac))
+(put 'narrow-to-region 'disabled nil)
