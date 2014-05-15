@@ -1,5 +1,7 @@
-(add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/solarized-theme")
-(load-theme 'solarized-dark t)
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/solarized-theme")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/themes")
+;;(load-theme 'solarized-dark t)
+(load-theme 'tango t)
 
 ;; default font
 (set-face-attribute 'default nil :family "Source_Code_Pro")
