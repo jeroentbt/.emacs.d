@@ -5,8 +5,11 @@
 
 ;; use mu4e as default mailclient
 (setq mail-user-agent 'mu4e-user-agent ;; default mail client
-      mu4e-mu-binary "/usr/local/bin/mu"
-      mu4e-get-mail-command "~/bin/offlineimap/offlineimap.py"
+      ;; osx
+      ;;mu4e-mu-binary "/usr/local/bin/mu"
+      ;;mu4e-get-mail-command "~/bin/offlineimap/offlineimap.py"
+      mu4e-mu-binary "/usr/bin/mu"
+      mu4e-get-mail-command "offlineimap"
       mu4e-update-interval 600
       mu4e-maildir "~/Maildir"
       mu4e-attachment-dir  "~/Downloads/mail-attachments"
