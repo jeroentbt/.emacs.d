@@ -10,7 +10,7 @@
 ;;(setq magit-server-window-for-commit nil)
 
 ;; open status in a new buffer (pop new window not a new frame)
-(setq magit-status-buffer-switch-function 'pop-to-buffer)
+;; (setq magit-status-buffer-switch-function 'pop-to-buffer)
 
 ;; show contents of untracked directories
 (setq magit-status-verbose-untracked t)
