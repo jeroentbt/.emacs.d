@@ -84,7 +84,7 @@
 
 ;; Magit
 (global-set-key (kbd "C-x m") 'magit-status)
-(autoload 'magit-status "magit")
+;; (autoload 'magit-status "magit")
 
 ;; iBuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
