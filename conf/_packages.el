@@ -135,6 +135,7 @@
 (require 'setup-direx)
 (require 'setup-mu4e)
 (require 'setup-ibuffer)
+(require 'setup-indicators)
 (require 'setup-org)
 (require 'setup-god)
 ;;(require 'setup-magit)
