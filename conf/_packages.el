@@ -117,6 +117,7 @@
 (require 'ace-jump-buffer)
 (require 'epa-file) ;; support for handling .gpg files transparently
 (epa-file-enable)
+(require 'discover-js2-refactor)
 
 ;;;; a bit more for autocomplete
 (require 'auto-complete-config)
@@ -136,6 +137,7 @@
 (require 'setup-mu4e)
 (require 'setup-ibuffer)
 (require 'setup-indicators)
+(require 'setup-jsdoc)
 (require 'setup-org)
 (require 'setup-god)
 ;;(require 'setup-magit)
