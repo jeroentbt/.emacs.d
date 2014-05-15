@@ -91,7 +91,11 @@
    (add-to-list 'load-path project)))
 
 ;; tern is a special case...
-(add-to-list 'load-path "~/.tern/emacs")
+;; osx
+;; (add-to-list 'load-path "~/.tern/emacs")
+;; linux
+(add-to-list 'load-path "/usr/local/lib/node_modules/tern/emacs")
+
 (autoload 'tern-mode "tern.el" nil t)
 (eval-after-load 'tern
    '(progn
