@@ -2,6 +2,7 @@ auto-save-list
 backups
 elpa
 *~
+.#*
 .places
 recentf
 .DS_store
@@ -15,3 +16,4 @@ persp-confs
 tramp
 /vendor/evernote-mode
 *PRIVATE*
+/.org-id-locations
