@@ -6,3 +6,4 @@
 (depends-on "org")
 (depends-on "use-package")
 (depends-on "req-package")
+(depends-on "pallet")

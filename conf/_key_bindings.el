@@ -15,10 +15,6 @@
   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
   (define-key ido-completion-map (kbd "<up>") 'ido-prev-match))
 
-;; Smart M-x
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c C-<return>") 'delete-blank-lines)
@@ -81,10 +77,6 @@
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
-
-;; Magit
-(global-set-key (kbd "C-x m") 'magit-status)
-;; (autoload 'magit-status "magit")
 
 ;; iBuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)

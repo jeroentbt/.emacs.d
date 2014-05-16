@@ -14,18 +14,10 @@
     (package-install package)))
 
 (setq to-install
-   '(zenburn-theme
-     heroku-theme
-     undo-tree
-     smooth-scrolling
-     flx
-     flx-ido
-     ido-vertical-mode
-     ido-ubiquitous
-     ido-at-point
-     smex
-     magit
-     magit-log-edit ;; old commit mode (new one opens in new frame 28/10/2013
+   '(
+
+
+
      s
      editorconfig
      projectile
@@ -81,9 +73,6 @@
      ))
 
 (mapc 'install-if-needed to-install)
-
-;; load $PATH in to GUI app (see conf/_mac.el for more info)
-(when is-mac (exec-path-from-shell-initialize))
 
 ;;;; add packages from vendor directory
 (dolist (project (directory-files loadpath-vendor t "\\w+"))
