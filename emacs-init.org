@@ -1,0 +1,77 @@
+* Emacs Org Configuration
+* Description
+This file is tangled by init.el using =org-babel-load-file=. What this does is generate a =emacs-init.el= from the =emacs-lisp= source blocks.
+* Prerequisites
+** git
+** cask
+An emacs package manager: http://cask.github.io/installation.html
+* Package Management
+
+[[https://github.com/rdallasgray/pallet][Pallet]] is a very helpful package management tool for Emacs. 
+It utilizes a dependency management platform called [[https://github.com/cask/cask][Cask]], 
+to update a centralized =Cask= file when you install or remove packages.
+
+** Cask
+Cask is initialized in =init.el= with the following:
+#+BEGIN_SRC emacs-lisp :tangle no
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+#+END_SRC
+
+** Pallet
+You can download all packages in your =Cask= file by using =M-x pallet-install=.
+However, this should not be necessary.
+
+** Install Packages
+- Install [[https://github.com/cask/cask][Cask]].
+- Run =cask install= in =$HOME/.emacs.d/=.
+
+* The config
+** Dependency Management with =req-package=
+
+Where Pallet keeps track of the packages we have installed, =req-package=
+handles all our internal package dependencies and configurations.
+
+#+BEGIN_QUOTE
+[[https://github.com/edvorg/req-package][req-package]] is a wrapper on top of [[https://github.com/jwiegley/use-package][use-package]], a package dependency
+management tool. The documentation for =use-package= is immensely helpful for
+figuring out how to describe package dependencies and settings. =req-package=
+adds the =:require= keyword which allows you to define dependencies between
+related packages.
+#+END_QUOTE
+
+Start using =req-package=
+#+BEGIN_SRC emacs-lisp :tangle yes
+(require 'req-package)
+#+END_SRC
+
+** Architecture
+First find out wether we're working on OSX or not
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; Are we on a mac?
+  (setq is-mac (equal system-type 'darwin))
+#+END_SRC
+
+** Basics
+Some essential customizations.
+*** The interface
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; Turn off mouse interface early in startup to avoid momentary display
+  ;; menu can exist on osx when run as cocoa app
+  (if (and is-mac window-system) 
+        (if (fboundp 'menu-bar-mode) (menu-bar-mode t)
+        (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+  ;; No splash screen
+  (setq inhibit-startup-message t)
+
+  ;; Full path in frame title
+  (when window-system
+    (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+
+  ;; Auto refresh buffers when edits occur outside emacs
+  (global-auto-revert-mode 1)
+#+END_SRC  
+**** TODO turn of menu bar when running emacs from terminal on OSX
