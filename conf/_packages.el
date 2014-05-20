@@ -19,12 +19,12 @@
 
 
      s
-     editorconfig
-     projectile
+
+
      web-mode
-     spaces
-     emmet-mode
-     gist
+
+
+
      smartparens
      auto-complete
      ;; jedi ;; python auto completion
@@ -32,7 +32,7 @@
      dash-at-point ;; search dash.app for stuff at point
      guide-key ;; list available keys
      expand-region
-     exec-path-from-shell ;; loads in $PATH (used in _mac.el)
+
      column-marker ;; highlight a (or more) columns (used for 80 column limit)
      highlight-indentation ;; minor mode to highlight indentation
      persp-mode ;; saves window config and buffers
@@ -81,25 +81,19 @@
 
 ;; tern is a special case...
 ;; osx
-;; (add-to-list 'load-path "~/.tern/emacs")
+;; 
 ;; linux
-(add-to-list 'load-path "/usr/local/lib/node_modules/tern/emacs")
 
-(autoload 'tern-mode "tern.el" nil t)
-(eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
+
 
 ;; simple requires
-(require 'editorconfig)
-(require 'spaces)
-(require 'gist)
-(require 'expand-region)
-(require 'column-marker) ;; setup in language setups
-(require 'emmet-mode)
+
+
+
+
+
 (require 'key-chord)
-(require 'multiple-cursors)
+
 (autoload 'haste "haste" nil t)
 (require 'repl-toggle) ;; config in setup-langs
 (require 'popwin) (popwin-mode t) ;; Much more to set up here! https://github.com/m2ym/popwin-el
@@ -113,13 +107,10 @@
 (ac-config-default)
 
 ;; now configure some packages in their own .el file
-(require 'setup-ido)
-(require 'setup-projectile)
+
 ;; (require 'setup-persp)
-(require 'setup-smartparens)
-(require 'setup-guidekey)
-(require 'setup-highlight-indentation)
-(require 'setup-modeline)
+
+
 (require 'setup-weechat)
 (require 'setup-znc-erc)
 (require 'setup-direx)

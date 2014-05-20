@@ -50,18 +50,19 @@ Start using =req-package=
 First find out wether we're working on OSX or not
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; Are we on a mac?
-  (setq is-osx (equal system-type 'darwin))
+    ;; Are we on a mac?
+    (setq is-osx (equal system-type 'darwin))
 
-  ;; On OS X GUI applications do not inherit variables from the shell
-  ;; configuration and thus have a different $PATH
-  ;; test by doing "M-: (executable-find "flake8")"
-  ;; C-h v exec-path
-  (when is-osx (exec-path-from-shell-initialize))
+    ;; On OS X GUI applications do not inherit variables from the shell
+    ;; configuration and thus have a different $PATH
+    ;; test by doing "M-: (executable-find "flake8")"
+    ;; C-h v exec-path
+    (when is-osx (progn (req-package exec-path-from-shell)
+                        (exec-path-from-shell-initialize)))
 #+END_SRC
 
 ** Basics
-Some essential customizations.
+   Some essential customizations.
 *** The interface
 **** TODO Remove UI components
 We defined earlier whether we are running on OSX. The variable =window-system= tells us in which window system we're running, if at all.
@@ -143,8 +144,29 @@ Some sensible defaults
       (set-default-font "SourceCodePro-10"))
 
 #+END_SRC
-*** Interaction defaults
 
+**** Mode Line
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (size-indication-mode t)
+
+  (req-package smart-mode-line
+               :config
+               (progn (setq sml/theme 'respectfull)
+                      ;; replace common paths
+                      (add-to-list 'sml/replacer-regexp-list '("^/Volumes/devHD/" "::"))
+                      (add-to-list 'sml/replacer-regexp-list '("^~/dev/" "::"))
+
+                      ;; hide minor modes
+                      (add-to-list 'sml/hidden-modes " Projectile")
+                      (add-to-list 'sml/hidden-modes " ,")
+                      (add-to-list 'sml/hidden-modes " Guide"))
+               :init
+               (sml/setup))
+
+#+END_SRC
+*** Interaction
+
+**** Defaults
 #+BEGIN_SRC emacs-lisp :tangle yes
     ;; Auto refresh buffers when edits occur outside emacs
     (global-auto-revert-mode 1)
@@ -244,10 +266,56 @@ Some sensible defaults
 
 #+END_SRC
 
-** Packages
+**** Some help
+***** guide-key                                                  :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package guide-key
+               :init
+               (guide-key-mode 1)
+               :config
+               (setq guide-key/guide-key-sequence '("C-c p" ;; projectile
+                                                    "C-c !" ;; flycheck
+                                                    "C-x r" ;; ... stuff
+                                                    "C-x 4" ;; file other window
+                                                    "C-x v" ;; generic version controll
+                                                    "C-x 8" ;; special chars
+                                                    "C-x x" ;; persp
+                                                    "H-x" ;; start apps
+                                                    )
+                     guide-key/recursive-key-sequence-flag t
+                     guide-key/popup-window-position 'bottom))
+
+#+END_SRC
+**** expand-region                                               :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (req-package expand-region
+                 :bind
+                 ("C-=" . er/expand-region))
+#+END_SRC
+
+**** multiple-cursors                                            :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package multiple-cursors
+               :bind
+               (("C->" . mc/mark-next-like-this)
+                ("C-<" . mc/mark-previous-like-this)
+                ("C-c C-<" . mc/mark-all-like-this)
+                ("C-c C->" . mc/edit-lines))) ;; adds a cursor to all lines in current region
+
+#+END_SRC
+
+**** smartparens                                                 :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (req-package smartparens-config
+                 :require 
+                 (smartparens)
+                 :init
+                 (smartparens-global-mode))
+
+#+END_SRC
 ** Major modes
 
-*** comint-mode
+*** comint-mode                                                  :mode:major:
     Comint-mode is a major mode for interaction with an inferior interpreter.
     Shells etc use comint mode.
     When the buffer gets large, emacs gets slow, we'll truncate when new lines are added
@@ -257,7 +325,7 @@ Some sensible defaults
       (add-hook 'comint-output-filter-functions 'comint-truncate-buffer)
     #+END_SRC
     
-*** Org
+*** Org                                                          :mode:major:
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; org-mode: Don't ruin S-arrow to switch windows please (use M-+ and M-- instead to toggle)
   (setq org-replace-disputed-keys t)
@@ -265,14 +333,59 @@ Some sensible defaults
   ;; Fontify org-mode code blocks
   (setq org-src-fontify-natively t)
 #+END_SRC
-*** magit
+*** magit                                                        :mode:major:
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package magit
                  :bind
                  ("C-x m" . magit-status))
 #+END_SRC
+*** weechat                                                      :mode:major:
+Weechat needs to be running.
+Switched to erc though. This is just for reference
+#+BEGIN_SRC emacs-lisp :tangle no
+  ;; good source: https://github.com/the-kenny/.emacs.d/blob/master/site-start.d/weechat.el
+  (req-package weechat
+               :config
+               (progn (setq weechat-modules '(weechat-button
+                                              weechat-complete
+                                              weechat-tracking
+                                              ;;weechat-notifications
+                                              )
+                            weechat-host-default "localhost"
+                            weechat-port-default 9000
+                            weechat-mode-default 'plain
+                            weechat-color-list
+                            '(unspecified "black" "dark gray" "dark red" "red"
+                                          "dark green" "light green" "brown"
+                                          "yellow" "RoyalBlue3"
+                                          "light blue"
+                                          "dark magenta" "magenta" "dark cyan"
+                                          "light cyan" "gray" "white")
+                            weechat-prompt "> "
+                            ;; weechat-notification-mode t
+                            weechat-auto-monitor-buffers '("highmon" "#trickle")
+                            weechat-complete-nick-ignore-self nil
+                            weechat-button-buttonize-nicks nil
+                            weechat-tracking-types '(:highlight (".+#trickle" . :message))
+                            weechat-sync-active-buffer t
+                            )
+                      ;;(require 'gnutls)
+                      ;;(add-to-list 'gnutls-trustfiles (expand-file-name (concat user-emacs-directory "/relay.crt")))
+                      (set-face-background 'weechat-highlight-face "dark red")
+                      (set-face-foreground 'weechat-highlight-face "light grey")
+                      (add-hook 'weechat-mode-hook 'visual-line-mode)
+                      ;; (add-hook 'weechat-mode-hook (lambda nil (load-theme-buffer-local 'tango (current-buffer))))
+                      (tracking-mode)
+                      ))
+
+#+END_SRC
+*** ERC
+Emacs erc client
+#+BEGIN_SRC emacs-lisp :tangle yes
+
+#+END_SRC
 ** Minor modes
-*** ido
+*** ido                                                          :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package ido
                :require
@@ -293,42 +406,105 @@ Some sensible defaults
                      ido-use-faces nil))
 #+END_SRC
 
+*** editorconfig                                                 :mode:minor:
+#+BEGIN_QUOTE
+EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles. EditorConfig files are easily readable and they work nicely with version control systems.
+#+END_QUOTE
+More info on the [[http://editorconfig.org/][editorconfig website]].
 
+You will need to put an (or more) /.editorconfig/ file in your dirs
 
+#+BEGIN_EXAMPLE .editorconfig
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# 4 space indentation
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Tab indentation (no size specified)
+[*.js]
+indent_style = tab
+
+# Indentation override for all JS under lib directory
+[lib/**.js]
+indent_style = space
+indent_size = 2
+
+# Matches the exact files either package.json or .travis.yml
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
+#+END_EXAMPLE 
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package-finish)
+  (req-package editorconfig)
+#+END_SRC
+
+** Workspaces
+
+*** Projectile                                                   :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (req-package projectile
+                 :init
+                 (projectile-global-mode))
+#+END_SRC
+**** Keybindings                                                :keybindings:
+"C-c p" followed by a key 
+*** spaces                                                       :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package spaces)
+#+END_SRC
+** Language specifics
+*** Javascript
+**** Tern                                                        :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; Set up the location of the tern .el files
+  (if is-osx 
+      (add-to-list 'load-path "~/.tern/emacs")
+      (add-to-list 'load-path "/usr/local/lib/node_modules/tern/emacs"))
+
+  (autoload 'tern-mode "tern.el" nil t)
+  (eval-after-load 'tern
+     '(progn
+        (require 'tern-auto-complete)
+        (tern-ac-setup)))
+
+#+END_SRC
+
+**** TODO gives error
+eval-buffer: Cannot open load file: auto-complete
+
+
+
+
+*** html & css
+
+**** Emmet                                                       :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package emmet-mode)
+#+END_SRC
+** External services
+
+*** Gist                                                         :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package gist)
+
 #+END_SRC
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* The end
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package-finish)
+#+END_SRC
 
 * Not used
 ** From init.el
