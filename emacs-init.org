@@ -128,10 +128,6 @@ Some sensible defaults
 
 **** Appearance
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; install some extra themes
-  (req-package zenburn-theme)
-  (req-package heroku-theme)
-
   ;; easily switch between all themes
   (req-package themepark-mode)
 
