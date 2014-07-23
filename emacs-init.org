@@ -63,6 +63,19 @@ First find out wether we're working on OSX or not
 
 ** Basics
    Some essential customizations.
+*** The custom customizations
+
+    Emacs let's you use the /customize/ interface to change things up.
+    Using the following code we make sure everything gets put in and loaded from the correct file.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+    ;; Use a custom.el file for customizations and load it
+    (setq custom-file (expand-file-name "custom.el"
+                                        user-emacs-directory))
+    (load custom-file)
+
+#+END_SRC
+
 *** The interface
 **** Remove UI components
 We defined earlier whether we are running on OSX. The variable =window-system= tells us in which window system we're running, if at all.
