@@ -64,15 +64,15 @@ First find out wether we're working on OSX or not
 ** Basics
    Some essential customizations.
 *** The interface
-**** TODO Remove UI components
+**** Remove UI components
 We defined earlier whether we are running on OSX. The variable =window-system= tells us in which window system we're running, if at all.
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
     ;; Turn off mouse interface early in startup to avoid momentary display
     ;; menu can exist on osx when run as cocoa app
     (if (and is-osx (eq window-system "ns"))
-          (if (fboundp 'menu-bar-mode) (menu-bar-mode t)
-          (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+        (if (fboundp 'menu-bar-mode) (menu-bar-mode t))
+        (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)))
     (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
     (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 #+END_SRC
