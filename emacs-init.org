@@ -60,7 +60,12 @@ First find out wether we're working on OSX or not
     (when is-osx (progn (req-package exec-path-from-shell)
                         (exec-path-from-shell-initialize)))
 #+END_SRC
+*** File Paths
+#+BEGIN_SRC emacs-lisp :tangle yes
+    ;; define some external to emacs paths
+    (setq dropbox "~/Dropbox")
 
+#+END_SRC
 ** Basics
    Some essential customizations.
 *** The custom customizations
@@ -351,14 +356,53 @@ Allows you to walk though different versions of a file
     #+END_SRC
     
 *** Org                                                          :mode:major:
+**** Org interaction
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; org-mode: Don't ruin S-arrow to switch windows please (use M-+ and M-- instead to toggle)
   (setq org-replace-disputed-keys t)
 
   ;; Fontify org-mode code blocks
   (setq org-src-fontify-natively t)
+
+  ;; Tell me when editing stuff I can't see
+  (setq org-catch-invisible-edits (quote show-and-error))
 #+END_SRC
 
+**** File config
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-agenda-files '("~/Dropbox/org/notes.org"))
+  
+  (setq org-directory "~/Dropbox/org")
+  
+  ;; MobileOrg
+  (setq org-mobile-directory "~/Dropbox/mobileOrg")
+  (setq org-mobile-files '(org-agenda-files
+                           "~/Dropbox/org/trickle.org"))
+  (setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org")
+#+END_SRC
+**** TODO Visuals
+#+BEGIN_SRC emacs-lisp :tangle no
+  ;; install then first...
+  (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.9/libexec/ditaa0_9.jar")
+  
+  ;; osx
+  ;; (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/7987/plantuml.7987.jar")
+  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ditaa . t)
+  
+  ;; osx
+  ;; (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/7987/plantuml.7987.jar")
+  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ditaa . t)
+     (plantuml . t)))
+  
+#+END_SRC
 *** weechat                                                      :mode:major:
 Weechat needs to be running.
 Switched to erc though. This is just for reference
