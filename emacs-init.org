@@ -322,6 +322,22 @@ Some sensible defaults
                  (smartparens-global-mode))
 
 #+END_SRC
+
+** Git
+*** magit                                                        :mode:major:
+The git interface in emacs
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (req-package magit
+                 :bind
+                 ("C-x m" . magit-status))
+#+END_SRC
+*** git-timemachine                                              :mode:major:
+Allows you to walk though different versions of a file 
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (req-package git-timemachine
+                 :bind
+                 ("C-x M" . git-timemachine))
+#+END_SRC
 ** Major modes
 
 *** comint-mode                                                  :mode:major:
@@ -342,12 +358,7 @@ Some sensible defaults
   ;; Fontify org-mode code blocks
   (setq org-src-fontify-natively t)
 #+END_SRC
-*** magit                                                        :mode:major:
-#+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package magit
-                 :bind
-                 ("C-x m" . magit-status))
-#+END_SRC
+
 *** weechat                                                      :mode:major:
 Weechat needs to be running.
 Switched to erc though. This is just for reference
