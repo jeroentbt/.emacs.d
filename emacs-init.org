@@ -155,7 +155,7 @@ Some sensible defaults
 #+END_SRC
 
 **** Mode Line
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (size-indication-mode t)
 
   (req-package smart-mode-line
