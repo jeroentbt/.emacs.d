@@ -155,12 +155,12 @@ Some sensible defaults
 #+END_SRC
 
 **** Mode Line
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
   (size-indication-mode t)
 
   (req-package smart-mode-line
                :config
-               (progn (setq sml/theme 'respectfull)
+               (progn (setq sml/theme 'automatic)
                       ;; replace common paths
                       (add-to-list 'sml/replacer-regexp-list '("^/Volumes/devHD/" "::"))
                       (add-to-list 'sml/replacer-regexp-list '("^~/dev/" "::"))
