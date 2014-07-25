@@ -411,6 +411,20 @@ from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-
   
   (bind-key "C-a" 'my/smarter-move-beginning-of-line)
 #+END_SRC
+**** (Un)comment region or line
+from: http://stackoverflow.com/a/9697222/1929897
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun my/comment-or-uncomment-region-or-line ()
+      "Comments or uncomments the region or the current line if there's no active region."
+      (interactive)
+      (let (beg end)
+          (if (region-active-p)
+              (setq beg (region-beginning) end (region-end))
+              (setq beg (line-beginning-position) end (line-end-position)))
+          (comment-or-uncomment-region beg end)
+          (next-line)))
+   (bind-key "C-c /" 'my/comment-or-uncomment-region-or-line)
+#+END_SRC
 **** popwin
 Pop!
 #+BEGIN_SRC emacs-lisp :tangle yes
