@@ -182,102 +182,103 @@ Some sensible defaults
 
 **** Defaults
 #+BEGIN_SRC emacs-lisp :tangle yes
-    ;; Auto refresh buffers when edits occur outside emacs
-    (global-auto-revert-mode 1)
-
-    ;; Save point position between sessions
-    (req-package saveplace
-                 :init
-                 (setq-default save-place t)
-                 :config
-                 (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
-
-    ;; this is disabled by default
-    (put 'narrow-to-region 'disabled nil)
-
-    ;; Save a list of recent files visited. (open recent file with C-x f)
-    (recentf-mode 1)
-    (setq recentf-max-saved-items 100) ;; just 20 is too recent
-
-    ;; Undo/redo window configuration with C-c <left>/<right>
-    (winner-mode 1)
-
-    ;; Never insert tabs
-    (set-default 'indent-tabs-mode nil)
-
-    ;; Easily navigate sillycased words
-    (global-subword-mode 1)
-
-    ;; Don't break lines for me, please
-    ;; This is nicer with 'visual-line-mode (and adaptive wrap)
-    (setq-default truncate-lines t)
-
-    ;; Keep cursor away from edges when scrolling up/down
-    (req-package smooth-scrolling)
-
-    ;; Allow recursive minibuffers
-    ;; (setq enable-recursive-minibuffers t)
-
-    ;; Don't be so stingy on the memory, we have lots now. It's the distant future.
-    (setq gc-cons-threshold 20000000)
-
-    ;; Represent undo-history as an actual tree (visualize with C-x u)
-    (req-package undo-tree
-                 :init
-                 (global-undo-tree-mode)
-                 :config
-                 (setq undo-tree-mode-lighter ""))
-
-    ;; Sentences do not need double spaces to end. Period.
-    (set-default 'sentence-end-double-space nil)
-
-    ;; Add parts of each file's directory to the buffer name if not unique
-    ;; not available on MELPA
-    (req-package uniquify
-                 :init
-                 (setq uniquify-buffer-name-style 'forward))
-
-    ;; A saner ediff
-    (setq ediff-diff-options "-w")
-    (setq ediff-split-window-function 'split-window-horizontally)
-    (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-
-    ;; Nic says eval-expression-print-level needs to be set to nil (turned off) so
-    ;; that you can always see what's happening.
-    (setq eval-expression-print-level nil)
-
-    ;; When popping the mark, continue popping until the cursor actually moves
-    ;; Also, if the last command was a copy - skip past all the expand-region cruft.
-    (defadvice pop-to-mark-command (around ensure-new-position activate)
-      (let ((p (point)))
-        (when (eq last-command 'save-region-or-current-line)
-          ad-do-it
-          ad-do-it
-          ad-do-it)
-        (dotimes (i 10)
-          (when (= p (point)) ad-do-it))))
-
-    ;; Smart M-x : ido like interactivity for M-x
-    ;; when ido-ubiquitous is used, smex is just used to keep
-    ;; a history of last used commands.
-    ;; TODO: check previous statement about smex and ido-ubiquitous
-    (req-package smex
-                 :require ido
-                 :init
-                 (smex-initialize)
-                 :bind
-                 (("M-x" . smex)
-                  ("M-X" . smex-major-mode-commands)
-                  ("C-c C-c M-x" . execute-extended-command)))
-
-    ;; Hide mousepointer when typing
-    (setq make-pointer-invisible t)
-
-    ;; erc made the pointer go off screen, forcing a recenter
-    ;; oufo on #emacs suggested this: (works great)
-    (setq scroll-conservatively 1000)
-
-
+  ;; Auto refresh buffers when edits occur outside emacs
+  (global-auto-revert-mode 1)
+  
+  ;; Save point position between sessions
+  (req-package saveplace
+               :init
+               (setq-default save-place t)
+               :config
+               (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
+  
+  ;; this is disabled by default
+  (put 'narrow-to-region 'disabled nil)
+  
+  ;; Save a list of recent files visited. (open recent file with C-x f)
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 100) ;; just 20 is too recent
+  
+  ;; Undo/redo window configuration with C-c <left>/<right>
+  (winner-mode 1)
+  
+  ;; Never insert tabs
+  (set-default 'indent-tabs-mode nil)
+  
+  ;; Easily navigate sillycased words
+  (global-subword-mode 1)
+  
+  ;; Don't break lines for me, please
+  ;; This is nicer with 'visual-line-mode (and adaptive wrap)
+  (setq-default truncate-lines t)
+  
+  ;; Keep cursor away from edges when scrolling up/down
+  (req-package smooth-scrolling)
+  
+  ;; Allow recursive minibuffers
+  ;; (setq enable-recursive-minibuffers t)
+  
+  ;; Don't be so stingy on the memory, we have lots now. It's the distant future.
+  (setq gc-cons-threshold 20000000)
+  
+  ;; Represent undo-history as an actual tree (visualize with C-x u)
+  (req-package undo-tree
+               :init
+               (global-undo-tree-mode)
+               :config
+               (setq undo-tree-mode-lighter ""))
+  
+  ;; Sentences do not need double spaces to end. Period.
+  (set-default 'sentence-end-double-space nil)
+  
+  ;; Add parts of each file's directory to the buffer name if not unique
+  ;; not available on MELPA
+  (req-package uniquify
+               :init
+               (setq uniquify-buffer-name-style 'forward))
+  
+  ;; A saner ediff
+  (setq ediff-diff-options "-w")
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  
+  ;; Nic says eval-expression-print-level needs to be set to nil (turned off) so
+  ;; that you can always see what's happening.
+  (setq eval-expression-print-level nil)
+  
+  ;; When popping the mark, continue popping until the cursor actually moves
+  ;; Also, if the last command was a copy - skip past all the expand-region cruft.
+  (defadvice pop-to-mark-command (around ensure-new-position activate)
+    (let ((p (point)))
+      (when (eq last-command 'save-region-or-current-line)
+        ad-do-it
+        ad-do-it
+        ad-do-it)
+      (dotimes (i 10)
+        (when (= p (point)) ad-do-it))))
+  
+  ;; Smart M-x : ido like interactivity for M-x
+  ;; when ido-ubiquitous is used, smex is just used to keep
+  ;; a history of last used commands.
+  ;; TODO: check previous statement about smex and ido-ubiquitous
+  (req-package smex
+               :require ido
+               :init
+               (smex-initialize)
+               :bind
+               (("M-x" . smex)
+                ("M-X" . smex-major-mode-commands)
+                ("C-c C-c M-x" . execute-extended-command)))
+  
+  ;; Hide mousepointer when typing
+  (setq make-pointer-invisible t)
+  
+  ;; erc made the pointer go off screen, forcing a recenter
+  ;; oufo on #emacs suggested this: (works great)
+  (setq scroll-conservatively 1000)
+  
+  ;; simple y or n questions
+  (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
 **** Some help
