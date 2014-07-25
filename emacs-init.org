@@ -353,6 +353,34 @@ https://github.com/purcell/ibuffer-vc/blob/master/ibuffer-vc.el
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
+***** Backups
+from: http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html
+This function will mirror all directories at the given backup dir. 
+For example, if you are editing a file /Users/j/web/xyz/myfile.txt,
+and your backup root is 
+/Users/j/.emacs.d/emacs-backup/, then the backup will be at 
+/Users/j/.emacs.d/emacs-backup/Users/j/web/xyz/myfile.txt~.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; make backup to a designated dir, mirroring the full path
+  (defun my/backup-file-full-dir (fpath)
+    "Return a new backup file path of a given file path.
+  If the new path's directories does not exist, create them."
+    (let* (
+          (backupRootDir (expand-file-name
+                   (concat user-emacs-directory "backups")))
+          ;;(backupRootDir "~/.emacs.d/emacs-backup/")
+          (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; remove Windows driver letter in path, ⁖ “C:”
+          (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") ))
+          )
+      (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
+      backupFilePath
+    )
+  )
+  
+  ;; Actually set the backup dir now
+  (setq make-backup-file-name-function 'my/backup-file-full-dir)
+#+END_SRC
 **** popwin
 Pop!
 #+BEGIN_SRC emacs-lisp :tangle yes
