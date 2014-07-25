@@ -178,6 +178,78 @@ Some sensible defaults
                (sml/setup))
 
 #+END_SRC
+**** Buffers
+***** ibuffer
+Start using ibuffer
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; use ibuffer
+  (bind-key "C-x C-b" 'ibuffer)
+#+END_SRC
+Here we sort the buffers for a nicer ibuffer view
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; sort buffers
+  (setq ibuffer-saved-filter-groups
+        `(("default"
+           ("emacs.d"
+            (filename . "/.emacs.d/"))
+           ("emacs"
+            (or
+             (name . "^\\*scratch\\*$")
+             (name . "^\\*Messages\\*$")
+             (name . "^\\*Help\\*$")
+             (name . "^\\*Completions\\*$")
+             (name . "^\\*Quail Completions\\*$")
+             (name . "^\\*Packages\\*$")
+             (name . "^\\*Backtrace\\*$")
+             (name . "^\\*Compile-Log\\*$")))
+           ("Code"
+            (or
+             (mode . c-mode)
+             (mode . c++-mode)
+             (mode . perl-mode)
+             (mode . python-mode)
+             (mode . ruby-mode)
+             (mode . emacs-lisp-mode)
+             (mode . lisp-mode)
+             (mode . sh-mode)
+             (mode . php-mode)
+             (mode . xml-mode)
+             (mode . html-mode)
+             (mode . web-mode)
+             (mode . css-mode)
+             (mode . js-mode)
+             (mode . js2-mode)
+             (mode . js3-mode)))
+           ("Mail"
+            (or
+             (mode . message-mode)
+             (mode . mail-mode)
+             (mode . mu4e-main-mode)
+             (mode . mu4e-headers-mode)
+             (mode . mu4e-view-mode)
+             (mode . mu4e-compose-mode)))
+           ("Chat"
+            (or
+             (mode . erc-mode)
+             (name . "^\\#ERC Mentions$")
+             (mode . identica-mode)
+             (mode . twitter-mode)))
+           ("Dired"
+            (or
+             (mode . dired-mode)
+             (mode . direx-mode)))
+           ("Org"
+            (mode . org-mode))
+           )))
+
+  (setq ibuffer-show-empty-filter-groups nil)
+
+  (add-hook 'ibuffer-mode-hook
+            (lambda ()
+              (ibuffer-switch-to-saved-filter-groups "default")))
+#+END_SRC
+****** TODO look in to ibuffer-vc.el
+https://github.com/purcell/ibuffer-vc/blob/master/ibuffer-vc.el
 *** Interaction
 
 **** Defaults
@@ -281,7 +353,6 @@ Some sensible defaults
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-
 **** popwin
 Pop!
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -336,7 +407,6 @@ Pop!
                  (smartparens-global-mode))
 
 #+END_SRC
-
 
 **** direx
 Direx shows the dir or projects file structure.

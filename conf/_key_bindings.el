@@ -78,11 +78,6 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-;; iBuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-;; C-tab to go through buffers
-(global-set-key [C-tab] 'next-buffer)
-(global-set-key [C-S-tab] 'previous-buffer)
 
 (global-set-key (kbd "C-c d") 'dash-at-point)
 
