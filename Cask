@@ -6,6 +6,7 @@
 (depends-on "bind-key")
 (depends-on "cask")
 (depends-on "dash")
+(depends-on "direx")
 (depends-on "editorconfig")
 (depends-on "emmet-mode")
 (depends-on "epl")

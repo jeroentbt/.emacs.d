@@ -281,6 +281,14 @@ Some sensible defaults
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
+
+**** popwin
+Pop!
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package popwin
+               :init
+               (popwin-mode t))
+#+END_SRC
 **** Some help
 ***** guide-key                                                  :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -329,6 +337,20 @@ Some sensible defaults
 
 #+END_SRC
 
+
+**** direx
+Direx shows the dir or projects file structure.
+We'll be using popwin to make it pop!
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package direx
+               :require
+               (direx-project popwin)
+               :init
+               (push '(direx:direx-mode :position left :width 40 :dedicated t)
+                            popwin:special-display-config)
+               :bind
+               ("C-x C-j" . direx-project:jump-to-project-root-other-window))
+#+END_SRC
 ** Git
 *** magit                                                        :mode:major:
 The git interface in emacs
