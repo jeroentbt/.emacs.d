@@ -250,7 +250,7 @@ Here we sort the buffers for a nicer ibuffer view
 #+END_SRC
 ****** TODO look in to ibuffer-vc.el
 https://github.com/purcell/ibuffer-vc/blob/master/ibuffer-vc.el
-*** Interaction
+*** General interaction and settings
 
 **** Defaults
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -380,6 +380,18 @@ and your backup root is
   
   ;; Actually set the backup dir now
   (setq make-backup-file-name-function 'my/backup-file-full-dir)
+#+END_SRC
+**** Better visual line mode
+Visual line mode does not take indentation in to account. adaptive-wrap-prefix-mode solves that.
+from: http://stackoverflow.com/a/13561223/1929897
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (req-package adaptive-wrap)
+  
+  (when (fboundp 'adaptive-wrap-prefix-mode)
+    (defun my/activate-adaptive-wrap-prefix-mode ()
+      "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
+      (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
+    (add-hook 'visual-line-mode-hook 'my/activate-adaptive-wrap-prefix-mode))
 #+END_SRC
 **** Smarter move to beginning of line
 A nice function that knows where the business part of a line starts
