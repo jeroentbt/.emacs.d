@@ -438,6 +438,14 @@ from: http://stackoverflow.com/a/13561223/1929897
       (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
     (add-hook 'visual-line-mode-hook 'my/activate-adaptive-wrap-prefix-mode))
 #+END_SRC
+**** Ace jump mode
+Ace jump mode! C-c C-c to switch from word to char mode once in ace jump mode.
+Otherwise use universal C-u to toggle behaviour
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package ace-jump-mode
+               :bind
+               ("C-c SPC" . ace-jump-mode))
+#+END_SRC
 **** Smarter move to beginning of line
 A nice function that knows where the business part of a line starts
 from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/

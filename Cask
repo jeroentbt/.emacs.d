@@ -3,6 +3,7 @@
 (source melpa)
 (source org)
 
+(depends-on "ace-jump-mode")
 (depends-on "adaptive-wrap")
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
