@@ -552,6 +552,23 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
               t)))) 
   
 #+END_SRC
+**** Quitting emacs
+A little reworking of the default to close windows, but keep the deamon running.
+And a way to effectively kill emacs
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; define function to shutdown emacs server instance
+  (defun my/server-stop ()
+    "Save buffers, Quit, and Shutdown (kill) server"
+    (interactive)
+    (save-some-buffers)
+    (kill-emacs)
+    )
+  
+  ;; I don't need to kill emacs that easily
+  ;; the mnemonic is C-x REALLY QUIT
+  (bind-key "C-x r q" 'my/server-stop)
+  (bind-key "C-x C-c" 'delete-frame)
+#+END_SRC
 ** Git
 *** magit                                                        :mode:major:
 The git interface in emacs
