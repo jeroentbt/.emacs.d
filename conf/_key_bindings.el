@@ -100,13 +100,6 @@
 ;; god mode
 (global-set-key (kbd "<escape>") 'god-local-mode)
 
-;; easier flyspell spell check
-(global-set-key (kbd "<f8>") 'ispell-word)
-(global-set-key (kbd "C-S-<f8>") 'flyspell-mode)
-(global-set-key (kbd "C-M-<f8>") 'flyspell-buffer)
-(global-set-key (kbd "C-<f8>") 'flyspell-check-previous-highlighted-word)
-(global-set-key (kbd "M-<f8>") 'flyspell-check-next-highlighted-word)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; minor mode that holds overridden key bindings
 ;; http://stackoverflow.com/a/683575/1929897

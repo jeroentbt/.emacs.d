@@ -584,6 +584,38 @@ Allows you to walk though different versions of a file
                  :bind
                  ("C-x M" . git-timemachine))
 #+END_SRC
+** Spelling
+We all make mistakes..
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun flyspell-check-next-highlighted-word ()
+    "Custom function to spell check next highlighted word"
+    (interactive)
+    (flyspell-goto-next-error)
+    (ispell-word)
+    )
+  
+  ;; switch dictionaries
+  (let ((langs '("english" "nederlands" "francais")))
+    (setq lang-ring (make-ring (length langs)))
+    (dolist (elem langs) (ring-insert lang-ring elem)))
+  (defun my/cycle-ispell-languages ()
+    "Cycles through a list of set languages"
+    (interactive)
+    (let ((lang (ring-ref lang-ring -1)))
+      (ring-insert lang-ring lang)
+      (ispell-change-dictionary lang)))
+  (bind-key "<f7>" 'my/cycle-ispell-languages)
+  
+  ;; avoid message overload by printing every checked word
+  (setq flyspell-issue-message-flag nil)
+  
+  (bind-key "<f8>" 'ispell-word)
+  (bind-key "C-S-<f8>" 'flyspell-mode)
+  (bind-key "C-M-<f8>" 'flyspell-buffer)
+  (bind-key "C-<f8>" 'flyspell-check-previous-highlighted-word)
+  (bind-key "M-<f8>" 'flyspell-check-next-highlighted-word)
+  
+#+END_SRC
 ** Major modes
 
 *** comint-mode                                                  :mode:major:
