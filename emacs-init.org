@@ -388,7 +388,14 @@ Lets you jump from one window to the next
   ;; simple y or n questions
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-
+***** Search with regex
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; Search always regex
+  (bind-key "C-s" 'isearch-forward-regexp)
+  (bind-key "C-r" 'isearch-backward-regexp)
+  (bind-key "C-M-s" 'isearch-forward)
+  (bind-key "C-M-r" 'isearch-backward)
+#+END_SRC
 ***** Backups
 from: http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html
 This function will mirror all directories at the given backup dir. 
