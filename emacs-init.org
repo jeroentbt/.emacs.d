@@ -493,6 +493,30 @@ We'll be using popwin to make it pop!
                :bind
                ("C-x C-j" . direx-project:jump-to-project-root-other-window))
 #+END_SRC
+**** recent files
+Find recent files
+from: Magnars https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/defuns/buffer-defuns.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package s)
+  
+  (defvar user-home-directory (concat (expand-file-name "~") "/"))
+  
+  (defun shorter-file-name (file-name)
+    (s-chop-prefix user-home-directory file-name))
+  
+  (defun recentf--file-cons (file-name)
+    (cons (shorter-file-name file-name) file-name))
+  
+  (defun recentf-ido-find-file ()
+    "Find a recent file using ido."
+    (interactive)
+    (let* ((recent-files (mapcar 'recentf--file-cons recentf-list))
+           (files (mapcar 'car recent-files))
+           (file (completing-read "Choose recent file: " files)))
+      (find-file (cdr (assoc file recent-files)))))
+  
+  (bind-key "C-x f" 'recentf-ido-find-file)
+#+END_SRC
 ** Git
 *** magit                                                        :mode:major:
 The git interface in emacs
@@ -616,23 +640,25 @@ Emacs erc client
 ** Minor modes
 *** ido                                                          :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package ido
-               :require
-               (flx flx-ido ido-vertical-mode ido-ubiquitous ido-at-point)
-               :init
-               (progn (ido-mode t)
-                      (flx-ido-mode t)
-                      (ido-vertical-mode)
-                      (ido-at-point-mode)
-                      (ido-ubiquitous-mode t))
-               :config
-               (setq ido-enable-flex-matching t
-                     ido-case-fold nil
-                     ido-auto-merge-work-directories-length 5
-                     ido-create-new-buffer 'always
-                     ido-use-filename-at-point nil
-                     ido-max-prospects 10
-                     ido-use-faces nil))
+    (req-package ido
+                 :require
+                 (flx flx-ido ido-vertical-mode ido-ubiquitous ido-at-point)
+                 :init
+                 (progn (ido-mode t)
+                        (flx-ido-mode t)
+                        (ido-vertical-mode)
+                        (ido-at-point-mode)
+                        (ido-ubiquitous-mode t))
+                 :config
+                 (setq ido-enable-flex-matching t
+                       ido-case-fold nil
+                       ido-auto-merge-work-directories-length 5
+                       ido-create-new-buffer 'always
+                       ido-use-filename-at-point nil
+                       ido-max-prospects 10
+                       ido-use-faces nil)
+                 :bind
+                 ("C-x M-f" . ido-find-file-other-window))
 #+END_SRC
 
 *** editorconfig                                                 :mode:minor:
