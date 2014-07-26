@@ -9,9 +9,7 @@
 ;; Webjump let's you quickly search google, wikipedia, emacs wiki
 (global-set-key (kbd "C-x g") 'webjump)
 (global-set-key (kbd "C-x M-g") 'browse-url-at-point)
-
-
-
+ 
 ;; Fold the active region
 (global-set-key (kbd "C-c C-f") 'fold-this-all)
 (global-set-key (kbd "C-c C-F") 'fold-this)
@@ -20,12 +18,7 @@
 ;; Toggle quotes
 (global-set-key (kbd "C-\"") 'toggle-quotes)
 
-;; Toggle linum-mode, remap count-lines
-(global-set-key (kbd "C-x l") 'linum-mode)
-(global-set-key (kbd "C-x M-l") 'count-lines-page)
 
-;; kill whole line with C-; (because ; is close to k)
-(global-set-key (kbd "C-;") 'kill-whole-line)
 
 ;; Browse the kill ring
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)

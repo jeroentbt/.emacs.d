@@ -461,6 +461,18 @@ from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-
   
   (bind-key "C-a" 'my/smarter-move-beginning-of-line)
 #+END_SRC
+**** Kill whole line
+Easier than C-a, C-k
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; kill whole line with C-; (because ; is close to k)
+  (bind-key "C-;" 'kill-whole-line)
+#+END_SRC
+**** Browse kill ring
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package browse-kill-ring
+               :bind
+               ("M-y" . browse-kill-ring))
+#+END_SRC
 **** (Un)comment region or line
 from: http://stackoverflow.com/a/9697222/1929897
 #+BEGIN_SRC emacs-lisp :tangle yes
