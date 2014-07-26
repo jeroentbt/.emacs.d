@@ -5,6 +5,7 @@
 
 (depends-on "adaptive-wrap")
 (depends-on "bind-key")
+(depends-on "buffer-move")
 (depends-on "cask")
 (depends-on "dash")
 (depends-on "direx")

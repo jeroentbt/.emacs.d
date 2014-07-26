@@ -3,48 +3,14 @@
 (global-set-key (kbd "H-x e") 'znc-all)
 (global-set-key (kbd "H-x m") 'mu4e)
 
-;; ido-mode
-;; set keys for ido-vertical
-(defun sd/ido-define-keys () 
-  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-  (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
-  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
-  (define-key ido-completion-map (kbd "<up>") 'ido-prev-match))
-
-
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c C-<return>") 'delete-blank-lines)
-
-;; Toggle between indentation and beginning of line
-(global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
-
-
 
 ;; Webjump let's you quickly search google, wikipedia, emacs wiki
 (global-set-key (kbd "C-x g") 'webjump)
 (global-set-key (kbd "C-x M-g") 'browse-url-at-point)
 
-;; Comment/uncomment block
-(global-set-key (kbd "C-c /") 'comment-or-uncomment-region-or-line)
-(global-set-key (kbd "C-c u") 'uncomment-region)
 
-;; Move windows, even in org-mode
-(global-set-key (kbd "<S-right>") 'windmove-right)
-(global-set-key (kbd "<S-left>") 'windmove-left)
-(global-set-key (kbd "<S-up>") 'windmove-up)
-(global-set-key (kbd "<S-down>") 'windmove-down)
-
-;; window resizing
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
-
-;; move buffer to window
-(global-set-key (kbd "<M-s-up>")     'buf-move-up)
-(global-set-key (kbd "<M-s-down>")   'buf-move-down)
-(global-set-key (kbd "<M-s-left>")   'buf-move-left)
-(global-set-key (kbd "<M-s-right>")  'buf-move-right)
 
 ;; Fold the active region
 (global-set-key (kbd "C-c C-f") 'fold-this-all)
