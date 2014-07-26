@@ -278,7 +278,14 @@ Lets you jump from one window to the next
                ("<M-S-right>" . buf-move-right))
 #+END_SRC  
   
+**** Line numbers
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-unset-key "\C-x\l")
+  ;; Toggle linum-mode, remap count lines
+  (bind-key "C-x l n" 'linum-mode)
+  (bind-key "C-x l c" 'count-lines-page)
 
+#+END_SRC
 *** General interaction and settings
 
 **** Defaults
@@ -414,7 +421,9 @@ and your backup root is
 Visual line mode does not take indentation in to account. adaptive-wrap-prefix-mode solves that.
 from: http://stackoverflow.com/a/13561223/1929897
 #+BEGIN_SRC emacs-lisp :tangle yes 
-  (req-package adaptive-wrap)
+  (req-package adaptive-wrap
+               :bind
+               ("C-x l w" . visual-line-mode))
   
   (when (fboundp 'adaptive-wrap-prefix-mode)
     (defun my/activate-adaptive-wrap-prefix-mode ()
