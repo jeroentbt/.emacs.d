@@ -178,7 +178,7 @@ Some sensible defaults
                (sml/setup))
 
 #+END_SRC
-**** Buffers
+**** Buffers and windows
 ***** ibuffer
 Start using ibuffer
 #+BEGIN_SRC emacs-lisp :tangle yes
