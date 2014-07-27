@@ -556,10 +556,21 @@ Pop!
                                                     "C-x 8" ;; special chars
                                                     "C-x x" ;; persp
                                                     "H-x" ;; start apps
+                                                    (js2-mode "C-c C-m") ;; js2-refactor
                                                     )
                      guide-key/recursive-key-sequence-flag t
                      guide-key/popup-window-position 'bottom))
-
+  
+#+END_SRC
+***** flycheck code verification
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package flycheck)
+#+END_SRC
+***** discover
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package discover
+               :init
+               (global-discover-mode 1))
 #+END_SRC
 **** expand-region                                               :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -732,6 +743,83 @@ We all make mistakes..
   (bind-key "C-M-<f8>" 'flyspell-buffer)
   (bind-key "C-<f8>" 'flyspell-check-previous-highlighted-word)
   (bind-key "M-<f8>" 'flyspell-check-next-highlighted-word)
+  
+#+END_SRC
+** Coding
+*** JavaScript
+**** Tern                                                        :mode:minor:
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; Set up the location of the tern .el files
+  (if is-osx 
+      (add-to-list 'load-path "~/.tern/emacs")
+      (add-to-list 'load-path "/usr/local/lib/node_modules/tern/emacs"))
+
+  (autoload 'tern-mode "tern.el" nil t)
+  (eval-after-load 'tern
+     '(progn
+        (require 'tern-auto-complete)
+        (tern-ac-setup)))
+
+#+END_SRC
+**** general
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; javascript (js2-mode)
+  (req-package js2-mode
+               :require
+               (flycheck tern js2-refactor skewer-mode)
+               :mode
+               "\\.js\\'"
+               :init
+               (progn (add-hook 'js2-mode-hook 'flycheck-mode)
+                      (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+                      (add-hook 'js2-mode-hook 'skewer-mode))
+               :config
+               ;; js2-refactor keybindings start with:
+               (js2r-add-keybindings-with-prefix "C-c C-m"))
+  
+  ;; (add-hook 'js2-mode-hook 'repl-toggle-mode)
+  ;; (add-hook 'js2-mode-hook 'hs-minor-mode)
+  ;; repeat for js3-mode /TODO there must be a better way to define these
+#+END_SRC
+**** json
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; json
+  (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+  (add-hook 'json-mode-hook 'flycheck-mode)
+#+END_SRC
+*** web mode (html+)
+#+BEGIN_SRC emacs-lisp :tangle no
+      ;; web mode
+      (req-package web-mode
+                   :require
+                   (emmet-mode flycheck)
+                   :mode 
+                   "\\.html\\'"
+                   ;; (list "\\.html\\'" "\\.txp\\'") 
+                   :init
+                   (add-hook 'web-mode-hook 'emmet-mode)
+                   (add-hook 'web-mode-hook 'flycheck-mode))
+      
+#+END_SRC
+*** php
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+  (add-hook 'php-mode-hook 'flycheck-mode)
+#+END_SRC
+*** python
+#+BEGIN_SRC emacs-lisp :tangle no
+  ;; python
+  (req-package jedi)
+  (add-hook 'python-mode-hook 'auto-complete-mode)
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook (lambda () (interactive) (column-marker-3 81)))
+#+END_SRC
+*** puppet
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; puppet mode
+  (req-package puppet-mode
+               :mode "\\.pp\\'")
   
 #+END_SRC
 ** Major modes
@@ -979,27 +1067,6 @@ indent_size = 2
   (req-package spaces)
 #+END_SRC
 ** Language specifics
-*** Javascript
-**** Tern                                                        :mode:minor:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  ;; Set up the location of the tern .el files
-  (if is-osx 
-      (add-to-list 'load-path "~/.tern/emacs")
-      (add-to-list 'load-path "/usr/local/lib/node_modules/tern/emacs"))
-
-  (autoload 'tern-mode "tern.el" nil t)
-  (eval-after-load 'tern
-     '(progn
-        (require 'tern-auto-complete)
-        (tern-ac-setup)))
-
-#+END_SRC
-
-**** TODO gives error
-eval-buffer: Cannot open load file: auto-complete
-
-
-
 
 *** html & css
 
@@ -1014,7 +1081,7 @@ eval-buffer: Cannot open load file: auto-complete
   (req-package gist)
 
 #+END_SRC
-
+    
 
 * The end
 #+BEGIN_SRC emacs-lisp :tangle yes

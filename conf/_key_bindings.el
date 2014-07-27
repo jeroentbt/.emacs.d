@@ -23,8 +23,6 @@
 (global-set-key (kbd "C-c d") 'dash-at-point)
 
 
-;; js2-refactor keybindings start with:
-(js2r-add-keybindings-with-prefix "C-c C-m")
 
 ;; org-mode
 (global-set-key (kbd "C-c l") 'org-store-link)
