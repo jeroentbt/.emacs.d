@@ -67,8 +67,9 @@ First find out wether we're working on OSX or not
     (setq dropbox "~/Dropbox")
 
 #+END_SRC
-**** Load paths
-#+BEGIN_SRC emacs-lisp :tangle yes
+**** TODO Load paths
+Disabled for now
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-to-list 'load-path (expand-file-name "vendor"
                                             user-emacs-directory))
   (add-to-list 'custom-theme-load-path (expand-file-name "vendor/themes"
