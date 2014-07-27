@@ -61,10 +61,18 @@ First find out wether we're working on OSX or not
                         (exec-path-from-shell-initialize)))
 #+END_SRC
 *** File Paths
+**** Dropbox
 #+BEGIN_SRC emacs-lisp :tangle yes
     ;; define some external to emacs paths
     (setq dropbox "~/Dropbox")
 
+#+END_SRC
+**** Load paths
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'load-path (expand-file-name "vendor"
+                                            user-emacs-directory))
+  (add-to-list 'custom-theme-load-path (expand-file-name "vendor/themes"
+                                                         user-emacs-directory))
 #+END_SRC
 ** Basics
    Some essential customizations.
