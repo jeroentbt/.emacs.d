@@ -20,26 +20,8 @@
 
 
 
-;; Browse the kill ring
-(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
-
-
 (global-set-key (kbd "C-c d") 'dash-at-point)
 
-;; jump around, jump around, jump up, jump up and get down
-(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
-
-;; multiple cursors
-
-;; Key chords
-(key-chord-define-global "jj" 'ace-jump-word-mode)
-(key-chord-define-global "jk" 'ace-jump-char-mode)
-(key-chord-define-global "jl" 'ace-jump-line-mode)
-(key-chord-define-global "jb" 'ace-jump-buffer)
-(key-chord-define-global "uu" 'undo-tree-visualize)
-(key-chord-define-global "wl" 'visual-line-mode)
-
-(key-chord-mode +1)
 
 ;; js2-refactor keybindings start with:
 (js2r-add-keybindings-with-prefix "C-c C-m")
@@ -50,37 +32,5 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
 
-;; god mode
-(global-set-key (kbd "<escape>") 'god-local-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; minor mode that holds overridden key bindings
-;; http://stackoverflow.com/a/683575/1929897
-
-(defvar my-keys-minor-mode-map (make-keymap) "my-keys-minor-mode keymap.")
-
-;; TODO: write defun that does dired jump when not in project
-;; Dired
-;; (global-set-key (kbd "C-x C-j") 'dired-jump)
-;; Direx
-(define-key my-keys-minor-mode-map (kbd "C-c C-j") 'direx-project:jump-to-project-root-other-window)
-
-
-(define-minor-mode my-keys-minor-mode
-  "A minor mode so that my key settings override annoying major modes."
-  t " k" 'my-keys-minor-mode-map)
-
-(my-keys-minor-mode 1)
-
-;; now make sure the bindings retain precendence:
-(defadvice load (after give-my-keybindings-priority)
-  "Try to ensure that my keybindings always have priority."
-  (if (not (eq (car (car minor-mode-map-alist)) 'my-keys-minor-mode))
-      (let ((mykeys (assq 'my-keys-minor-mode minor-mode-map-alist)))
-        (assq-delete-all 'my-keys-minor-mode minor-mode-map-alist)
-        (add-to-list 'minor-mode-map-alist mykeys))))
-(ad-activate 'load)
-;; end of key binding juggling
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide '_key_bindings)
