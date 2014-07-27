@@ -390,6 +390,9 @@ Lets you jump from one window to the next
   
   ;; do not use shift select
   (setq shift-select-mode nil)
+  
+  ;; replace region when typing
+  (delete-selection-mode t)
 #+END_SRC
 ***** Search with regex
 #+BEGIN_SRC emacs-lisp :tangle yes
