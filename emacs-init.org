@@ -661,6 +661,15 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
               t)))) 
   
 #+END_SRC
+**** Auto complete
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package auto-complete
+               :init
+               ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+               (require 'auto-complete-config)
+               (ac-config-default))
+     
+#+END_SRC
 **** Quitting emacs
 A little reworking of the default to close windows, but keep the deamon running.
 And a way to effectively kill emacs

@@ -5,6 +5,7 @@
 
 (depends-on "ace-jump-mode")
 (depends-on "adaptive-wrap")
+(depends-on "auto-complete")
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
 (depends-on "buffer-move")

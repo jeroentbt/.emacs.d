@@ -25,8 +25,8 @@
 
 
 
-     smartparens
-     auto-complete
+     
+     
      ;; jedi ;; python auto completion
      flycheck
      dash-at-point ;; search dash.app for stuff at point
