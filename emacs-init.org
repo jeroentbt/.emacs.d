@@ -387,6 +387,9 @@ Lets you jump from one window to the next
   
   ;; simple y or n questions
   (defalias 'yes-or-no-p 'y-or-n-p)
+  
+  ;; do not use shift select
+  (setq shift-select-mode nil)
 #+END_SRC
 ***** Search with regex
 #+BEGIN_SRC emacs-lisp :tangle yes
