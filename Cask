@@ -30,6 +30,7 @@
 (depends-on "git-timemachine")
 (depends-on "guide-key")
 (depends-on "heroku-theme")
+(depends-on "hungry-delete")
 (depends-on "ido-at-point")
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")

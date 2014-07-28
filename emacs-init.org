@@ -419,6 +419,13 @@ Lets you jump from one window to the next
   
   ;; replace region when typing
   (delete-selection-mode t)
+  
+  ;; hungry delete mode
+  ;; Plain and simple, it makes backspace and C-d erase all consecutive white space
+  ;; (instead of just one). Use it everywhere.
+  (req-package hungry-delete
+               :config
+               (global-hungry-delete-mode))
 #+END_SRC
 ***** Search with regex
 #+BEGIN_SRC emacs-lisp :tangle yes
