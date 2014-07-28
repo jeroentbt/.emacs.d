@@ -5,6 +5,7 @@
 
 (depends-on "ace-jump-mode")
 (depends-on "adaptive-wrap")
+(depends-on "async")
 (depends-on "auto-complete")
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
@@ -43,6 +44,7 @@
 (depends-on "pkg-info")
 (depends-on "popwin")
 (depends-on "projectile")
+(depends-on "puppet-mode")
 (depends-on "req-package")
 (depends-on "req-package")
 (depends-on "skewer-mode")
