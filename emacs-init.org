@@ -176,7 +176,7 @@ Some sensible defaults
   (req-package themepark-mode)
 
   ;; the current theme of choice
-  (load-theme 'tango t)
+  (load-theme 'ample)
 
   ;; set the font
   (if is-osx
