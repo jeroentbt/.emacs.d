@@ -698,13 +698,21 @@ C-x C-f /some.server.com:/etc/someconf
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq tramp-default-method "ssh")
 #+END_SRC
+***** sudo a file on a remote host
 This little line of magic lets you connect to a remote host and sudo in to a file
 #+BEGIN_EXAMPLE
 C-x C-f /sudo:some.server.com:/etc/someconf
 #+END_EXAMPLE
+In order to specify multiple hops, it is possible to define a proxy host to pass through, via the variable tramp-default-proxies-alist. This variable keeps a list of triples (host user proxy).
+Entries are added to the top of a list. The most relevant entry should therefor be entered last
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'tramp-default-proxies-alist
                '(".*" "\\`root\\'" "/ssh:%h:"))
+#+END_SRC
+But make sure we don't need to go through ssh on our own machine
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'tramp-default-proxies-alist
+               '((regexp-quote (system-name)) nil nil))
 #+END_SRC
 **** Quitting emacs
 A little reworking of the default to close windows, but keep the deamon running.
