@@ -731,6 +731,11 @@ And a way to effectively kill emacs
   (bind-key "C-x r q" 'my/server-stop)
   (bind-key "C-x C-c" 'delete-frame)
 #+END_SRC
+**** Rainbow mode
+Colorizes color values in your buffer
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package rainbow-mode)
+#+END_SRC
 ** Git
 *** magit                                                        :mode:major:
 The git interface in emacs
