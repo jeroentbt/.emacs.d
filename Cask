@@ -38,6 +38,7 @@
 (depends-on "ido-at-point")
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
+(depends-on "ix")
 (depends-on "jedi")
 (depends-on "js2-mode")
 (depends-on "js2-refactor")

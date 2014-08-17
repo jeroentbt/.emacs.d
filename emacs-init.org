@@ -1304,7 +1304,10 @@ indent_size = 2
 
 #+END_SRC
     
-
+*** ix (pastebin)
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package ix)
+#+END_SRC
 * The end
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package-finish)
