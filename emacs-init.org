@@ -188,18 +188,20 @@ Some sensible defaults
 **** Mode Line
 #+BEGIN_SRC emacs-lisp :tangle yes
   (size-indication-mode t)
-
+  
   (req-package smart-mode-line
+               :require diminish
                :config
                (progn (setq sml/theme 'automatic)
                       ;; replace common paths
                       (add-to-list 'sml/replacer-regexp-list '("^/Volumes/devHD/" "::"))
                       (add-to-list 'sml/replacer-regexp-list '("^~/dev/" "::"))
-
+  
                       ;; hide minor modes
-                      (add-to-list 'sml/hidden-modes " Projectile")
-                      (add-to-list 'sml/hidden-modes " ,")
-                      (add-to-list 'sml/hidden-modes " Guide"))
+                      ;; (add-to-list 'sml/hidden-modes " Projectile")
+                      ;; (add-to-list 'sml/hidden-modes " ,")
+                      ;; (add-to-list 'sml/hidden-modes " Guide"))
+                      (eval-after-load "Projectile" '(diminish 'projectile-mode)))
                :init
                (sml/setup))
 
