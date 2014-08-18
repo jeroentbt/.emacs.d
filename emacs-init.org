@@ -193,15 +193,19 @@ Some sensible defaults
                :require diminish
                :config
                (progn (setq sml/theme 'automatic)
-                      ;; replace common paths
-                      (add-to-list 'sml/replacer-regexp-list '("^/Volumes/devHD/" "::"))
-                      (add-to-list 'sml/replacer-regexp-list '("^~/dev/" "::"))
-  
-                      ;; hide minor modes
-                      ;; (add-to-list 'sml/hidden-modes " Projectile")
-                      ;; (add-to-list 'sml/hidden-modes " ,")
-                      ;; (add-to-list 'sml/hidden-modes " Guide"))
-                      (eval-after-load "Projectile" '(diminish 'projectile-mode)))
+                   ;; replace common paths
+                   (add-to-list 'sml/replacer-regexp-list '("^/Volumes/devHD/" "::"))
+                   (add-to-list 'sml/replacer-regexp-list '("^~/dev/" "::"))
+
+                   ;; hide minor modes
+                   ;; (add-to-list 'sml/hidden-modes " Projectile")
+                   ;; (add-to-list 'sml/hidden-modes " ,")
+                   ;; (add-to-list 'sml/hidden-modes " Guide")
+                   ;; projectile does not play nice with sml/hidden-modes
+                   (eval-after-load "Projectile" '(diminish 'projectile-mode))
+                   (eval-after-load "Guide-Key" '(diminish 'guide-key-mode))
+                   (eval-after-load "Magit-Auto-Revert" '(diminish 'magit-auto-revert-mode))
+                   )
                :init
                (sml/setup))
 
