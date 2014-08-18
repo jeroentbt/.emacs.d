@@ -1,7 +1,7 @@
 (source gnu)
-(source marmalade)
-(source melpa)
+(source melpa-stable)
 (source org)
+(source marmalade)
 
 (depends-on "ace-jump-mode")
 (depends-on "adaptive-wrap")
