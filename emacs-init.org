@@ -1244,7 +1244,7 @@ EditorConfig helps developers define and maintain consistent coding styles betwe
 More info on the [[http://editorconfig.org/][editorconfig website]].
 
 You will need to put an (or more) /.editorconfig/ file in your dirs
-
+And editorconfig-core needs to be installed
 #+BEGIN_EXAMPLE .editorconfig
 # EditorConfig is awesome: http://EditorConfig.org
 
@@ -1274,10 +1274,12 @@ indent_size = 2
 [{package.json,.travis.yml}]
 indent_style = space
 indent_size = 2
-#+END_EXAMPLE 
+#+END_EXAMPLE
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package editorconfig)
+  (require 'editorconfig)
+  (load "editorconfig")
 #+END_SRC
 
 ** Workspaces
