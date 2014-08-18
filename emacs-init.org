@@ -7,8 +7,8 @@ This file is tangled by init.el using =org-babel-load-file=. What this does is g
 An emacs package manager: http://cask.github.io/installation.html
 * Package Management
 
-[[https://github.com/rdallasgray/pallet][Pallet]] is a very helpful package management tool for Emacs. 
-It utilizes a dependency management platform called [[https://github.com/cask/cask][Cask]], 
+[[https://github.com/rdallasgray/pallet][Pallet]] is a very helpful package management tool for Emacs.
+It utilizes a dependency management platform called [[https://github.com/cask/cask][Cask]],
 to update a centralized =Cask= file when you install or remove packages.
 
 ** Cask
@@ -52,7 +52,7 @@ First find out wether we're working on OSX or not
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; Are we on a mac?
   (setq is-osx (equal system-type 'darwin))
-    
+
   ;; On OS X GUI applications do not inherit variables from the shell
   ;; configuration and thus have a different $PATH
   ;; test by doing "M-: (executable-find "flake8")"
@@ -67,15 +67,15 @@ First find out wether we're working on OSX or not
                       ;; M-x shell-copy-environment-variable was no help either
                       ;; This should be no problem in *nix's
                       (setenv "GPG_AGENT_INFO" "~/.gnupg/S.gpg-agent")
-  
+
                       ;; switch modifiers in system prefs
                       ;; (setq mac-option-modifier 'super)
                       ;; (setq mac-command-modifier 'meta)
                       (setq ns-function-modifier 'hyper)
-  
+
                       ;; Ignore .DS_Store files with ido mode
                       (add-to-list 'ido-ignore-files "\\.DS_Store")))
-  
+
 #+END_SRC
 *** File Paths
 **** Dropbox
@@ -168,7 +168,7 @@ Some sensible defaults
   ;; smaller cursor
   (setq cursor-type 'bar)
 
-#+END_SRC  
+#+END_SRC
 
 **** Appearance
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -188,7 +188,7 @@ Some sensible defaults
 **** Mode Line
 #+BEGIN_SRC emacs-lisp :tangle yes
   (size-indication-mode t)
-  
+
   (req-package smart-mode-line
                :require diminish
                :config
@@ -208,7 +208,6 @@ Some sensible defaults
                    )
                :init
                (sml/setup))
-
 #+END_SRC
 **** Buffers and windows
 ***** ibuffer
@@ -282,7 +281,7 @@ Here we sort the buffers for a nicer ibuffer view
 #+END_SRC
 ****** TODO look in to ibuffer-vc.el
 https://github.com/purcell/ibuffer-vc/blob/master/ibuffer-vc.el
-***** windmove 
+***** windmove
 Lets you jump from one window to the next
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; Move windows, even in org-mode
@@ -308,8 +307,8 @@ Lets you jump from one window to the next
                ("<M-S-down>" . buf-move-down)
                ("<M-S-left>" . buf-move-left)
                ("<M-S-right>" . buf-move-right))
-#+END_SRC  
-  
+#+END_SRC
+
 **** Line numbers
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-unset-key "\C-x\l")
@@ -324,68 +323,68 @@ Lets you jump from one window to the next
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; Auto refresh buffers when edits occur outside emacs
   (global-auto-revert-mode 1)
-  
+
   ;; Save point position between sessions
   (req-package saveplace
                :init
                (setq-default save-place t)
                :config
                (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
-  
+
   ;; this is disabled by default
   (put 'narrow-to-region 'disabled nil)
-  
+
   ;; Save a list of recent files visited. (open recent file with C-x f)
   (recentf-mode 1)
   (setq recentf-max-saved-items 100) ;; just 20 is too recent
-  
+
   ;; Undo/redo window configuration with C-c <left>/<right>
   (winner-mode 1)
-  
+
   ;; Never insert tabs
   (set-default 'indent-tabs-mode nil)
-  
+
   ;; Easily navigate sillycased words
   (global-subword-mode 1)
-  
+
   ;; Don't break lines for me, please
   ;; This is nicer with 'visual-line-mode (and adaptive wrap)
   (setq-default truncate-lines t)
-  
+
   ;; Keep cursor away from edges when scrolling up/down
   (req-package smooth-scrolling)
-  
+
   ;; Allow recursive minibuffers
   ;; (setq enable-recursive-minibuffers t)
-  
+
   ;; Don't be so stingy on the memory, we have lots now. It's the distant future.
   (setq gc-cons-threshold 20000000)
-  
+
   ;; Represent undo-history as an actual tree (visualize with C-x u)
   (req-package undo-tree
                :init
                (global-undo-tree-mode)
                :config
                (setq undo-tree-mode-lighter ""))
-  
+
   ;; Sentences do not need double spaces to end. Period.
   (set-default 'sentence-end-double-space nil)
-  
+
   ;; Add parts of each file's directory to the buffer name if not unique
   ;; not available on MELPA
   (req-package uniquify
                :init
                (setq uniquify-buffer-name-style 'forward))
-  
+
   ;; A saner ediff
   (setq ediff-diff-options "-w")
   (setq ediff-split-window-function 'split-window-horizontally)
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-  
+
   ;; Nic says eval-expression-print-level needs to be set to nil (turned off) so
   ;; that you can always see what's happening.
   (setq eval-expression-print-level nil)
-  
+
   ;; When popping the mark, continue popping until the cursor actually moves
   ;; Also, if the last command was a copy - skip past all the expand-region cruft.
   (defadvice pop-to-mark-command (around ensure-new-position activate)
@@ -396,7 +395,7 @@ Lets you jump from one window to the next
         ad-do-it)
       (dotimes (i 10)
         (when (= p (point)) ad-do-it))))
-  
+
   ;; Smart M-x : ido like interactivity for M-x
   ;; when ido-ubiquitous is used, smex is just used to keep
   ;; a history of last used commands.
@@ -409,23 +408,23 @@ Lets you jump from one window to the next
                (("M-x" . smex)
                 ("M-X" . smex-major-mode-commands)
                 ("C-c C-c M-x" . execute-extended-command)))
-  
+
   ;; Hide mousepointer when typing
   (setq make-pointer-invisible t)
-  
+
   ;; erc made the pointer go off screen, forcing a recenter
   ;; oufo on #emacs suggested this: (works great)
   (setq scroll-conservatively 1000)
-  
+
   ;; simple y or n questions
   (defalias 'yes-or-no-p 'y-or-n-p)
-  
+
   ;; do not use shift select
   (setq shift-select-mode nil)
-  
+
   ;; replace region when typing
   (delete-selection-mode t)
-  
+
   ;; hungry delete mode
   ;; Plain and simple, it makes backspace and C-d erase all consecutive white space
   ;; (instead of just one). Use it everywhere.
@@ -443,10 +442,10 @@ Lets you jump from one window to the next
 #+END_SRC
 ***** Backups
 from: http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html
-This function will mirror all directories at the given backup dir. 
+This function will mirror all directories at the given backup dir.
 For example, if you are editing a file /Users/j/web/xyz/myfile.txt,
-and your backup root is 
-/Users/j/.emacs.d/emacs-backup/, then the backup will be at 
+and your backup root is
+/Users/j/.emacs.d/emacs-backup/, then the backup will be at
 /Users/j/.emacs.d/emacs-backup/Users/j/web/xyz/myfile.txt~.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -465,18 +464,18 @@ and your backup root is
       backupFilePath
     )
   )
-  
+
   ;; Actually set the backup dir now
   (setq make-backup-file-name-function 'my/backup-file-full-dir)
 #+END_SRC
 **** Better visual line mode
 Visual line mode does not take indentation in to account. adaptive-wrap-prefix-mode solves that.
 from: http://stackoverflow.com/a/13561223/1929897
-#+BEGIN_SRC emacs-lisp :tangle yes 
+#+BEGIN_SRC emacs-lisp :tangle yes
   (req-package adaptive-wrap
                :bind
                ("C-x l w" . visual-line-mode))
-  
+
   (when (fboundp 'adaptive-wrap-prefix-mode)
     (defun my/activate-adaptive-wrap-prefix-mode ()
       "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
@@ -498,27 +497,27 @@ from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun my/smarter-move-beginning-of-line (arg)
     "Move point back to indentation of beginning of line.
-  
+
   Move point to the first non-whitespace character on this line.
   If point is already there, move to the beginning of the line.
   Effectively toggle between the first non-whitespace character and
   the beginning of the line.
-  
+
   If ARG is not nil or 1, move forward ARG - 1 lines first.  If
   point reaches the beginning or end of the buffer, stop there."
     (interactive "^p")
     (setq arg (or arg 1))
-  
+
     ;; Move lines first
     (when (/= arg 1)
       (let ((line-move-visual nil))
         (forward-line (1- arg))))
-  
+
     (let ((orig-point (point)))
       (back-to-indentation)
       (when (= orig-point (point))
         (move-beginning-of-line 1))))
-  
+
   (bind-key "C-a" 'my/smarter-move-beginning-of-line)
 #+END_SRC
 **** Kill whole line
@@ -573,7 +572,7 @@ Pop!
                                                     )
                      guide-key/recursive-key-sequence-flag t
                      guide-key/popup-window-position 'bottom))
-  
+
 #+END_SRC
 ***** flycheck code verification
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -606,7 +605,7 @@ Pop!
 **** smartparens                                                 :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package smartparens-config
-                 :require 
+                 :require
                  (smartparens)
                  :init
                  (smartparens-global-mode))
@@ -631,15 +630,15 @@ Find recent files
 from: Magnars https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/defuns/buffer-defuns.el
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package s)
-  
+
   (defvar user-home-directory (concat (expand-file-name "~") "/"))
-  
+
   (defun shorter-file-name (file-name)
     (s-chop-prefix user-home-directory file-name))
-  
+
   (defun recentf--file-cons (file-name)
     (cons (shorter-file-name file-name) file-name))
-  
+
   (defun recentf-ido-find-file ()
     "Find a recent file using ido."
     (interactive)
@@ -647,7 +646,7 @@ from: Magnars https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b
            (files (mapcar 'car recent-files))
            (file (completing-read "Choose recent file: " files)))
       (find-file (cdr (assoc file recent-files)))))
-  
+
   (bind-key "C-x f" 'recentf-ido-find-file)
 #+END_SRC
 **** move and rename files & buffers
@@ -664,9 +663,9 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
             (message "A buffer named '%s' already exists!" new-name)
           (progn (rename-file name new-name 1)
                  (rename-buffer new-name)
-                 (set-visited-file-name new-name)          
+                 (set-visited-file-name new-name)
                  (set-buffer-modified-p nil))))))
-  
+
   (defun move-file-and-buffer-to-dir (dir)
    "Moves both current buffer and file it's visiting to DIR." (interactive "DNew directory: ")
    (let* ((name (buffer-name))
@@ -675,15 +674,15 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
            (if (string-match dir "\\(?:/\\|\\\\)$")
            (substring dir 0 -1) dir))
            (newname (concat dir "/" name)))
-  
+
      (if (not filename)
          (message "Buffer '%s' is not visiting a file!" name)
        (progn (copy-file filename newname 1)
               (delete-file filename)
               (set-visited-file-name newname)
               (set-buffer-modified-p nil)
-              t)))) 
-  
+              t))))
+
 #+END_SRC
 **** Auto complete
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -692,7 +691,7 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
                ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
                (require 'auto-complete-config)
                (ac-config-default))
-     
+
 #+END_SRC
 **** Tramp
 Tramp is fastest over ssh (for not to large files)
@@ -731,7 +730,7 @@ And a way to effectively kill emacs
     (save-some-buffers)
     (kill-emacs)
     )
-  
+
   ;; I don't need to kill emacs that easily
   ;; the mnemonic is C-x REALLY QUIT
   (bind-key "C-x r q" 'my/server-stop)
@@ -751,7 +750,7 @@ The git interface in emacs
                  ("C-x m" . magit-status))
 #+END_SRC
 *** git-timemachine                                              :mode:major:
-Allows you to walk though different versions of a file 
+Allows you to walk though different versions of a file
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package git-timemachine
                  :bind
@@ -766,7 +765,7 @@ We all make mistakes..
     (flyspell-goto-next-error)
     (ispell-word)
     )
-  
+
   ;; switch dictionaries
   (let ((langs '("english" "nederlands" "francais")))
     (setq lang-ring (make-ring (length langs)))
@@ -778,23 +777,23 @@ We all make mistakes..
       (ring-insert lang-ring lang)
       (ispell-change-dictionary lang)))
   (bind-key "<f7>" 'my/cycle-ispell-languages)
-  
+
   ;; avoid message overload by printing every checked word
   (setq flyspell-issue-message-flag nil)
-  
+
   (bind-key "<f8>" 'ispell-word)
   (bind-key "C-S-<f8>" 'flyspell-mode)
   (bind-key "C-M-<f8>" 'flyspell-buffer)
   (bind-key "C-<f8>" 'flyspell-check-previous-highlighted-word)
   (bind-key "M-<f8>" 'flyspell-check-next-highlighted-word)
-  
+
 #+END_SRC
 ** Coding
 *** JavaScript
 **** Tern                                                        :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; Set up the location of the tern .el files
-  (if is-osx 
+  (if is-osx
       (add-to-list 'load-path "~/.tern/emacs")
       (add-to-list 'load-path "/usr/local/lib/node_modules/tern/emacs"))
 
@@ -820,7 +819,7 @@ We all make mistakes..
                :config
                ;; js2-refactor keybindings start with:
                (js2r-add-keybindings-with-prefix "C-c C-m"))
-  
+
   ;; (add-hook 'js2-mode-hook 'repl-toggle-mode)
   ;; (add-hook 'js2-mode-hook 'hs-minor-mode)
   ;; repeat for js3-mode /TODO there must be a better way to define these
@@ -837,13 +836,13 @@ We all make mistakes..
       (req-package web-mode
                    :require
                    (emmet-mode flycheck)
-                   :mode 
+                   :mode
                    "\\.html\\'"
-                   ;; (list "\\.html\\'" "\\.txp\\'") 
+                   ;; (list "\\.html\\'" "\\.txp\\'")
                    :init
                    (add-hook 'web-mode-hook 'emmet-mode)
                    (add-hook 'web-mode-hook 'flycheck-mode))
-      
+
 #+END_SRC
 *** php
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -864,7 +863,7 @@ We all make mistakes..
   ;; puppet mode
   (req-package puppet-mode
                :mode "\\.pp\\'")
-  
+
 #+END_SRC
 ** Major modes
 
@@ -877,7 +876,7 @@ We all make mistakes..
       (setq comint-buffer-maximum-size 5000)
       (add-hook 'comint-output-filter-functions 'comint-truncate-buffer)
     #+END_SRC
-    
+
 *** Org                                                          :mode:major:
 **** Org interaction
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -894,9 +893,9 @@ We all make mistakes..
 **** File config
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-agenda-files '("~/Dropbox/org/notes.org"))
-  
+
   (setq org-directory "~/Dropbox/org")
-  
+
   ;; MobileOrg
   (setq org-mobile-directory "~/Dropbox/mobileOrg")
   (setq org-mobile-files '(org-agenda-files
@@ -907,24 +906,24 @@ We all make mistakes..
 #+BEGIN_SRC emacs-lisp :tangle no
   ;; install then first...
   (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.9/libexec/ditaa0_9.jar")
-  
+
   ;; osx
   ;; (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/7987/plantuml.7987.jar")
   (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
-  
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa . t)
-  
+
   ;; osx
   ;; (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/7987/plantuml.7987.jar")
   (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
-  
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((ditaa . t)
      (plantuml . t)))
-  
+
 #+END_SRC
 *** weechat                                                      :mode:major:
 Weechat needs to be running.
@@ -1008,15 +1007,15 @@ The =znc-servers= variable is set from a private el file'
                      erc-current-nick-highlight-type (quote all) ;; highlight full message to me
                      erc-fill-column 85
                      ;; matches
-                     ;;erc-text-matched-hook '(erc-log-matches 
+                     ;;erc-text-matched-hook '(erc-log-matches
                      ;;                        erc-terminal-notifier-text-matched)
                      erc-match-exclude-server-buffer t ;; don't bother matching the server buffer
                      ;; log matches
                      erc-log-matches-flag t ;; log mentions and keywords in their own buffer
-                     erc-log-matches-types-alist '((keyword . "#ERC Keywords") 
+                     erc-log-matches-types-alist '((keyword . "#ERC Keywords")
                                                    (current-nick . "#ERC Mentions"))
                      )
-  
+
                (make-variable-buffer-local 'erc-fill-column)
                (add-hook 'window-configuration-change-hook
                          '(lambda ()
@@ -1027,7 +1026,7 @@ The =znc-servers= variable is set from a private el file'
                                    (set-buffer buffer)
                                    (when (eq major-mode 'erc-mode)
                                      (setq erc-fill-column (- (window-width w) 2))))))))))
-  
+
 #+END_SRC
 *** Mail
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1036,7 +1035,7 @@ The =znc-servers= variable is set from a private el file'
   (require 'mu4e)
   ;;  (require 'setup-gnus-dired) ;; attachments from dired, mark C-c RET C-a
   (require 'org-mu4e)
-  
+
   ;; use mu4e as default mailclient
   (setq mail-user-agent 'mu4e-user-agent ;; default mail client
         ;; osx
@@ -1050,68 +1049,68 @@ The =znc-servers= variable is set from a private el file'
         mu4e-action-tags-header "X-Keywords" ;; thanks to offlineimap gmail
         mu4e-attachment-dir "~/Downloads"
         )
-  
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; VISUAL
-  
+
   ;; use fancy characters where possible
   ;; (setq mu4e-use-fancy-chars t)
-  
+
   (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
-  
+
   ;; convert html messages
   ;; TODO: removes links...
   (setq mu4e-html2text-command "w3m -dump -T text/html")
-  
+
   ;; enable inline images
   (setq mu4e-view-show-images t)
   (setq mu4e-view-image-max-width 400)
   ;; use imagemagick, if available
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
-  
+
   (setq mu4e-headers-fields '((:human-date . 8) (:flags . 5) (:from-or-to . 22) (:subject))
         mu4e-headers-date-format "%d/%m/%y")
-  
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; BEHAVIOUR
-  
+
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
-       
+
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t)
-  
+
   ;; Strip addresses from mu4e-user-mail-address-list when replying.
   (setq mu4e-compose-dont-reply-to-self t)
-  
+
   ;; apply marks when leaving headers buffer
   (setq mu4e-headers-leave-behavior 'apply)
-  
+
   ;; Crypto
   (setq mu4e-auto-retrieve-keys t)
-  
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; SHORTCUTS ETC
-  
+
   ;; setup some maildir shortcuts
-  ;; Syncing only All Mail for gmail, of limited use     
+  ;; Syncing only All Mail for gmail, of limited use
   ;; (setq mu4e-maildir-shortcuts
   ;;      '( (my/mu4e-maildir-pers . ?j)
   ;;         (my/mu4e-maildir-pro . ?t)))
-  
+
   (add-to-list 'mu4e-view-actions
                '("retag-message" . mu4e-action-retag-message) t)
   (add-to-list 'mu4e-headers-actions
                '("retag-message" . mu4e-action-retag-message) t)
-  
+
   (defun my/mu4e-action-archive-message (msg)
     (mu4e-action-retag-message msg "-\\Inbox"))
-  
+
   (defun my/mu4e-action-trash-message (msg)
     (mu4e-action-retag-message msg "-\\Inbox +\\Trash"))
       ;;(mu4e~proc-move docid nil  "+T-N"))
-  
+
   ;; TODO: look in to mu4e-mark-execute-all
   ;; TODO: check if tags are gmail tags before executing
   ;; this would probably be better if executed by mu4e-mark-execute-all
@@ -1121,13 +1120,13 @@ The =znc-servers= variable is set from a private el file'
        (let ((docid (mu4e-message-field msg :docid)))
         (when (mu4e-mark-docid-marked-p docid)
           (my/mu4e-action-trash-message msg))))))
-  
+
   (add-to-list 'mu4e-headers-actions
                '("xtrash all marked" . my/mu4e-action-all-marked) t)
   (add-to-list 'mu4e-view-actions
                '("xtrash all marked" . my/mu4e-action-all-marked) t)
-  
-  
+
+
   (add-to-list 'mu4e-view-actions
                '("earchive-message" . my/mu4e-action-archive-message) t)
   (add-to-list 'mu4e-headers-actions
@@ -1138,7 +1137,7 @@ The =znc-servers= variable is set from a private el file'
                '("trash message" . my/mu4e-action-trash-message) t)
   (add-to-list 'mu4e-view-actions
                '("View in browser" . mu4e-action-view-in-browser) t)
-  
+
   (add-to-list 'mu4e-bookmarks '("tag:\\\\Sent and date:1w..now" "Sent this week" ?s))
   (add-to-list 'mu4e-bookmarks '("flag:unread and date:today..now" "Today's unread messages" ?d))
   (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox and date:today..now" "Today's inbox" ?n))
@@ -1148,11 +1147,11 @@ The =znc-servers= variable is set from a private el file'
   (add-to-list 'mu4e-bookmarks '("tag:-Updates" "Category Updates" ?U) t)
   (add-to-list 'mu4e-bookmarks '("tag:-Forums" "Category Forums" ?F) t)
   (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox NOT tag:-Social NOT tag:-Forums NOT tag:-Updates NOT tag:-Promotions" "Unified inbox Clean" ?i))
-  
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; DEFUNS
-  
-  ;; from mu4e docs     
+
+  ;; from mu4e docs
   (defun my/mu4e-set-account ()
     "Set the account for composing a new message."
     (let* ((account
@@ -1170,16 +1169,16 @@ The =znc-servers= variable is set from a private el file'
                          (set (car var) (cadr var)))
                      account-vars)
              (error "No email account found"))))
-  
+
   (add-hook 'mu4e-compose-pre-hook 'my/mu4e-set-account)
-       
-  ;; sending mail 
+
+  ;; sending mail
   ;; also, make sure the gnutls command line utils are installed
   ;; package 'gnutls-bin' in Debian/Ubuntu
-       
+
   (require 'smtpmail)
   ;;(require 'smtpmail-async)
-  (setq ;; send-mail-function 'async-smtpmail-send-it 
+  (setq ;; send-mail-function 'async-smtpmail-send-it
         ;; message-send-mail-function 'async-smtpmail-send-it
         message-send-mail-function 'smtpmail-send-it
         starttls-use-gnutls t
@@ -1193,25 +1192,25 @@ The =znc-servers= variable is set from a private el file'
         smtpmail-queue-mail nil ;; start in non-queueing mode
         smtpmail-queue-dir "~/Maildir/queue/cur"
         )
-       
+
   ;; alternatively, for emacs-24 you can use:
   ;;(setq message-send-mail-function 'smtpmail-send-it
   ;;     smtpmail-stream-type 'starttls
   ;;     smtpmail-default-smtp-server "smtp.gmail.com"
   ;;     smtpmail-smtp-server "smtp.gmail.com"
   ;;     smtpmail-smtp-service 587)
-       
-  
-  
+
+
+
   ;; TODO:
   ;; http://pablo.rauzy.name/dev/init.el.html
   ;; https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/setup-mu4e.el
   ;; https://github.com/agpchil/mu4e-maildirs-extension
   ;; https://bitbucket.org/seanfarley/dotfiles/src/69cbcf0dd9d6cb2c7aaa18e7a196315035ad4181/emacs/init/mail.el?at=default
-  
-  ;; reference 
+
+  ;; reference
   ;; https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
-  
+
 #+END_SRC
 ** Minor modes
 *** ido                                                          :mode:minor:
@@ -1291,7 +1290,7 @@ indent_size = 2
                  (projectile-global-mode))
 #+END_SRC
 **** Keybindings                                                :keybindings:
-"C-c p" followed by a key 
+"C-c p" followed by a key
 *** spaces                                                       :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package spaces)
@@ -1311,7 +1310,7 @@ indent_size = 2
   (req-package gist)
 
 #+END_SRC
-    
+
 *** ix (pastebin)
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package ix)
@@ -1320,8 +1319,5 @@ indent_size = 2
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package-finish)
   (load (expand-file-name "PRIVATE.el"
-                          user-emacs-directory))  
+                          user-emacs-directory))
 #+END_SRC
-
-
-
