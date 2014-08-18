@@ -183,6 +183,10 @@ Some sensible defaults
       (set-face-attribute 'default nil :family "source code pro" :weight "light")
       (set-default-font "SourceCodePro-10"))
 
+  ;; set a default fontset to use for displaying unicode characters
+  (set-fontset-font "fontset-default" nil
+                    (font-spec :size 16 :name "Symbola"))
+
 #+END_SRC
 
 **** Mode Line
