@@ -910,6 +910,7 @@ We all make mistakes..
 **** json
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; json
+  (req-package json-mode)
   (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
   (add-hook 'json-mode-hook 'flycheck-mode)
 #+END_SRC
