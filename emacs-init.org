@@ -579,6 +579,85 @@ Pop!
 
 #+END_SRC
 ***** flycheck code verification
+****** Usage
+http://flycheck.readthedocs.org
+Flycheck will run external commands to verify code. To find out what checkers can be used do
+#+BEGIN_EXAMPLE
+M-x flycheck-describe-checker
+#+END_EXAMPLE
+It's default keybinding prefix is 'C-c !'
+c for flycheck buffer
+n-p for navigating errors
+But guide-key should have your back
+****** Modeline
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defface my/flycheck-grey
+      '((((class color) (min-colors 88))
+            :foreground "grey"))
+      "Face for my/flycheck-mode-line-status-icon"
+      :group 'my/flycheck-icon
+      )
+  (defface my/flycheck-red
+      '((((class color) (min-colors 88))
+            :foreground "red"))
+      "Face for my/flycheck-mode-line-status-icon"
+      :group 'my/flycheck-icon
+      )
+  (defface my/flycheck-orange
+      '((((class color) (min-colors 88))
+            :foreground "orange"))
+      "Face for my/flycheck-mode-line-status-icon"
+      :group 'my/flycheck-icon
+      )
+  (defface my/flycheck-green
+      '((((class color) (min-colors 88))
+            :foreground "green"))
+      "Face for my/flycheck-mode-line-status-icon"
+      :group 'my/flycheck-icon
+      )
+
+  (defun my/flycheck-mode-line-status-text (&optional status)
+    "Get a coloured icon (and some numbers) describing STATUS for use in the mode line.
+
+  STATUS defaults to `flycheck-last-status-change' if omitted or
+  nil."
+    (let ((icon (pcase (or status flycheck-last-status-change)
+                  (`not-checked (propertize (string 32 #xF10C) 'font-lock-face 'my/flycheck-grey))
+                    ;;  
+                  (`no-checker (propertize (string 32 #xF05C) 'font-lock-face 'my/flycheck-grey))
+                    ;;  
+                  (`running (propertize (string 32 #xF05D) 'font-lock-face 'my/flycheck-grey))
+                    ;;  
+                  (`errored (propertize (string 32 #xF05C) 'font-lock-face 'my/flycheck-red))
+                    ;;  
+                  (`finished
+                      (if flycheck-current-errors
+                          (let ((error-counts (flycheck-count-errors
+                                               flycheck-current-errors)))
+                              (concat
+                                  (if (> (cdr (assq 'error error-counts)) 0)
+                                      (propertize (string 32 #xF057) 'font-lock-face 'my/flycheck-red)
+                                        ;;  
+                                      (propertize (string 32 #xF057) 'font-lock-face 'my/flycheck-orange))
+                                      ;;  
+                                  (format "%s/%s"
+                                      (or (cdr (assq 'error error-counts)) 0)
+                                      (or (cdr (assq 'warning error-counts)) 0))))
+                          (propertize (string 32 #xF058) 'font-lock-face 'my/flycheck-green)
+                          ;;  
+                          ))
+                  (`interrupted (propertize (string 32 #xF056) 'font-lock-face 'my/flycheck-grey))
+                    ;;  
+                  (`suspicious (propertize (string 32 #xF059) 'font-lock-face 'my/flycheck-grey))
+                    ;;  
+                    )))
+      (concat " " icon)))
+
+#+END_SRC
+******* TODO flycheck mode line
+activate outside of customize
+Make colors appear on modeline
+****** Setup
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package flycheck)
 #+END_SRC
