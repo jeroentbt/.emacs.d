@@ -695,7 +695,8 @@ Make colors appear on modeline
 
 #+END_SRC
 
-**** direx
+**** dired
+***** direx
 Direx shows the dir or projects file structure.
 We'll be using popwin to make it pop!
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -707,6 +708,12 @@ We'll be using popwin to make it pop!
                             popwin:special-display-config)
                :bind
                ("C-x C-j" . direx-project:jump-to-project-root-other-window))
+#+END_SRC
+***** dired-x
+Dired extra. Extra features for dired
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'dired-load-hook
+      (function (lambda () (load "dired-x"))))
 #+END_SRC
 **** recent files
 Find recent files
