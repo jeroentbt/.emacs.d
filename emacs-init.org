@@ -959,6 +959,13 @@ We all make mistakes..
                :mode "\\.pp\\'")
 
 #+END_SRC
+** Search
+*** Ag
+The silver searches is nice and fast for searching inside code repos
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (if (executable-find "ag")
+      (req-package ag))
+#+END_SRC
 ** Major modes
 
 *** comint-mode                                                  :mode:major:

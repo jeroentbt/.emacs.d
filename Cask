@@ -5,6 +5,7 @@
 
 (depends-on "ace-jump-mode")
 (depends-on "adaptive-wrap")
+(depends-on "ag")
 (depends-on "ample-theme")
 (depends-on "anti-zenburn-theme")
 (depends-on "async")
