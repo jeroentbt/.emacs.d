@@ -1422,6 +1422,16 @@ indent_size = 2
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package spaces)
 #+END_SRC
+** Bookmarks
+I'm using the built in feature here
+C-x r m : emacs maRk Make
+C-x r l : emacs maRk list
+- s to save (otherwise the bookmark does not survive the session)
+- enter to open
+- o to open in new window
+- D mark for removal
+- x execute removal
+- r rename current item
 ** Language specifics
 
 *** html & css
