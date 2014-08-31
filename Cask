@@ -50,6 +50,7 @@
 (depends-on "org")
 (depends-on "package-build")
 (depends-on "pallet")
+(depends-on "paradox")
 (depends-on "pkg-info")
 (depends-on "popwin")
 (depends-on "projectile")
