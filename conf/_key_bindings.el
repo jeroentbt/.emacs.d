@@ -9,7 +9,7 @@
 ;; Webjump let's you quickly search google, wikipedia, emacs wiki
 (global-set-key (kbd "C-x g") 'webjump)
 (global-set-key (kbd "C-x M-g") 'browse-url-at-point)
- 
+
 ;; Fold the active region
 (global-set-key (kbd "C-c C-f") 'fold-this-all)
 (global-set-key (kbd "C-c C-F") 'fold-this)
@@ -25,10 +25,6 @@
 
 
 ;; org-mode
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c b") 'org-iswitchb)
 
 
 (provide '_key_bindings)

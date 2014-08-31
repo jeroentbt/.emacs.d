@@ -1048,11 +1048,19 @@ The silver searches is nice and fast for searching inside code repos
 
   ;; Tell me when editing stuff I can't see
   (setq org-catch-invisible-edits (quote show-and-error))
+
+  ;; keybindings!
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  ;; insert them in to org mode using C-c C-l
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c b") 'org-iswitchb)
+
 #+END_SRC
 
 **** File config
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-files '("~/Dropbox/org/notes.org"))
+  (setq org-agenda-files '("~/Dropbox/org"))
 
   (setq org-directory "~/Dropbox/org")
 
