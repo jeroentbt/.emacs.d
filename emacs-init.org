@@ -783,6 +783,10 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
                (ac-config-default))
 
 #+END_SRC
+
+***** TODO look in to company-mode
+Looks like a nice alternative with less confusing completion
+http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_which_is_better/
 **** Tramp
 Tramp is fastest over ssh (for not to large files)
 Or open files as root
