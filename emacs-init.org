@@ -168,6 +168,11 @@ Some sensible defaults
   ;; smaller cursor
   (setq cursor-type 'bar)
 
+  ;; Use the x clipboard (should have been enabled by default)
+  (setq x-select-enable-clipboard t)
+
+  ;; after mouse selection in X11, you can paste by `yank' in emacs
+  (setq x-select-enable-primary t)
 #+END_SRC
 
 **** Appearance
