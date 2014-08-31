@@ -568,6 +568,8 @@ Pop!
 #+END_SRC
 **** Some help
 ***** guide-key                                                  :mode:minor:
+An interface to use a tooltip window to display guide-key info is also available:
+[[https://github.com/aki2o/guide-key-tip][guide-key-tip.el]]. I'm sticking with the regular one for now. And hope discover gets some more love.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package guide-key
                :init
