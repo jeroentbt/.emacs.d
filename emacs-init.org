@@ -675,6 +675,11 @@ Make colors appear on modeline
                  ("C-=" . er/expand-region))
 #+END_SRC
 
+**** highlight-symbol
+I basically just use this to highlight, none of the query replace and moving around stuff
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package highlight-symbol)
+#+END_SRC
 **** multiple-cursors                                            :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package multiple-cursors
