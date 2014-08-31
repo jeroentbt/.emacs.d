@@ -862,6 +862,19 @@ Allows you to walk though different versions of a file
                  :bind
                  ("C-x M" . git-timemachine))
 #+END_SRC
+*** git-messenger
+Allows you to see who's to blame for the current line
+M-w	Copy commit message and quit
+c	Copy commit ID and quit
+d	Pop up git diff of last change of this line
+s	Pop up git show --stat of last change of this line
+S	Pop up git show --stat -p of last change of this line
+q	Quit
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package git-messenger
+      :bind
+      ("C-x v p" . git-messenger:popup-message))
+#+END_SRC
 ** Spelling
 We all make mistakes..
 #+BEGIN_SRC emacs-lisp :tangle yes

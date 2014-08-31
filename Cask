@@ -33,6 +33,7 @@
 (depends-on "gh")
 (depends-on "gist")
 (depends-on "git-commit-mode")
+(depends-on "git-messenger")
 (depends-on "git-rebase-mode")
 (depends-on "git-timemachine")
 (depends-on "guide-key")
