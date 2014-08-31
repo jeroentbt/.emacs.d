@@ -1475,8 +1475,10 @@ C-x r l : emacs maRk list
   (req-package ix)
 #+END_SRC
 * The end
+Do the req-package magic and load my file of secrets
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package-finish)
-  (load (expand-file-name "PRIVATE.el"
+
+  (load (expand-file-name "private.el.gpg"
                           user-emacs-directory))
 #+END_SRC
