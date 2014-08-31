@@ -539,6 +539,7 @@ Easier than C-a, C-k
   ;; kill whole line with C-; (because ; is close to k)
   (bind-key "C-;" 'kill-whole-line)
 #+END_SRC
+***** TODO C-; is bound by flyspell to auto correct previous word       :bug:
 **** Browse kill ring
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package browse-kill-ring
