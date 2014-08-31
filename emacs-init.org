@@ -192,7 +192,7 @@ Some sensible defaults
 
 **** Mode Line
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (size-indication-mode t)
+  ;;(size-indication-mode t)
 
   (req-package smart-mode-line
                :require diminish
