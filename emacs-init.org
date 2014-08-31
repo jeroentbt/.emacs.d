@@ -173,7 +173,8 @@ Some sensible defaults
 **** Appearance
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; easily switch between all themes
-  (req-package themepark-mode)
+  ;; (req-package themepark-mode)
+  ;; not available in package.el repos, too lazy to add it manually
 
   ;; the current theme of choice
   (load-theme 'ample)
