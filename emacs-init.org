@@ -816,6 +816,23 @@ But make sure we don't need to go through ssh on our own machine
       '(add-to-list 'tramp-default-proxies-alist
            '((regexp-quote (system-name)) nil nil)))
 #+END_SRC
+***** More on proxies
+****** Ad-hoc
+An ad-hoc method of using Tramp with multiple hops is possible with the folowing syntax
+#+BEGIN_EXAMPLE
+C-x C-f /ssh:secureuser@protectionhost|ssh:you@thehosttoworkon:/path
+#+END_EXAMPLE
+****** using .ssh/config
+This allows you to hop even for ssh, scp etc.
+#+BEGIN_SRC config :tangle no
+Host hopping
+User yourusername
+HostName hoppinghostname
+
+Host some hostname patterns
+User yourusername
+ProxyCommand ssh -q hopping exec nc %h %p
+#+END_SRC
 **** Quitting emacs
 A little reworking of the default to close windows, but keep the deamon running.
 And a way to effectively kill emacs
