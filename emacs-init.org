@@ -173,6 +173,9 @@ Some sensible defaults
 
   ;; after mouse selection in X11, you can paste by `yank' in emacs
   (setq x-select-enable-primary t)
+
+  ;; faster keystroke echo (shows you what command you're typing)
+  (setq echo-keystrokes 0.1)
 #+END_SRC
 
 **** Appearance
