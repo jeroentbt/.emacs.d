@@ -1060,7 +1060,7 @@ The silver searches is nice and fast for searching inside code repos
 
 **** File config
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-files '("~/Dropbox/org"))
+  (setq org-agenda-files '("~/Dropbox/org" "~/.emacs.d"))
 
   (setq org-directory "~/Dropbox/org")
 
