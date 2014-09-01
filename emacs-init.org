@@ -679,6 +679,20 @@ Make colors appear on modeline
                :init
                (global-discover-mode 1))
 #+END_SRC
+***** dash
+Dash is an offline documentation browser for OSX
+http://kapeli.com/dash
+Zeal is the equivalent on linux.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package dash-at-point
+      :if is-osx
+      :bind ("C-c d" . dash-at-point))
+#+END_SRC
+****** TODO look in to helm-dash                                    :feature:
+       :PROPERTIES:
+       :ID:       b2a2f982-2722-4b3b-959b-3d1102e48b71
+       :END:
+
 **** expand-region                                               :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package expand-region
