@@ -330,6 +330,12 @@ Lets you jump from one window to the next
   (bind-key "C-x l c" 'count-lines-page)
 
 #+END_SRC
+**** Indent guides
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (req-package indent-guide
+        :config (indent-guide-global-mode))
+#+END_SRC
+***** TODO bind a key to toggle indent-guide
 *** General interaction and settings
 
 **** Defaults
