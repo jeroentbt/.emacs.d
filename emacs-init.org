@@ -782,6 +782,17 @@ I basically just use this to highlight, none of the query replace and moving aro
 #+END_SRC
 
 **** dired
+This little variable defines dired to guess the directory to move/copy to by looking at a potential dired in another window.
+Making it behave somewhat like a two-pane file manager
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq dired-dwim-target t)
+#+END_SRC
+***** dired-x
+Dired extra. Extra features for dired
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'dired-load-hook
+      (function (lambda () (load "dired-x"))))
+#+END_SRC
 ***** direx
 Direx shows the dir or projects file structure.
 We'll be using popwin to make it pop!
