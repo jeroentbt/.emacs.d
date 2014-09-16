@@ -552,6 +552,55 @@ Easier than C-a, C-k
                :bind
                ("M-y" . browse-kill-ring))
 #+END_SRC
+**** Copy/Cut curent line if no selection
+     :PROPERTIES:
+     :source:   http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html
+     :updated:  2014-09-16
+     :END:
+
+Normally, when you would want to copy a line you would do something like
+C-a, C-k, C-/
+or, if you use kill-whole line
+C-;, C-/
+Lets save a keystroke!
+
+Define the functions
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun xah-copy-line-or-region ()
+      "Copy current line, or text selection.
+  When `universal-argument' is called first, copy whole buffer (but respect `narrow-to-region')."
+      (interactive)
+      (let (p1 p2)
+          (if (null current-prefix-arg)
+              (progn (if (use-region-p)
+                         (progn (setq p1 (region-beginning))
+                             (setq p2 (region-end)))
+                         (progn (setq p1 (line-beginning-position))
+                             (setq p2 (line-end-position)))))
+              (progn (setq p1 (point-min))
+                  (setq p2 (point-max))))
+          (kill-ring-save p1 p2)))
+
+  (defun xah-cut-line-or-region ()
+      "Cut current line, or text selection.
+  When `universal-argument' is called first, cut whole buffer (but respect `narrow-to-region')."
+      (interactive)
+      (let (p1 p2)
+          (if (null current-prefix-arg)
+              (progn (if (use-region-p)
+                         (progn (setq p1 (region-beginning))
+                             (setq p2 (region-end)))
+                         (progn (setq p1 (line-beginning-position))
+                             (setq p2 (line-beginning-position 2)))))
+              (progn (setq p1 (point-min))
+                  (setq p2 (point-max))))
+          (kill-region p1 p2)))
+#+END_SRC
+Set the keybindings (replacing the default behaviour)
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (bind-key "M-w" 'xah-copy-line-or-region)
+  (bind-key "C-w" 'xah-cut-line-or-region)
+#+END_SRC
 **** (Un)comment region or line
 from: http://stackoverflow.com/a/9697222/1929897
 #+BEGIN_SRC emacs-lisp :tangle yes
