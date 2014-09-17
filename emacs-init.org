@@ -964,6 +964,44 @@ If you'd like to stop using Paradox, you may call paradox-disable and go back to
   (req-package paradox)
 #+END_SRC
 press h for help
+**** Webjump
+
+Webjump lets you quickly search google, wikipedia, emacs wiki, ...
+It is a built-in package and allready has a couple of sites coded in.
+But it's fairly easy to define your own:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+        (defvar webjump-my-sites
+          `(
+               ("Arch forums" .
+                   [simple-query
+                       "https://bbs.archlinux.org/"
+                       "https://bbs.archlinux.org/search.php?action=search&keywords="
+                       ,(concat ;; fluxBB options
+                            ;; "&author=username"
+                            "&forum_id=-1" ;; all forums
+                            "&search_in=topic" ;; [all/message/topic]
+                            "&sort_by=0" ;; 0 (post_time) / 1 (author) / 2 (subject) / 3 (forum)
+                            "&sort_dir=DESC" ;; DESC/ASC
+                            "&show_as=topics" ;; topics/posts
+                            )])
+               ("ArchWiki" .
+                   [simple-query
+                       "https://wiki.archlinux.org/"
+                       "https://wiki.archlinux.org/index.php?title=Special%3ASearch&fulltext=Search&search="
+                       ""]))
+          "My webjump sites")
+
+        (req-package webjump
+            :config
+            (setq webjump-sites
+                (append
+                    webjump-my-sites
+                    webjump-sample-sites))
+            :bind   (("C-x g" . webjump)
+                     ("C-x M-g" . browse-url-at-point)))
+#+END_SRC
+
 ** Git
 *** magit                                                        :mode:major:
 The git interface in emacs
