@@ -361,6 +361,7 @@ Lets you jump from one window to the next
   (winner-mode 1)
 
   ;; Never insert tabs
+  ;; Tabs can be inserted with C-q C-i (quoted insert indent)
   (set-default 'indent-tabs-mode nil)
 
   ;; Easily navigate sillycased words
