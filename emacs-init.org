@@ -335,7 +335,7 @@ Lets you jump from one window to the next
 **** Indent guides
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package indent-guide
-        :config (indent-guide-global-mode))
+        :init (indent-guide-global-mode))
 #+END_SRC
 ***** TODO bind a key to toggle indent-guide
 *** General interaction and settings
@@ -451,7 +451,7 @@ Lets you jump from one window to the next
   ;; Plain and simple, it makes backspace and C-d erase all consecutive white space
   ;; (instead of just one). Use it everywhere.
   (req-package hungry-delete
-               :config
+               :init
                (global-hungry-delete-mode))
 #+END_SRC
 ***** Search with regex
@@ -806,7 +806,7 @@ We'll be using popwin to make it pop!
   (req-package direx
                :require
                (direx-project popwin)
-               :init
+               :config
                (push '(direx:direx-mode :position left :width 40 :dedicated t)
                             popwin:special-display-config)
                :bind
@@ -1091,13 +1091,12 @@ salvaged from old config:
                (flycheck tern js2-refactor skewer-mode)
                :mode
                "\\.js\\'"
-               :init
+               :config
                (progn (add-hook 'js2-mode-hook 'flycheck-mode)
                       (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-                      (add-hook 'js2-mode-hook 'skewer-mode))
-               :config
-               ;; js2-refactor keybindings start with:
-               (js2r-add-keybindings-with-prefix "C-c C-m"))
+                      (add-hook 'js2-mode-hook 'skewer-mode)
+                      ;; js2-refactor keybindings start with:
+                      (js2r-add-keybindings-with-prefix "C-c C-m")))
 
   ;; (add-hook 'js2-mode-hook 'repl-toggle-mode)
   ;; (add-hook 'js2-mode-hook 'hs-minor-mode)
@@ -1107,7 +1106,6 @@ salvaged from old config:
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; json
   (req-package json-mode)
-  (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
   (add-hook 'json-mode-hook 'flycheck-mode)
 #+END_SRC
 *** web mode (html+)
