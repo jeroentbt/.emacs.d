@@ -46,6 +46,106 @@ Start using =req-package=
   (req-package pallet)
 #+END_SRC
 
+*** A word on using req-package
+
+Loading of the required package is deferred if you use the
+:commands, :bind, :mode or :interpreter (which all imply :commands)
+or the :defer keyword
+
+**** :require
+load (and install when missing) dependencies
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package foo
+      :require package)
+#+END_EXAMPLE
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package foo
+      :require (package package2))
+#+END_EXAMPLE
+**** :init
+Will run immediately, even when loading is deferred.
+Keep it as simple as possible and make sure it is able to run
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package foo
+      :init
+      (progn
+          (setq foo-var t)
+          (foo-mode 1))
+#+END_EXAMPLE
+**** :idle
+Same as =init=, but will wait untill emacs is idle to execute.
+See varriable use-package-idle-interval
+
+Good for minor modes that take a long time to load
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package pabbrev
+      :commands global-pabbrev-mode
+      :idle (global-pabbrev-mode)
+      :idle-priority 3) ;; lower is higher priority
+#+END_EXAMPLE
+**** :config
+Will execute when package is actually loaded (when deferred)
+**** :bind
+Bind keys (defers)
+cons or list of conses
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package foo
+      :bind
+      (("C-c" . some-defun)
+          ("C-x" . some-other-defun))
+#+END_EXAMPLE
+**** :commands
+create autoloads for these commands (defers untill these commands are used)
+**** :mode
+add to auto-mode-alist
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package foo
+      :mode
+      ("\\.py\\'" . python-mode))
+#+END_EXAMPLE
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package foo
+      :mode "\\.py\\'")
+#+END_EXAMPLE
+**** :interpreter
+add to interpreter-mode-alist
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package foo
+      :interpreter
+      ("python" . python-mode))
+#+END_EXAMPLE
+**** :defer
+explicitly defer loading
+#+BEGIN_EXAMPLE emacs-lisp
+  (req-package foo
+      :defer t)
+#+END_EXAMPLE
+**** :if
+predicate loading of module
+#+BEGIN_EXAMPLE emacs-lisp
+  (use-package edit-server
+    :if window-system
+    :init
+    (progn
+      (add-hook 'after-init-hook 'server-start t)
+      (add-hook 'after-init-hook 'edit-server-start t)))
+#+END_EXAMPLE
+**** :disabled
+t to disable loading entirely
+**** :load-path
+load path of the package/module's parent dir
+Relative paths are prefixed with =user-emacs-directory=
+#+BEGIN_EXAMPLE emacs-lisp :tangle no
+  (req-package foo
+      :load-path "some/path"
+#+END_EXAMPLE
+**** :diminish
+prevent minor-mode from showing up (or change the string used) in the modeline
+#+BEGIN_EXAMPLE emacs-lisp :tangle no
+  (req-package foo
+      :diminish foo "foo-minor-mode"
+#+END_EXAMPLE
+
 ** System
 First find out wether we're working on OSX or not
 
