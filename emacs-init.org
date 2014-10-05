@@ -1064,6 +1064,14 @@ We all make mistakes..
 
 #+END_SRC
 ** Coding
+*** TODO code folding
+salvaged from old config:
+#+BEGIN_SRC emacs-lisp :tangle no
+;; Fold the active region
+(global-set-key (kbd "C-c C-f") 'fold-this-all)
+(global-set-key (kbd "C-c C-F") 'fold-this)
+(global-set-key (kbd "C-c M-f") 'fold-this-unfold-all)
+#+END_SRC
 *** JavaScript
 **** Tern                                                        :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
