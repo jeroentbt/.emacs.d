@@ -1348,7 +1348,7 @@ The =znc-servers= variable is set from a private el file'
   ;; VISUAL
 
   ;; use fancy characters where possible
-  ;; (setq mu4e-use-fancy-chars t)
+  (setq mu4e-use-fancy-chars t)
 
   (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
@@ -1506,6 +1506,36 @@ The =znc-servers= variable is set from a private el file'
   ;; https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
 
 #+END_SRC
+**** fancy chars
+Mu4e offers fancy chars, but they are not really that nice, especially
+the threading stuff.
+
+#+BEGIN_SRC elisp :tangle yes
+    (when (and (eq t mu4e-use-fancy-chars)
+              (member "FontAwesome" (font-family-list)))
+  ;; marks for headers of the form; each is a cons-cell (basic . fancy)
+  ;; each of which is basic ascii char and something fancy, respectively
+        (setq mu4e-headers-draft-mark     (purecopy '("D" . "⚒")) ;"Draft.")
+            mu4e-headers-flagged-mark   (purecopy '("F" . "⚑")) ;"Flagged.")
+            mu4e-headers-new-mark       (purecopy '("N" . "⭑")) ;"New.")
+            mu4e-headers-passed-mark    (purecopy '("P" . "")) ;"Passed (fwd).")
+            mu4e-headers-replied-mark   (purecopy '("R" . "")) ; Replied
+            mu4e-headers-seen-mark      (purecopy '("S" . "✔")) ;"Seen.")
+            mu4e-headers-trashed-mark   (purecopy '("T" . "♻")) ;"Trashed.")
+            mu4e-headers-attach-mark    (purecopy '("a" . "")) ; W/ attachments
+            mu4e-headers-encrypted-mark (purecopy '("x" . "⚴")) ;"Encrypted.") 
+            mu4e-headers-signed-mark    (purecopy '("s" . "☡")) ;"Signed.") 
+            mu4e-headers-unread-mark    (purecopy '("u" . "☐")) ;"Unread.")
+
+            ;; thread prefix marks
+            mu4e-headers-has-child-prefix    (purecopy '("+"  . "+"))  ;"Parent.")
+            mu4e-headers-empty-parent-prefix (purecopy '("-"  . "-"))  ;"Orphan.")
+            mu4e-headers-first-child-prefix  (purecopy '("\\" . "\\")) ;"First child.")
+            mu4e-headers-duplicate-prefix    (purecopy '("="  . "="))  ;"Duplicate.")
+            mu4e-headers-default-prefix       (purecopy '("|"  . "|")))) ;"Default."
+#+END_SRC
+**** TODO org and mu4e
+[[mu4e:msgid:m2pphdpjyc.fsf@gmail.com][yet another mu4e/org solution]]
 ** Minor modes
 *** ido                                                          :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
