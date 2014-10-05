@@ -205,11 +205,13 @@ Some sensible defaults
   (req-package smart-mode-line
                :require diminish
                :config
-               (progn (setq sml/theme 'automatic)
+               (progn
+                   (setq sml/theme 'automatic)
                    ;; replace common paths
                    (add-to-list 'sml/replacer-regexp-list '("^/Volumes/devHD/" "::"))
                    (add-to-list 'sml/replacer-regexp-list '("^~/dev/" "::"))
 
+                   (setq sml/projectile-replacement-format "[%s]")
                    ;; hide minor modes
                    ;; (add-to-list 'sml/hidden-modes " Projectile")
                    ;; (add-to-list 'sml/hidden-modes " ,")
