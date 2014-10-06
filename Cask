@@ -56,6 +56,7 @@
 (depends-on "pallet")
 (depends-on "paradox")
 (depends-on "pkg-info")
+(depends-on "popup")
 (depends-on "popwin")
 (depends-on "projectile")
 (depends-on "puppet-mode")
