@@ -1785,7 +1785,7 @@ Do the req-package magic and load my file of secrets
 #+END_SRC
 * TODO look in to
 ** mail attachments with dired
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_EXAMPLE emacs-lisp
 ;; Attach files via dired
 ;; mark, C-c RET C-a
 ;; from http://www.djcbsoftware.nl/code/mu/mu4e/Attaching-files-with-dired.html#Attaching-files-with-dired
@@ -1807,9 +1807,9 @@ Do the req-package magic and load my file of secrets
 
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
-#+END_SRC
+#+END_EXAMPLE
 ** wcheck-mode
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_EXAMPLE emacs-lisp
 ;; Alternative spell check mode that checks visible buffer
 ;; https://github.com/tlikonen/wcheck-mode
 (require 'wcheck-mode)
@@ -1825,4 +1825,4 @@ Do the req-package magic and load my file of secrets
         ;; ("Another language"
          ;; ...)))
 ))
-#+END_SRC
+#+END_EXAMPLE
