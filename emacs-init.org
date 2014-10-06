@@ -1447,13 +1447,20 @@ The =znc-servers= variable is set from a private el file'
 
 #+END_SRC
 *** Mail
+**** mu4e
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
-  (req-package async)
-  (require 'mu4e)
-  ;;  (require 'setup-gnus-dired) ;; attachments from dired, mark C-c RET C-a
-  (require 'org-mu4e)
+  (req-package mu4e
+      :require async
+      :load-path "/usr/share/emacs/site-lisp/mu4e"
+      :commands mu4e
+      :config
+      (my/load-secrets "mu4e")
+#+END_SRC
+***** paths and files
 
+Basic mu4e setup: paths to binaries and where to find and put files.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
   ;; use mu4e as default mailclient
   (setq mail-user-agent 'mu4e-user-agent ;; default mail client
         ;; osx
@@ -1465,34 +1472,73 @@ The =znc-servers= variable is set from a private el file'
         mu4e-maildir "~/Maildir"
         mu4e-attachment-dir  "~/Downloads/mail-attachments"
         mu4e-action-tags-header "X-Keywords" ;; thanks to offlineimap gmail
-        mu4e-attachment-dir "~/Downloads"
-        )
+        mu4e-attachment-dir "~/Downloads")
+#+END_SRC
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; VISUAL
+***** visual
 
-  ;; use fancy characters where possible
-  (setq mu4e-use-fancy-chars t)
-
+#+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
-  ;; convert html messages
-  ;; TODO: removes links...
-  (setq mu4e-html2text-command "w3m -dump -T text/html")
-
   ;; enable inline images
-  (setq mu4e-view-show-images t)
-  (setq mu4e-view-image-max-width 400)
+  (setq mu4e-view-show-images t
+        mu4e-view-image-max-width 400)
   ;; use imagemagick, if available
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
 
   (setq mu4e-headers-fields '((:human-date . 8) (:flags . 5) (:from-or-to . 22) (:subject))
         mu4e-headers-date-format "%d/%m/%y")
+#+END_SRC
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; BEHAVIOUR
+****** fancy chars
 
+mu4e can use fancy characters in the header view
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; use fancy characters where possible
+  (setq mu4e-use-fancy-chars t)
+#+END_SRC
+
+But they are not really that nice, especially the threading stuff.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (when (and (eq t mu4e-use-fancy-chars)
+             (member "FontAwesome" (font-family-list)))
+  ;; marks for headers of the form; each is a cons-cell (basic . fancy)
+  ;; each of which is basic ascii char and something fancy, respectively
+        ;; (setq mu4e-headers-draft-mark     (purecopy '("D" . "⚒")) ;"Draft.")
+            ;; mu4e-headers-flagged-mark   (purecopy '("F" . "⚑")) ;"Flagged.")
+            ;; mu4e-headers-new-mark       (purecopy '("N" . "⭑")) ;"New.")
+            ;; mu4e-headers-passed-mark    (purecopy '("P" . "")) ;"Passed (fwd).")
+            ;; mu4e-headers-replied-mark   (purecopy '("R" . "")) ; Replied
+            ;; mu4e-headers-seen-mark      (purecopy '("S" . "✔")) ;"Seen.")
+            ;; mu4e-headers-trashed-mark   (purecopy '("T" . "♻")) ;"Trashed.")
+            ;; mu4e-headers-attach-mark    (purecopy '("a" . "")) ; W/ attachments
+            ;; mu4e-headers-encrypted-mark (purecopy '("x" . "⚴")) ;"Encrypted.") 
+            ;; mu4e-headers-signed-mark    (purecopy '("s" . "☡")) ;"Signed.") 
+            ;; mu4e-headers-unread-mark    (purecopy '("u" . "☐")) ;"Unread.")
+
+            ;; thread prefix marks
+    (setq  mu4e-headers-has-child-prefix    (purecopy '("+"  . "+"))  ;"Parent.")
+           mu4e-headers-empty-parent-prefix (purecopy '("-"  . "-"))  ;"Orphan.")
+           mu4e-headers-first-child-prefix  (purecopy '("\\" . "\\")) ;"First child.")
+           mu4e-headers-duplicate-prefix    (purecopy '("="  . "="))  ;"Duplicate.")
+           mu4e-headers-default-prefix       (purecopy '("|"  . "|")))) ;"Default."
+#+END_SRC
+
+****** TODO html to text conversion
+
+Current implementation removes links and produces subpar output actually.
+Find a better solution...
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; convert html messages
+  (setq mu4e-html2text-command "w3m -dump -T text/html")
+#+END_SRC
+
+***** behaviour
+#+BEGIN_SRC emacs-lisp :tangle yes
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
 
@@ -1507,16 +1553,36 @@ The =znc-servers= variable is set from a private el file'
 
   ;; Crypto
   (setq mu4e-auto-retrieve-keys t)
+#+END_SRC
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; SHORTCUTS ETC
+***** maildirs
 
-  ;; setup some maildir shortcuts
-  ;; Syncing only All Mail for gmail, of limited use
+I'm currently using offlineimap to sync all mail and then use tags (also see [[*tags][tags]])
+So this is just for reference:
+
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; (setq mu4e-maildir-shortcuts
   ;;      '( (my/mu4e-maildir-pers . ?j)
   ;;         (my/mu4e-maildir-pro . ?t)))
+#+END_SRC
 
+***** tags
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'mu4e-bookmarks '("tag:\\\\Sent and date:1w..now" "Sent this week" ?s))
+  (add-to-list 'mu4e-bookmarks '("flag:unread and date:today..now" "Today's unread messages" ?d))
+  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox and date:today..now" "Today's inbox" ?n))
+  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox" "Unified inbox" ?I))
+  (add-to-list 'mu4e-bookmarks '("tag:-Social" "Category Social" ?S) t)
+  (add-to-list 'mu4e-bookmarks '("tag:-Promotions" "Category Promotions" ?P) t)
+  (add-to-list 'mu4e-bookmarks '("tag:-Updates" "Category Updates" ?U) t)
+  (add-to-list 'mu4e-bookmarks '("tag:-Forums" "Category Forums" ?F) t)
+  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox NOT tag:-Social NOT tag:-Forums NOT tag:-Updates NOT tag:-Promotions" "Unified inbox Clean" ?i))
+#+END_SRC
+
+***** actions
+
+#+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'mu4e-view-actions
                '("retag-message" . mu4e-action-retag-message) t)
   (add-to-list 'mu4e-headers-actions
@@ -1555,21 +1621,13 @@ The =znc-servers= variable is set from a private el file'
                '("trash message" . my/mu4e-action-trash-message) t)
   (add-to-list 'mu4e-view-actions
                '("View in browser" . mu4e-action-view-in-browser) t)
+#+END_SRC
 
-  (add-to-list 'mu4e-bookmarks '("tag:\\\\Sent and date:1w..now" "Sent this week" ?s))
-  (add-to-list 'mu4e-bookmarks '("flag:unread and date:today..now" "Today's unread messages" ?d))
-  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox and date:today..now" "Today's inbox" ?n))
-  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox" "Unified inbox" ?I))
-  (add-to-list 'mu4e-bookmarks '("tag:-Social" "Category Social" ?S) t)
-  (add-to-list 'mu4e-bookmarks '("tag:-Promotions" "Category Promotions" ?P) t)
-  (add-to-list 'mu4e-bookmarks '("tag:-Updates" "Category Updates" ?U) t)
-  (add-to-list 'mu4e-bookmarks '("tag:-Forums" "Category Forums" ?F) t)
-  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox NOT tag:-Social NOT tag:-Forums NOT tag:-Updates NOT tag:-Promotions" "Unified inbox Clean" ?i))
+****** TODO fix trashing
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; DEFUNS
+***** composing
 
-  ;; from mu4e docs
+#+BEGIN_SRC emacs-lisp :tangle yes
   (defun my/mu4e-set-account ()
     "Set the account for composing a new message."
     (let* ((account
@@ -1589,11 +1647,16 @@ The =znc-servers= variable is set from a private el file'
              (error "No email account found"))))
 
   (add-hook 'mu4e-compose-pre-hook 'my/mu4e-set-account)
+#+END_SRC
 
-  ;; sending mail
-  ;; also, make sure the gnutls command line utils are installed
-  ;; package 'gnutls-bin' in Debian/Ubuntu
+***** sending
 
+Mail can be sent synchronously or asynchronously.
+Going with synchronous for now.
+
+Also, make sure gnutls are installed (for signing/encrypting messages)
+
+#+BEGIN_SRC emacs-lisp :tangle yes
   (require 'smtpmail)
   ;;(require 'smtpmail-async)
   (setq ;; send-mail-function 'async-smtpmail-send-it
@@ -1617,48 +1680,23 @@ The =znc-servers= variable is set from a private el file'
   ;;     smtpmail-default-smtp-server "smtp.gmail.com"
   ;;     smtpmail-smtp-server "smtp.gmail.com"
   ;;     smtpmail-smtp-service 587)
-
-
-
-  ;; TODO:
-  ;; http://pablo.rauzy.name/dev/init.el.html
-  ;; https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/setup-mu4e.el
-  ;; https://github.com/agpchil/mu4e-maildirs-extension
-  ;; https://bitbucket.org/seanfarley/dotfiles/src/69cbcf0dd9d6cb2c7aaa18e7a196315035ad4181/emacs/init/mail.el?at=default
-
-  ;; reference
-  ;; https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
-
 #+END_SRC
-**** fancy chars
-Mu4e offers fancy chars, but they are not really that nice, especially
-the threading stuff.
 
-#+BEGIN_SRC elisp :tangle yes
-    (when (and (eq t mu4e-use-fancy-chars)
-              (member "FontAwesome" (font-family-list)))
-  ;; marks for headers of the form; each is a cons-cell (basic . fancy)
-  ;; each of which is basic ascii char and something fancy, respectively
-        (setq mu4e-headers-draft-mark     (purecopy '("D" . "⚒")) ;"Draft.")
-            mu4e-headers-flagged-mark   (purecopy '("F" . "⚑")) ;"Flagged.")
-            mu4e-headers-new-mark       (purecopy '("N" . "⭑")) ;"New.")
-            mu4e-headers-passed-mark    (purecopy '("P" . "")) ;"Passed (fwd).")
-            mu4e-headers-replied-mark   (purecopy '("R" . "")) ; Replied
-            mu4e-headers-seen-mark      (purecopy '("S" . "✔")) ;"Seen.")
-            mu4e-headers-trashed-mark   (purecopy '("T" . "♻")) ;"Trashed.")
-            mu4e-headers-attach-mark    (purecopy '("a" . "")) ; W/ attachments
-            mu4e-headers-encrypted-mark (purecopy '("x" . "⚴")) ;"Encrypted.") 
-            mu4e-headers-signed-mark    (purecopy '("s" . "☡")) ;"Signed.") 
-            mu4e-headers-unread-mark    (purecopy '("u" . "☐")) ;"Unread.")
-
-            ;; thread prefix marks
-            mu4e-headers-has-child-prefix    (purecopy '("+"  . "+"))  ;"Parent.")
-            mu4e-headers-empty-parent-prefix (purecopy '("-"  . "-"))  ;"Orphan.")
-            mu4e-headers-first-child-prefix  (purecopy '("\\" . "\\")) ;"First child.")
-            mu4e-headers-duplicate-prefix    (purecopy '("="  . "="))  ;"Duplicate.")
-            mu4e-headers-default-prefix       (purecopy '("|"  . "|")))) ;"Default."
+***** close req-package
+#+BEGIN_SRC emacs-lisp :tangle yes
+)
 #+END_SRC
-**** TODO org and mu4e
+
+***** some inspiration
+http://pablo.rauzy.name/dev/init.el.html
+https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/setup-mu4e.el
+https://github.com/agpchil/mu4e-maildirs-extension
+https://bitbucket.org/seanfarley/dotfiles/src/69cbcf0dd9d6cb2c7aaa18e7a196315035ad4181/emacs/init/mail.el?at=default
+
+reference
+https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
+
+****** TODO org and mu4e
 [[mu4e:msgid:m2pphdpjyc.fsf@gmail.com][yet another mu4e/org solution]]
 ** Minor modes
 *** ido                                                          :mode:minor:
