@@ -1527,16 +1527,22 @@ But they are not really that nice, especially the threading stuff.
            mu4e-headers-default-prefix       (purecopy '("|"  . "|")))) ;"Default."
 #+END_SRC
 
-****** TODO html to text conversion
+****** html to text conversion
 
-Current implementation removes links and produces subpar output actually.
-Find a better solution...
+A very basic html stripper
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; convert html messages
   (setq mu4e-html2text-command "w3m -dump -T text/html")
 #+END_SRC
 
+Emacs 24.4 added shr.el, which does a better job at showing HTML.
+(It is also used in eww). It does feel a bit slow though
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'mu4e-contrib)
+  (setq mu4e-html2text-command 'mu4e-shr2text)
+#+END_SRC
 ***** behaviour
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
