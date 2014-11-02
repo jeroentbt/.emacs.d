@@ -1560,6 +1560,29 @@ Emacs 24.4 added shr.el, which does a better job at showing HTML.
   ;; Crypto
   (setq mu4e-auto-retrieve-keys t)
 #+END_SRC
+****** scrolling the headers
+When the buffer "*mu4e-view" is visible and you move to the next or previous message,
+the headers will follow, but not in a smooth-scrolling way
+
+This is a little workaround to make that happen. (the value on recenter does not work
+as advertised)
+This could probably be made a bit more DRY.
+
+inspired by this email thread [[mu4e:msgid:87tx4g1n8a.fsf@gmail.com][Re: {Got} nice scrolling behaviour in header view]]
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(defadvice mu4e-view-headers-next (around scroll-down-mu4e-header activate)
+  "Recenter the mu4e-header window around the visible header when moving onto
+next email"
+  (with-selected-window (get-buffer-window mu4e~headers-buffer t) (recenter 1))
+  ad-do-it)
+
+(defadvice mu4e-view-headers-prev (around scroll-up-mu4e-header activate)
+  "Recenter the mu4e-header window around the visible header when moving onto
+previous email"
+  (with-selected-window (get-buffer-window mu4e~headers-buffer t) (recenter -1))
+  ad-do-it)
+#+END_SRC
 
 ***** maildirs
 
