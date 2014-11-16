@@ -1816,14 +1816,16 @@ Read more here: http://emacs-helm.github.io/helm/
 
 *** Projectile                                                   :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-      (req-package projectile
+        (req-package projectile
+          :require (helm helm-projectile)
           :config
-          ;; C-c p a now opens other file with same name - but different extension
-          ;; Add this to switch between js and html file
-          (progn (add-to-list 'projectile-other-file-alist '("js" . ("html")))
-              (add-to-list 'projectile-other-file-alist '("html" . ("js"))))
+            ;; C-c p a now opens other file with same name - but different extension
+            ;; Add this to switch between js and html file
+            (progn (add-to-list 'projectile-other-file-alist '("js" . ("html")))
+                   (add-to-list 'projectile-other-file-alist '("html" . ("js"))))
           :init
-          (projectile-global-mode))
+          (projectile-global-mode)
+          (helm-projectile-on))
 #+END_SRC
 **** Keybindings                                                :keybindings:
 "C-c p" followed by a key
