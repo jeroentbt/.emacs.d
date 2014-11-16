@@ -841,6 +841,7 @@ Make colors appear on modeline
                (global-discover-mode 1))
 #+END_SRC
 ***** dash
+****** dash (OSX)
 Dash is an offline documentation browser for OSX
 http://kapeli.com/dash
 Zeal is the equivalent on linux.
@@ -849,11 +850,58 @@ Zeal is the equivalent on linux.
       :if is-osx
       :bind ("C-c d" . dash-at-point))
 #+END_SRC
-****** TODO look in to helm-dash                                    :feature:
-       :PROPERTIES:
-       :ID:       b2a2f982-2722-4b3b-959b-3d1102e48b71
-       :END:
+****** helm-dash
+#+BEGIN_SRC emacs-lisp :tangle yes
+      (req-package helm-dash
+        :require (helm esqlite)
+        :config
 
+        (defun my/dash-install-docset (docset)
+          (let ((this-docset-path (expand-file-name
+                                   (concat docset ".docset")
+                                   helm-dash-docsets-path)))
+            (unless (file-exists-p this-docset-path)
+              (helm-dash-install-docset docset))))
+
+        ;; install docsets
+        (my/dash-install-docset "JavaScript")
+        (my/dash-install-docset "jQuery")
+        (my/dash-install-docset "Grunt")
+        (my/dash-install-docset "D3JS")
+        (my/dash-install-docset "Meteor")
+        (my/dash-install-docset "MomentJS")
+        (my/dash-install-docset "Lo-Dash")
+        (my/dash-install-docset "UnderscoreJS")
+
+        (my/dash-install-docset "HTML")
+        (my/dash-install-docset "Bootstrap_3")
+        (my/dash-install-docset "Foundation")
+        (my/dash-install-docset "Emmet")
+
+        (my/dash-install-docset "CSS")
+        (my/dash-install-docset "Less")
+        (my/dash-install-docset "Sass")
+        (my/dash-install-docset "Stylus")
+        (my/dash-install-docset "Compass")
+        (my/dash-install-docset "Bourbon")
+
+        (my/dash-install-docset "Bash")
+        (my/dash-install-docset "Font_Awesome")
+
+        (my/dash-install-docset "MongoDB")
+
+        (my/dash-install-docset "Markdown")
+        (my/dash-install-docset "SVG")
+
+        ;; (setq helm-dash-browser-func 'eww)
+        (setq helm-dash-browser-func nil)
+        :bind
+        (("C-c d d" . helm-dash-at-point)
+         ("C-c d SPC" . helm-dash)
+         ("C-c d a" . helm-dash-activate-docset)
+         ("C-c d r" . helm-dash-reset-connections)))
+
+#+END_SRC
 **** expand-region                                               :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package expand-region
@@ -1805,11 +1853,6 @@ Read more here: http://emacs-helm.github.io/helm/
   (req-package helm-config
     :require (helm async helm-ag)
     :bind ("C-c h" . helm-mini))
-
-  (req-package helm-dash
-    :require (helm esqlite)
-    //:init (setq helm-dash-browser-func nil)
-    )
 #+END_SRC
 
 ** Workspaces
