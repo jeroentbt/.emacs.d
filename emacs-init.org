@@ -1796,6 +1796,22 @@ indent_size = 2
   (load "editorconfig")
 #+END_SRC
 
+*** helm
+
+Helm is an incremental completion and selection framework for emacs.
+Read more here: http://emacs-helm.github.io/helm/
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package helm-config
+    :require (helm async helm-ag)
+    :bind ("C-c h" . helm-mini))
+
+  (req-package helm-dash
+    :require (helm esqlite)
+    //:init (setq helm-dash-browser-func nil)
+    )
+#+END_SRC
+
 ** Workspaces
 
 *** Projectile                                                   :mode:minor:
