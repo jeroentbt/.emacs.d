@@ -1022,7 +1022,7 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
 
 #+END_SRC
 **** Auto complete
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (req-package auto-complete
                :init
                ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
@@ -1031,9 +1031,19 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
 
 #+END_SRC
 
-***** TODO look in to company-mode
+***** company-mode
 Looks like a nice alternative with less confusing completion
 http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_which_is_better/
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package company
+    :init (global-company-mode)
+    :config (setq company-idle-delay 0.3
+                  company-minimum-prefix-length 2
+                  company-transformers '(company-sort-by-occurrence))
+     :bind ("M-<tab>" . company-complete))
+#+END_SRC
+
 **** Tramp
 Tramp is fastest over ssh (for not to large files)
 Or open files as root
@@ -1247,11 +1257,10 @@ salvaged from old config:
       (add-to-list 'load-path "/usr/local/lib/node_modules/tern/emacs"))
 
   (autoload 'tern-mode "tern.el" nil t)
-  (eval-after-load 'tern
-     '(progn
-        (require 'tern-auto-complete)
-        (tern-ac-setup)))
 
+  (req-package company-tern
+    :require (company tern)
+    :config (add-to-list 'company-backends 'company-tern))
 #+END_SRC
 **** general
 #+BEGIN_SRC emacs-lisp :tangle yes
