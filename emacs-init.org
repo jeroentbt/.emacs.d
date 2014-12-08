@@ -852,54 +852,56 @@ Zeal is the equivalent on linux.
 #+END_SRC
 ****** helm-dash
 #+BEGIN_SRC emacs-lisp :tangle yes
-      (req-package helm-dash
-        :require (helm esqlite)
-        :config
+  (req-package helm-dash
+    :require (helm esqlite)
+    :config
 
-        (defun my/dash-install-docset (docset)
-          (let ((this-docset-path (expand-file-name
-                                   (concat docset ".docset")
-                                   helm-dash-docsets-path)))
-            (unless (file-exists-p this-docset-path)
-              (helm-dash-install-docset docset))))
+    (defun my/dash-install-docset (docset)
+      (let ((this-docset-path (expand-file-name
+                               (concat docset ".docset")
+                               helm-dash-docsets-path)))
+        (unless (file-exists-p this-docset-path)
+          (helm-dash-install-docset docset))))
 
-        ;; install docsets
-        (my/dash-install-docset "JavaScript")
-        (my/dash-install-docset "jQuery")
-        (my/dash-install-docset "Grunt")
-        (my/dash-install-docset "D3JS")
-        (my/dash-install-docset "Meteor")
-        (my/dash-install-docset "MomentJS")
-        (my/dash-install-docset "Lo-Dash")
-        (my/dash-install-docset "UnderscoreJS")
+    ;; install docsets
+    (my/dash-install-docset "JavaScript")
+    (my/dash-install-docset "jQuery")
+    (my/dash-install-docset "Grunt")
+    (my/dash-install-docset "D3JS")
+    (my/dash-install-docset "Meteor")
+    (my/dash-install-docset "MomentJS")
+    (my/dash-install-docset "Lo-Dash")
+    (my/dash-install-docset "UnderscoreJS")
 
-        (my/dash-install-docset "HTML")
-        (my/dash-install-docset "Bootstrap_3")
-        (my/dash-install-docset "Foundation")
-        (my/dash-install-docset "Emmet")
+    (my/dash-install-docset "HTML")
+    (my/dash-install-docset "Bootstrap_3")
+    (my/dash-install-docset "Foundation")
+    (my/dash-install-docset "Emmet")
 
-        (my/dash-install-docset "CSS")
-        (my/dash-install-docset "Less")
-        (my/dash-install-docset "Sass")
-        (my/dash-install-docset "Stylus")
-        (my/dash-install-docset "Compass")
-        (my/dash-install-docset "Bourbon")
+    (my/dash-install-docset "CSS")
+    (my/dash-install-docset "Less")
+    (my/dash-install-docset "Sass")
+    (my/dash-install-docset "Stylus")
+    (my/dash-install-docset "Compass")
+    (my/dash-install-docset "Bourbon")
 
-        (my/dash-install-docset "Bash")
-        (my/dash-install-docset "Font_Awesome")
+    (my/dash-install-docset "Bash")
+    (my/dash-install-docset "Font_Awesome")
 
-        (my/dash-install-docset "MongoDB")
+    (my/dash-install-docset "MongoDB")
 
-        (my/dash-install-docset "Markdown")
-        (my/dash-install-docset "SVG")
+    (my/dash-install-docset "Markdown")
+    (my/dash-install-docset "SVG")
 
-        ;; (setq helm-dash-browser-func 'eww)
-        (setq helm-dash-browser-func nil)
-        :bind
-        (("C-c d d" . helm-dash-at-point)
-         ("C-c d SPC" . helm-dash)
-         ("C-c d a" . helm-dash-activate-docset)
-         ("C-c d r" . helm-dash-reset-connections)))
+    (my/dash-install-docset "Processing")
+
+    ;; (setq helm-dash-browser-func 'eww)
+    (setq helm-dash-browser-func nil)
+    :bind
+    (("C-c d d" . helm-dash-at-point)
+     ("C-c d SPC" . helm-dash)
+     ("C-c d a" . helm-dash-activate-docset)
+     ("C-c d r" . helm-dash-reset-connections)))
 
 #+END_SRC
 **** expand-region                                               :mode:minor:
@@ -1311,6 +1313,25 @@ salvaged from old config:
                :mode "\\.pp\\'")
 
 #+END_SRC
+*** processing
+
+C-c C-p r    Run a sketch.
+C-c C-p b    Compile a sketch into .class files.
+C-c C-p p    Run a sketch full screen.
+C-c C-p e    Export sketch.
+C-c C-p d    Find in reference.
+C-c C-p f    Find or create sketch.
+C-c C-p s    Search in Processing forum.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package processing-mode
+    :config
+    (setq processing-location "/usr/share/processing/processing-java")
+    (setq processing-application-dir "/usr/share/processing/processing")
+    (setq processing-sketchbook-dir "~/Code/processing")
+    :mode "\\.pde\\'")
+#+END_SRC
+
 ** Search
 *** Ag
 The silver searches is nice and fast for searching inside code repos
