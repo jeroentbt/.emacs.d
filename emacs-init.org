@@ -1052,6 +1052,14 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
        :bind ("M-<tab>" . company-complete))
 #+END_SRC
 
+**** yasnippet
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package yasnippet
+    :init (yas-global-mode 1)
+    :config (add-to-list 'company-backends 'company-yasnippet))
+#+END_SRC
+
 **** Tramp
 Tramp is fastest over ssh (for not to large files)
 Or open files as root
