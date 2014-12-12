@@ -1583,6 +1583,9 @@ Basic mu4e setup: paths to binaries and where to find and put files.
 
   (setq mu4e-headers-fields '((:human-date . 8) (:flags . 5) (:from-or-to . 22) (:subject))
         mu4e-headers-date-format "%d/%m/%y")
+
+  ;; show full email
+  (setq mu4e-view-show-addresses t)
 #+END_SRC
 
 ****** fancy chars
