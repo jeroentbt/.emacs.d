@@ -1905,10 +1905,16 @@ indent_size = 2
 Helm is an incremental completion and selection framework for emacs.
 Read more here: http://emacs-helm.github.io/helm/
 
+Helm autoresize heights are set in percentages. If set to the same
+amount, the helm buffer will be fixed size.
+
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package helm-config
-    :require (helm async helm-ag)
-    :bind ("C-c h" . helm-mini))
+    (req-package helm-config
+      :require (helm async helm-ag)
+      :bind ("C-c h" . helm-mini)
+      :config ((setq helm-autoresize-max-height 40
+                     helm-autoresize-min-height 10))
+      :init (helm-autoresize-mode 1))
 #+END_SRC
 
 ** Workspaces
