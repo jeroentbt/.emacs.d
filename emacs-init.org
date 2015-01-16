@@ -534,7 +534,7 @@ Lets you jump from one window to the next
                :init
                (smex-initialize)
                :bind
-               (("M-x" . smex)
+               (;; ("M-x" . smex) ;; -> replace by helm
                 ("M-X" . smex-major-mode-commands)
                 ("C-c C-c M-x" . execute-extended-command)))
 
@@ -660,10 +660,13 @@ Easier than C-a, C-k
 #+END_SRC
 ***** TODO C-; is bound by flyspell to auto correct previous word       :bug:
 **** Browse kill ring
+A helm alternative exists (helm-show-kill-ring), but browse kill ring
+offer a lot more features (delete, edit, ...).
+Keeping this one in, with some finger gymnsastics.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package browse-kill-ring
                :bind
-               ("M-y" . browse-kill-ring))
+               ("C-M-y" . browse-kill-ring))
 #+END_SRC
 **** Copy/Cut curent line if no selection
      :PROPERTIES:
@@ -970,9 +973,11 @@ We'll be using popwin to make it pop!
                ("C-x C-j" . direx-project:jump-to-project-root-other-window))
 #+END_SRC
 **** recent files
+This functionality is offered by helm mini. See helm config
+
 Find recent files
 from: Magnars https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/defuns/buffer-defuns.el
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (req-package s)
 
   (defvar user-home-directory (concat (expand-file-name "~") "/"))
@@ -1909,12 +1914,26 @@ Helm autoresize heights are set in percentages. If set to the same
 amount, the helm buffer will be fixed size.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package helm-config
-      :require (helm async helm-ag)
-      :bind ("C-c h" . helm-mini)
-      :config ((setq helm-autoresize-max-height 40
-                     helm-autoresize-min-height 10))
-      :init (helm-autoresize-mode 1))
+  (req-package helm-config
+    :require (helm async helm-ag helm-swoop)
+    :bind (("C-c h" . helm-command-prefix)
+           ("M-x" . helm-M-x)
+           ("M-y" . helm-show-kill-ring)
+           ("C-x f" . helm-mini)
+           ("C-x r b" . helm-bookmarks)
+           ("C-x b" . helm-buffers-list))
+    :config (progn (setq helm-M-x-fuzzy-match t
+                         helm-recentf-fuzzy-match t
+                         helm-semantic-fuzzy-match t
+                         helm-imenu-fuzzy-match t
+                         helm-buffers-fuzzy-matching t
+                         helm-autoresize-max-height 40
+                         helm-autoresize-min-height 10)
+                   (global-set-key (kbd "C-c h o") 'helm-occur)
+                   (global-set-key (kbd "C-c h SPC") 'helm-all-mark-rings)
+                   (global-set-key (kbd "C-c h g") 'helm-do-ag)
+                   (global-set-key (kbd "C-c h I") 'helm-swoop))
+    :init (helm-autoresize-mode 1))
 #+END_SRC
 
 ** Workspaces
