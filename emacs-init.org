@@ -325,12 +325,6 @@ Some sensible defaults
                (sml/setup))
 #+END_SRC
 **** Buffers and windows
-**** Darkroom
-Darkroom mode offers a write centric, no clutter interface
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package darkroom)
-#+end_src
 
 ***** ibuffer
 Start using ibuffer
@@ -430,6 +424,13 @@ Lets you jump from one window to the next
                ("<M-S-left>" . buf-move-left)
                ("<M-S-right>" . buf-move-right))
 #+END_SRC
+
+**** Darkroom
+Darkroom mode offers a write centric, no clutter interface
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package darkroom)
+#+end_src
 
 **** Line numbers
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2034,4 +2035,70 @@ Do the req-package magic and load my file of secrets
         ;; ("Another language"
          ;; ...)))
 ))
+#+END_EXAMPLE
+
+
+* Fixing bugs
+
+** 2015-01-16 gpg 2.1 eps-list-keys bug
+Prevents using gpg keys in emacs to send mail, list keys etc
+see https://bbs.archlinux.org/viewtopic.php?id=190497
+
+solution, replace the existing code to ignore extra arguments:
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun epg--list-keys-1 (context name mode)
+    (let ((args (append (if (epg-context-home-directory context)
+                            (list "--homedir"
+                                  (epg-context-home-directory context)))
+                        '("--with-colons" "--no-greeting" "--batch"
+                          "--with-fingerprint" "--with-fingerprint")
+                        (unless (eq (epg-context-protocol context) 'CMS)
+                          '("--fixed-list-mode"))))
+          (list-keys-option (if (memq mode '(t secret))
+                                "--list-secret-keys"
+                              (if (memq mode '(nil public))
+                                  "--list-keys"
+                                "--list-sigs")))
+          (coding-system-for-read 'binary)
+          keys string field index)
+      (if name
+          (progn
+            (unless (listp name)
+              (setq name (list name)))
+            (while name
+              (setq args (append args (list list-keys-option (car name)))
+                    name (cdr name))))
+        (setq args (append args (list list-keys-option))))
+      (with-temp-buffer
+        (apply #'call-process
+               (epg-context-program context)
+               nil (list t nil) nil args)
+        (goto-char (point-min))
+        (while (re-search-forward "^[a-z][a-z][a-z]:.*" nil t)
+          (setq keys (cons (make-vector 15 nil) keys)
+                string (match-string 0)
+                index 0
+                field 0)
+          (while (and (< field (length (car keys)))
+                      (eq index
+                          (string-match "\\([^:]+\\)?:" string index)))
+            (setq index (match-end 0))
+            (aset (car keys) field (match-string 1 string))
+            (setq field (1+ field))))
+        (nreverse keys))))
+#+END_SRC
+
+#+END_SRC
+
+** 2015-01-16 discover.el messing with keybindings
+see http://www.reddit.com/r/emacs/comments/2sbxun/help_undotreemode_eating_bindings/
+
+solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/discover-20140103.1339/discover.el][discover.el]]
+
+#+BEGIN_EXAMPLE emacs-lisp
+  ;;;Rectangles - C-x r ...
+  368     ;;(rectangles nil nil "C-x r")
+  369     ;; Isearch
+  370     ;;(isearch nil nil "M-s")
 #+END_EXAMPLE
