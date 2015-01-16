@@ -325,12 +325,6 @@ Some sensible defaults
                (sml/setup))
 #+END_SRC
 **** Buffers and windows
-**** Darkroom
-Darkroom mode offers a write centric, no clutter interface
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package darkroom)
-#+end_src
 
 ***** ibuffer
 Start using ibuffer
@@ -430,6 +424,13 @@ Lets you jump from one window to the next
                ("<M-S-left>" . buf-move-left)
                ("<M-S-right>" . buf-move-right))
 #+END_SRC
+
+**** Darkroom
+Darkroom mode offers a write centric, no clutter interface
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package darkroom)
+#+end_src
 
 **** Line numbers
 #+BEGIN_SRC emacs-lisp :tangle yes
