@@ -1420,6 +1420,18 @@ The silver searches is nice and fast for searching inside code repos
                            "~/Dropbox/org/trickle.org"))
   (setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org")
 #+END_SRC
+**** Babel
+
+Org-babel allows you to add src blocks etc.
+
+The code in SRC blocks can be evaluated, languages have to be permitted though.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (org-babel-load-languages '((js . t)
+                              (sh . t)
+                              (org . t)
+                              (python . t)))
+#+END_SRC
+
 **** TODO Visuals
 #+BEGIN_SRC emacs-lisp :tangle no
   ;; install then first...
