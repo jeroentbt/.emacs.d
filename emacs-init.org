@@ -1431,10 +1431,17 @@ Org-babel allows you to add src blocks etc.
 
 The code in SRC blocks can be evaluated, languages have to be permitted though.
 #+BEGIN_SRC emacs-lisp :tangle yes
+<<<<<<< HEAD
   (org-babel-load-languages '((js . t)
                               (sh . t)
                               (org . t)
                               (python . t)))
+=======
+  (setq org-babel-load-languages '((js . t)
+                                   (sh . t)
+                                   (org . t)
+                                   (python . t)))
+>>>>>>> master
 #+END_SRC
 
 **** TODO Visuals
