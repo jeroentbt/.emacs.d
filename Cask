@@ -49,6 +49,8 @@
 (depends-on "jedi")
 (depends-on "js2-mode")
 (depends-on "js2-refactor")
+(depends-on "json-mode")
+(depends-on "json-reformat")
 (depends-on "magit")
 (depends-on "multiple-cursors")
 (depends-on "org")

@@ -289,8 +289,8 @@ Some sensible defaults
 
   ;; set the font
   (if is-osx
-      (set-face-attribute 'default nil :family "source code pro" :weight "light")
-      (set-default-font "SourceCodePro-10"))
+      (set-face-attribute 'default nil :family "source code pro" :weight "light"))
+;      (set-default-font "xft:Source Code Pro:size=10"))
 
   ;; set a default fontset to use for displaying unicode characters
   (set-fontset-font "fontset-default" nil
@@ -903,8 +903,9 @@ Zeal is the equivalent on linux.
 
     (my/dash-install-docset "Processing")
 
-    ;; (setq helm-dash-browser-func 'eww)
-    (setq helm-dash-browser-func nil)
+    ;;(setq helm-dash-browser-func 'eww)
+    (setq helm-dash-browser-func 'browse-url)
+
     :bind
     (("C-c d d" . helm-dash-at-point)
      ("C-c d SPC" . helm-dash)
@@ -965,10 +966,9 @@ We'll be using popwin to make it pop!
                :require
                (direx-project popwin)
                :config
-               (push '(direx:direx-mode :position left :width 40 :dedicated t)
+               (progn (push '(direx:direx-mode :position left :width 40 :dedicated t)
                             popwin:special-display-config)
-               :bind
-               ("C-x C-j" . direx-project:jump-to-project-root-other-window))
+                      (global-set-key (kbd "C-x C-j") 'direx-project:jump-to-project-root-other-window)))
 #+END_SRC
 **** recent files
 Find recent files
@@ -1955,6 +1955,7 @@ amount, the helm buffer will be fixed size.
 I'm using the built in feature here
 C-x r m : emacs maRk Make
 C-x r l : emacs maRk list
+C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
 - s to save (otherwise the bookmark does not survive the session)
 - enter to open
 - o to open in new window
