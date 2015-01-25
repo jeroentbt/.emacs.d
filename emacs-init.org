@@ -1640,6 +1640,9 @@ Basic mu4e setup: paths to binaries and where to find and put files.
 
   ;; show full email
   (setq mu4e-view-show-addresses t)
+
+  ;; do not spam the minibuffer about updates
+  (setq mu4e-hide-index-messages t)
 #+END_SRC
 
 ****** fancy chars
@@ -1694,12 +1697,19 @@ Emacs 24.4 added shr.el, which does a better job at showing HTML.
   (require 'mu4e-contrib)
   (setq mu4e-html2text-command 'mu4e-shr2text)
 #+END_SRC
+
+But I prefer to read text emails...
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mu4e-view-prefer-html nil)
+#+end_src
+
 ***** behaviour
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
 
-  ;; don't keep message buffers around
+  ;; don't keep message buffers around when exiting mu4e
   (setq message-kill-buffer-on-exit t)
 
   ;; Strip addresses from mu4e-user-mail-address-list when replying.
@@ -1708,8 +1718,9 @@ Emacs 24.4 added shr.el, which does a better job at showing HTML.
   ;; apply marks when leaving headers buffer
   (setq mu4e-headers-leave-behavior 'apply)
 
-  ;; Crypto
-  (setq mu4e-auto-retrieve-keys t)
+  ;; Spellcheck FTW
+  (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
+
 #+END_SRC
 ****** scrolling the headers
 When the buffer "*mu4e-view" is visible and you move to the next or previous message,
@@ -1734,6 +1745,18 @@ previous email"
   (with-selected-window (get-buffer-window mu4e~headers-buffer t) (recenter -1))
   ad-do-it)
 #+END_SRC
+
+***** crypto
+epa-mail-mode allows you to:
+- C-c C-e e :: encrypt
+- C-c C-e s :: sign
+#+BEGIN_SRC emacs-lisp :tangle yes
+
+  (setq mu4e-auto-retrieve-keys t)
+  (add-hook 'mu4e-compose-mode-hook 'epa-mail-mode)
+  ;; (add-hook 'mu4e-view-mode-hook 'epa-mail-mode)
+
+#+end_src
 
 ***** maildirs
 
