@@ -1502,6 +1502,15 @@ Drag and drop images to org-mode
 **** TODO org-beautify-theme
 Prettify org buffers
 [[https://github.com/jonnay/emagicians-starter-kit/blob/master/themes/org-beautify-theme.org][github]] / [[http://www.jonnay.net/bloggity-blog/2014/12/29_making-org-mode-typography-suck-a-little-less.html][blogpost]]
+**** some help
+***** helm-orgcard
+Browse the orgcard with helm
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (req-package helm-orgcard
+      :require helm)
+#+end_src
+
 *** weechat                                                      :mode:major:
 Weechat needs to be running.
 Switched to erc though. This is just for reference
