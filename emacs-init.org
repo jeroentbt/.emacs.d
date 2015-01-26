@@ -599,6 +599,7 @@ and your backup root is
   (setq make-backup-file-name-function 'my/backup-file-full-dir)
 #+END_SRC
 **** Better visual line mode
+***** Adaptive wrap
 Visual line mode does not take indentation in to account. adaptive-wrap-prefix-mode solves that.
 from: http://stackoverflow.com/a/13561223/1929897
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -612,6 +613,18 @@ from: http://stackoverflow.com/a/13561223/1929897
       (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
     (add-hook 'visual-line-mode-hook 'my/activate-adaptive-wrap-prefix-mode))
 #+END_SRC
+***** window margin
+      :PROPERTIES:
+      :home:      [[https://github.com/aculich/window-margin.el][github]]
+      :END:
+This package will, while activating visual line mode, also use the margins to set the width of the display.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package window-margin
+    :bind ("C-x l W" . window-margin-mode))
+#+end_src
+
+
 **** Ace jump mode
 Ace jump mode! C-c C-c to switch from word to char mode once in ace jump mode.
 Otherwise use universal C-u to toggle behaviour
@@ -1626,7 +1639,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
 ***** visual
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
+  (add-hook 'mu4e-view-mode-hook 'window-margin-mode)
 
   ;; enable inline images
   (setq mu4e-view-show-images t
