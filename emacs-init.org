@@ -598,6 +598,13 @@ and your backup root is
   ;; Actually set the backup dir now
   (setq make-backup-file-name-function 'my/backup-file-full-dir)
 #+END_SRC
+***** Dates and calendar
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq calendar-week-start-day 1
+        european-calendar-style t)
+#+end_src
+
 **** Better visual line mode
 ***** Adaptive wrap
 Visual line mode does not take indentation in to account. adaptive-wrap-prefix-mode solves that.
