@@ -1914,6 +1914,14 @@ Also, make sure gnutls are installed (for signing/encrypting messages)
   ;;     smtpmail-smtp-service 587)
 #+END_SRC
 
+***** mu4e and org
+Enabling this allows you to store links to mail messages in org mode files.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'org-mu4e)
+
+#+end_src
+
 ***** close req-package
 #+BEGIN_SRC emacs-lisp :tangle yes
 )
