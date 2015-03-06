@@ -325,6 +325,25 @@ Some sensible defaults
                (sml/setup))
 #+END_SRC
 **** Buffers and windows
+***** ace-window
+Ace-window offers an ace-jump like interface for jumping to, switching and deleting windows.
+1 universal argument moves current and called window
+2 universal arguments deletes called window
+
+As abo-abo suggests, I'm using the home row to select the windows
+
+n key (as well as another call of M-o) will switch to the previous window
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (req-package ace-window
+      :init
+      (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+            aw-background nil
+            aw-flip-keys '("n" "M-o"))
+      (custom-set-faces
+       '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+      :bind
+      (("M-o" . ace-window)))
+#+end_src
 
 ***** ibuffer
 Start using ibuffer
@@ -397,15 +416,6 @@ Here we sort the buffers for a nicer ibuffer view
 #+END_SRC
 ****** TODO look in to ibuffer-vc.el
 https://github.com/purcell/ibuffer-vc/blob/master/ibuffer-vc.el
-***** windmove
-Lets you jump from one window to the next
-#+BEGIN_SRC emacs-lisp :tangle yes
-  ;; Move windows, even in org-mode
-  (bind-key "<S-right>" 'windmove-right)
-  (bind-key "<S-left>" 'windmove-left)
-  (bind-key "<S-up>" 'windmove-up)
-  (bind-key "<S-down>" 'windmove-down)
-#+END_SRC
 ***** resizing
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; window resizing
@@ -414,17 +424,6 @@ Lets you jump from one window to the next
   (bind-key "S-C-<down>" 'shrink-window)
   (bind-key "S-C-<up>" 'enlarge-window)
 #+END_SRC
-***** move buffers around
-#+BEGIN_SRC emacs-lisp :tangle yes
-  ;; move buffer to window
-  (req-package buffer-move
-               :bind
-               ("<M-S-up>" . buf-move-up)
-               ("<M-S-down>" . buf-move-down)
-               ("<M-S-left>" . buf-move-left)
-               ("<M-S-right>" . buf-move-right))
-#+END_SRC
-
 **** Darkroom
 Darkroom mode offers a write centric, no clutter interface
 
