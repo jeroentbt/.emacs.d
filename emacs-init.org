@@ -1237,9 +1237,11 @@ Just to prevent it from trying to load it twice.")
 *** magit                                                        :mode:major:
 The git interface in emacs
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package magit
-                 :bind
-                 ("C-x m" . magit-status))
+        (req-package magit
+                     :bind
+                     ("C-x m" . magit-status)
+                     :init
+                     (setq magit-last-seen-setup-instructions "1.4.0"))
 #+END_SRC
 *** git-timemachine                                              :mode:major:
 Allows you to walk though different versions of a file
