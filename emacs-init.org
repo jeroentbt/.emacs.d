@@ -756,9 +756,10 @@ from: http://stackoverflow.com/a/9697222/1929897
 **** popwin
 Pop!
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package popwin
-               :init
-               (popwin-mode t))
+    (req-package popwin
+                 :init
+                 (require 'popwin)
+                 (popwin-mode t))
 #+END_SRC
 **** Some help
 ***** guide-key                                                  :mode:minor:
