@@ -1988,7 +1988,8 @@ https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
                        ido-create-new-buffer 'always
                        ido-use-filename-at-point nil
                        ido-max-prospects 10
-                       ido-use-faces nil)
+                       ido-use-faces nil
+                       ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
                  :bind
                  ("C-x M-f" . ido-find-file-other-window))
 #+END_SRC
