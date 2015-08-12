@@ -1631,6 +1631,13 @@ The =znc-servers= variable is set from a private el file'
 
 #+END_SRC
 *** Mail
+**** general
+***** citation
+ #+BEGIN_SRC emacs-lisp :tangle yes
+   ;; On this date X wrote
+   (setq message-citation-line-format "On %A %Y-%m-%d %T %Z, %f wrote:\n")
+   (setq message-citation-line-function 'message-insert-formatted-citation-line)
+ #+END_SRC
 **** mu4e
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package mu4e
