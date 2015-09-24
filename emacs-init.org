@@ -1678,7 +1678,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
 
-  (setq mu4e-headers-fields '((:human-date . 8) (:flags . 5) (:from-or-to . 22) (:subject))
+  (setq mu4e-headers-fields '((:human-date . 8) (:flags . 5) (:from-or-to . 22) (:thread-subject))
         mu4e-headers-date-format "%d/%m/%y")
 
   ;; show full email
@@ -1693,13 +1693,15 @@ Basic mu4e setup: paths to binaries and where to find and put files.
 mu4e can use fancy characters in the header view
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; use fancy characters where possible
-  (setq mu4e-use-fancy-chars t)
+  ;; use fancy characters for marks only, not the threading
+  (setq mu4e-use-fancy-chars 'marks)
 #+END_SRC
 
 But they are not really that nice, especially the threading stuff.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+Fixed in 0.9.13
+
+#+BEGIN_SRC emacs-lisp :tangle no
   (when (and (eq t mu4e-use-fancy-chars)
              (member "FontAwesome" (font-family-list)))
   ;; marks for headers of the form; each is a cons-cell (basic . fancy)
