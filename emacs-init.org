@@ -1486,6 +1486,12 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
                                    (python . t)))
 #+END_SRC
 
+**** export
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(setq org-export-backends '(ascii html icalendar latex md))
+#+end_src
+
 **** TODO Visuals
 #+BEGIN_SRC emacs-lisp :tangle no
   ;; install then first...
