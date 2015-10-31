@@ -2005,6 +2005,12 @@ Enabling this allows you to store links to mail messages in org mode files.
 
 #+end_src
 
+***** mu4e notifications
+#+BEGIN_SRC emacs-lisp :tangle yes
+(mu4e-alert-set-default-style 'libnotify)
+(add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+#+end_src
+
 ***** close req-package
 #+BEGIN_SRC emacs-lisp :tangle yes
 )
