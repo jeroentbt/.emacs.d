@@ -1564,6 +1564,9 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
 
   ;; osx
   ;; (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/7987/plantuml.7987.jar")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
 
   (org-babel-do-load-languages
