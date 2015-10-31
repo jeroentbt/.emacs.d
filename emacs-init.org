@@ -2051,6 +2051,19 @@ https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 #+END_EXAMPLE
+**** reading mail
+Set xdg to open *.eml files with emacs
+#+BEGIN_SRC sh
+xdg-mime default emacs.desktop message/rfc822
+#+END_SRC
+
+ and then
+
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-to-list 'auto-mode-alist '("\\.eml$" . mail-mode))
+#+END_SRC
+
 ** Minor modes
 *** ido                                                          :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
