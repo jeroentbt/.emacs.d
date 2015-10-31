@@ -1797,7 +1797,7 @@ Fixed in 0.9.13
 
 A very basic html stripper
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
   ;; convert html messages
   (setq mu4e-html2text-command "w3m -dump -T text/html")
 #+END_SRC
@@ -1805,7 +1805,7 @@ A very basic html stripper
 Emacs 24.4 added shr.el, which does a better job at showing HTML.
 (It is also used in eww). It does feel a bit slow though
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (require 'mu4e-contrib)
   (setq mu4e-html2text-command 'mu4e-shr2text)
 #+END_SRC
