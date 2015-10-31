@@ -312,6 +312,8 @@ Some sensible defaults
                    ;; replace common paths
                    (add-to-list 'sml/replacer-regexp-list '("^/Volumes/devHD/" "::"))
                    (add-to-list 'sml/replacer-regexp-list '("^~/dev/" "::"))
+                   (add-to-list 'sml/replacer-regexp-list '("^~/Projects/" "P:"))
+                   (add-to-list 'sml/replacer-regexp-list '("^~/Code/" "C:"))
 
                    (setq sml/projectile-replacement-format "[%s]")
                    ;; hide minor modes
