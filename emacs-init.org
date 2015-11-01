@@ -226,6 +226,7 @@ Some sensible defaults
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; No splash screen
+  ;; Will default to the *scratch* buffer
   (setq inhibit-startup-message t)
 
   ;; Full path in frame title
@@ -607,6 +608,19 @@ and your backup root is
   (setq calendar-week-start-day 1
         european-calendar-style t)
 #+end_src
+**** Scratch buffer
+
+***** scratch buffer mode
+
+      #+BEGIN_SRC emacs-lisp :tangle yes
+        (setq initial-major-mode 'org-mode)
+      #+end_src
+
+***** no initial message
+
+      #+BEGIN_SRC emacs-lisp :tangle yes
+        (setq initial-scratch-message "")
+      #+end_src
 
 **** Better visual line mode
 ***** Adaptive wrap
