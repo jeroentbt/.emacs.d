@@ -1477,6 +1477,17 @@ The silver searches is nice and fast for searching inside code repos
   (setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org")
 #+END_SRC
 
+**** Visuals
+
+***** bullets
+
+      A nicer way to represent hierarchy
+      #+BEGIN_SRC emacs-lisp :tangle yes
+        (require 'org-bullets)
+        (setq org-bullets-bullet-list '("◉" "○" "✸"))
+        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+      #+end_src
+
 **** Tasks and States
 
 Borrowing heavily from [[http://doc.norang.ca/org-mode.html#TasksAndStates][norang.ca]]
@@ -1549,7 +1560,7 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
 (setq org-export-backends '(ascii html icalendar latex md))
 #+end_src
 
-**** TODO Visuals
+**** TODO Exporting Visuals
 #+BEGIN_SRC emacs-lisp :tangle no
   ;; install then first...
   (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.9/libexec/ditaa0_9.jar")

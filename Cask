@@ -54,6 +54,7 @@
 (depends-on "magit")
 (depends-on "multiple-cursors")
 (depends-on "org")
+(depends-on "org-bullets")
 (depends-on "package-build")
 (depends-on "pallet")
 (depends-on "paradox")
