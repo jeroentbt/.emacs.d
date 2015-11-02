@@ -58,6 +58,7 @@
 (depends-on "package-build")
 (depends-on "pallet")
 (depends-on "paradox")
+(depends-on "pdf-tools")
 (depends-on "pkg-info")
 (depends-on "popup")
 (depends-on "popwin")
