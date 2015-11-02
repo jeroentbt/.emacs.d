@@ -2213,6 +2213,32 @@ C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package emmet-mode)
 #+END_SRC
+
+** PDF
+
+*** PDF-tools
+    PDF-tools is a package which provides a full pdf viewer/anotator in emacs.
+    It is availble form Melpa and acitvated by doing
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (pdf-tools-install)
+    #+end_src
+
+    The different modes are fully documented (=M-x pdf-tools-help=),
+    but here are some keybindings to get you started:
+
+    - +,-,0 :: Zoom
+    - P,H,W :: fit Page, Height, Width
+    - B,N :: Back and Next in hostory
+
+    - C-c C-a :: prefix for annotations
+      - h :: highlight region
+      - m :: markup region (choose between highlight and others)
+      - t :: text annotation
+      - l :: list annotation
+      - D :: delete annotation
+
+    - o :: outline (in outline =.= moves the mark to the current page)
 ** External services
 
 *** Gist                                                         :mode:minor:
