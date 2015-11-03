@@ -45,6 +45,7 @@
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
 (depends-on "indent-guide")
+(depends-on "interleave")
 (depends-on "ix")
 (depends-on "jedi")
 (depends-on "js2-mode")

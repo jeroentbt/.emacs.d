@@ -2239,6 +2239,20 @@ C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
       - D :: delete annotation
 
     - o :: outline (in outline =.= moves the mark to the current page)
+
+*** Interleave
+
+    Org notes linked to pdf pages
+
+    In an org document add the interleave heading linking to the pdf
+    doc in question.
+
+    #+BEGIN_SRC org
+      #+INTERLEAVE_PDF: /the/path/to/pdf.pdf
+    #+END_SRC
+
+    Then to =M-x interleave= to open the pdf alongside and =i= to add a note to the current page.
+
 ** External services
 
 *** Gist                                                         :mode:minor:
