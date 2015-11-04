@@ -286,9 +286,7 @@ Some sensible defaults
   ;; not available in package.el repos, too lazy to add it manually
 
   ;; the current theme of choice
-  (load-theme 'ample)
-  (load-theme 'smart-mode-line-dark)
-
+  (load-theme 'solarized-dark)
 
   ;; set the font
   (if is-osx
