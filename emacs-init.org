@@ -309,10 +309,8 @@ Some sensible defaults
                (progn
                    (setq sml/theme 'automatic)
                    ;; replace common paths
-                   (add-to-list 'sml/replacer-regexp-list '("^/Volumes/devHD/" "::"))
-                   (add-to-list 'sml/replacer-regexp-list '("^~/dev/" "::"))
-                   (add-to-list 'sml/replacer-regexp-list '("^~/Projects/" "P:"))
-                   (add-to-list 'sml/replacer-regexp-list '("^~/Code/" "C:"))
+                   (add-to-list 'sml/replacer-regexp-list '("^~/Projects/" ":P:"))
+                   (add-to-list 'sml/replacer-regexp-list '("^:P:Syntra" ":SVL:") t)
 
                    (setq sml/projectile-replacement-format "[%s]")
                    (setq sml/use-projectile-p 'after-prefixes)
