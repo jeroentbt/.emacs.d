@@ -302,6 +302,7 @@ Some sensible defaults
 **** Mode Line
 
      I'm using [[https://github.com/Malabarba/smart-mode-line/][smart-mode-line]] to build me a nice mode-line.
+     To clean up some minor modes indicators, [[http://www.emacswiki.org/emacs/DiminishedModes][diminish.el]] is used. This could potentially be replaced by [[https://github.com/Malabarba/rich-minority][rich-minority]].
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;(size-indication-mode t)
@@ -325,13 +326,12 @@ Some sensible defaults
                    (setq sml/shorten-modes t)
 
                    ;; hide minor modes
-                   ;; (add-to-list 'sml/hidden-modes " Projectile")
-                   ;; (add-to-list 'sml/hidden-modes " ,")
-                   ;; (add-to-list 'sml/hidden-modes " Guide")
-                   ;; projectile does not play nice with sml/hidden-modes
                    (eval-after-load "Projectile" '(diminish 'projectile-mode))
                    (eval-after-load "Guide-Key" '(diminish 'guide-key-mode))
                    (eval-after-load "Magit-Auto-Revert" '(diminish 'magit-auto-revert-mode))
+                   (eval-after-load "subword" '(diminish 'subword-mode))
+                   (eval-after-load "smartparens" '(diminish 'smartparens-mode "("))
+                   (eval-after-load "indent-guide" '(diminish 'indent-guide-mode " |"))
                    )
                :init
                (sml/setup))
