@@ -300,6 +300,9 @@ Some sensible defaults
 #+END_SRC
 
 **** Mode Line
+
+     I'm using [[https://github.com/Malabarba/smart-mode-line/][smart-mode-line]] to build me a nice mode-line.
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;(size-indication-mode t)
 
