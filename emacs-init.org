@@ -315,6 +315,14 @@ Some sensible defaults
                    (add-to-list 'sml/replacer-regexp-list '("^~/Code/" "C:"))
 
                    (setq sml/projectile-replacement-format "[%s]")
+                   (setq sml/use-projectile-p 'after-prefixes)
+
+                   ;; Major mode stays left, everything after gets alligned right
+                   (setq sml/mode-width 'right)
+                   ;; Set min and max buffer name length
+                   (setq sml/name-width '(12 . 54))
+                   (setq sml/shorten-modes t)
+
                    ;; hide minor modes
                    ;; (add-to-list 'sml/hidden-modes " Projectile")
                    ;; (add-to-list 'sml/hidden-modes " ,")
