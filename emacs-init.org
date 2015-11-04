@@ -1420,6 +1420,21 @@ salvaged from old config:
                :mode "\\.pp\\'")
 
 #+END_SRC
+*** yaml
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'yaml-mode-hook 'flycheck-mode)
+#+END_SRC
+*** shell
+
+    Flyscheck can use [[http://www.shellcheck.net/][shellcheck]] as a checker. Make sure it is installed on your system.
+
+#+BEGIN_EXAMPLE sh
+sudo pacman -S shellcheck
+#+END_EXAMPLE
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'sh-mode-hook 'flycheck-mode)
+#+END_SRC
 *** processing
 
 C-c C-p r    Run a sketch.
