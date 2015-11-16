@@ -1602,9 +1602,20 @@ plantuml also needs to know where to find the jar
 
 **** export
 
+***** Activate built-in backends
+
 #+BEGIN_SRC emacs-lisp :tangle yes
 (setq org-export-backends '(ascii html icalendar latex md))
 #+end_src
+
+***** from =/contrib=
+
+****** reveal.js
+       [[https://github.com/yjwen/org-reveal/][github]]
+
+       #+BEGIN_SRC emacs-lisp :tangle yes
+         (require 'ox-reveal)
+       #+end_src
 
 **** TODO org-download
 Drag and drop images to org-mode
