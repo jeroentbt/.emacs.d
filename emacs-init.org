@@ -1107,14 +1107,32 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
                     company-tooltip-limit 20
                     company-tooltip-margin 2
                     company-tooltip-minimum-width 20)
-                    (add-to-list 'company-backends 'company-yasnippet))
+              (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+              (yas-global-mode 1)
+;;                    (add-to-list 'company-backends 'company-yasnippet))
+     )
 #+END_SRC
 
 **** yasnippet
 
      The activation of yasnippet is now folded in to [[*company-mode][company-mode]].
-     I have not made any customisations to yasnippet config
+     I have not made any customisations to yasnippet config.
 
+     This blob of elisp (found [[http://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names][here]]) however will make sure yasnippet snippets are always offered as a posibility (no matter what backend is currently in use).
+
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; Add yasnippet support for all company backends
+  ;; https://github.com/syl20bnr/spacemacs/pull/179
+  (defvar company-mode/enable-yas t
+    "Enable yasnippet for all backends.")
+
+  (defun company-mode/backend-with-yas (backend)
+    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+        backend
+      (append (if (consp backend) backend (list backend))
+              '(:with company-yasnippet))))
+#+END_SRC
 **** Tramp
 Tramp is fastest over ssh (for not to large files)
 Or open files as root
