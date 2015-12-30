@@ -1373,7 +1373,7 @@ salvaged from old config:
 
   (req-package company-tern
     :require (company tern)
-    :config (add-to-list 'company-backends 'company-tern))
+    :config (add-to-list 'company-backends (company-mode/backend-with-yas 'company-tern)))
 #+END_SRC
 **** general
 #+BEGIN_SRC emacs-lisp :tangle yes
