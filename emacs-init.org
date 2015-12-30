@@ -1095,28 +1095,26 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
 
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package company
+      :require yasnippet
       :init (global-company-mode)
       :config (setq company-idle-delay 0.3
                     company-minimum-prefix-length 2
                     company-transformers '(company-sort-by-occurrence)
                     company-auto-complete '('company-explicit-action-p)
-                    company-auto-complete-chars '(32 40 41 46)
+                    company-auto-complete-chars '(40 41 46)
                     company-selection-wrap-around t
                     company-show-numbers t
                     company-tooltip-align-annotations t
                     company-tooltip-limit 20
                     company-tooltip-margin 2
                     company-tooltip-minimum-width 20)
-       :bind ("M-<tab>" . company-complete))
+                    (add-to-list 'company-backends 'company-yasnippet))
 #+END_SRC
 
 **** yasnippet
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package yasnippet
-    :init (yas-global-mode 1)
-    :config (add-to-list 'company-backends 'company-yasnippet))
-#+END_SRC
+     The activation of yasnippet is now folded in to [[*company-mode][company-mode]].
+     I have not made any customisations to yasnippet config
 
 **** Tramp
 Tramp is fastest over ssh (for not to large files)
