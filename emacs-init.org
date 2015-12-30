@@ -1367,7 +1367,7 @@ salvaged from old config:
   ;; Set up the location of the tern .el files
   (if is-osx
       (add-to-list 'load-path "~/.tern/emacs")
-      (add-to-list 'load-path "/usr/local/lib/node_modules/tern/emacs"))
+      (add-to-list 'load-path "~/.node_modules/lib/node_modules/tern/emacs"))
 
   (autoload 'tern-mode "tern.el" nil t)
 
