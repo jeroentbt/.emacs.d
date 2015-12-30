@@ -309,9 +309,9 @@ Some sensible defaults
 
   (req-package smart-mode-line
                :require diminish
+               :init (setq sml/theme 'dark)
                :config
-               (progn
-                   (setq sml/theme 'automatic)
+                   (sml/setup)
                    ;; replace common paths
                    (add-to-list 'sml/replacer-regexp-list '("^~/Projects/" ":P:"))
                    (add-to-list 'sml/replacer-regexp-list '("^:P:Syntra" ":SVL:") t)
@@ -331,10 +331,7 @@ Some sensible defaults
                    (eval-after-load "Magit-Auto-Revert" '(diminish 'magit-auto-revert-mode))
                    (eval-after-load "subword" '(diminish 'subword-mode))
                    (eval-after-load "smartparens" '(diminish 'smartparens-mode "("))
-                   (eval-after-load "indent-guide" '(diminish 'indent-guide-mode " |"))
-                   )
-               :init
-               (sml/setup))
+                   (eval-after-load "indent-guide" '(diminish 'indent-guide-mode " |")))
 #+END_SRC
 **** Buffers and windows
 ***** ace-window
