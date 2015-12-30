@@ -287,6 +287,8 @@ Some sensible defaults
 
   ;; the current theme of choice
   (load-theme 'solarized-dark)
+  ;; then splash over the nicer ample
+  (load-theme 'ample)
 
   ;; set the font
   (if is-osx
