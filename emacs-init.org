@@ -1420,13 +1420,14 @@ salvaged from old config:
   (add-hook 'php-mode-hook 'flycheck-mode)
 #+END_SRC
 *** python
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
   ;; python
-  (req-package jedi)
-  (add-hook 'python-mode-hook 'auto-complete-mode)
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (add-hook 'python-mode-hook 'flycheck-mode)
-  (add-hook 'python-mode-hook (lambda () (interactive) (column-marker-3 81)))
+  (req-package elpy
+    :require (company flycheck)
+    :config (add-hook 'python-mode-hook 'flycheck-mode)
+            (elpy-enable)
+    :init (setq elpy-company-hide-modeline nil
+                elpy-modules '(elpy-module-company elpy-module-eldoc elpy-module-pyvenv)))
 #+END_SRC
 *** puppet
 #+BEGIN_SRC emacs-lisp :tangle yes

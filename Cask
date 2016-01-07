@@ -1,3 +1,4 @@
+(source "elpy" "https://jorgenschaefer.github.io/packages/")
 (source gnu)
 (source marmalade)
 (source melpa)
@@ -23,6 +24,7 @@
 (depends-on "discover")
 (depends-on "discover-js2-refactor")
 (depends-on "editorconfig")
+(depends-on "elpy")
 (depends-on "emmet-mode")
 (depends-on "epl")
 (depends-on "erc-hl-nicks")
