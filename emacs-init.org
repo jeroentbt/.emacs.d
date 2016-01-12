@@ -1634,6 +1634,21 @@ plantuml also needs to know where to find the jar
          (require 'ox-reveal)
        #+end_src
 
+****** org-mime
+       [[http://orgmode.org/worg/org-contrib/org-mime.html][orgmode.org]]
+       Allows org mode text in mails to be exported to html mails. Text will be kept, html will be added as a =multipart/alternatives=.
+       Iffy with attachments and pgp though.
+
+       There are two ways of working with this.
+
+       - Call =org-mime-htmlize= when you want to htmlize org content from a =compose= buffers.
+       - Call =org-mime-org-buffer-htmlize= to send a buffers, narrowed subtree or region to a new =compose= buffer.
+
+       Adding ~#+OPTIONS: toc:nil~ might be a good idea.
+
+       #+BEGIN_SRC emacs-lisp :tangle yes
+         (require 'org-mime)
+       #+END_SRC
 **** TODO org-download
 Drag and drop images to org-mode
 [[https://github.com/abo-abo/org-download][github]] / [[https://www.youtube.com/watch?v%3DdAojpHR-6Uo][youtube demo]]
