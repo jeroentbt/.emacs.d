@@ -1627,6 +1627,8 @@ plantuml also needs to know where to find the jar
 
 ***** from =/contrib=
 
+      Install org-with-contrib!
+
 ****** reveal.js
        [[https://github.com/yjwen/org-reveal/][github]]
 
