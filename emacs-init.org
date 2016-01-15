@@ -1252,6 +1252,20 @@ But it's fairly easy to define your own:
 A more intuitive way of popping the mark (which I never really started
 using)
 [[https://github.com/boyw165/history][github]]
+
+**** open as sudo
+
+     A little elisp to reopen a file with sudo.
+     Source: [[https://github.com/sri/dotfiles/blob/master/emacs/emacs.d/my-fns.el#L236][sri's dotfiles]]
+
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (defun my/find-file-as-sudo ()
+         (interactive)
+         (let ((file-name (buffer-file-name)))
+           (when file-name
+             (find-alternate-file (concat "/sudo::" file-name)))))
+     #+end_src
+
 ** Secrets
 Some configuration options (like server names, ports, passwords) are best kept secret.
 I keep them in a gpg encrypted file =private.el.gpg=.
