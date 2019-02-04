@@ -1,10 +1,12 @@
 * Emacs Org Configuration
 * Description
 This file is tangled by init.el using =org-babel-load-file=. What this does is generate a =emacs-init.el= from the =emacs-lisp= source blocks.
+
 * Prerequisites
 ** git
 ** cask
 An emacs package manager: http://cask.github.io/installation.html
+
 * Package Management
 
 [[https://github.com/rdallasgray/pallet][Pallet]] is a very helpful package management tool for Emacs.
@@ -187,6 +189,7 @@ Disabled for now
   (add-to-list 'custom-theme-load-path (expand-file-name "vendor/themes"
                                                          user-emacs-directory))
 #+END_SRC
+
 ** Basics
    Some essential customizations.
 *** The custom customizations
@@ -280,15 +283,29 @@ Some sensible defaults
   ;; (req-package themepark-mode)
   ;; not available in package.el repos, too lazy to add it manually
 
-  ;; the current theme of choice
-  (load-theme 'solarized-dark)
-  ;; then splash over the nicer ample
-  (load-theme 'ample)
+  (require 'doom-themes)
+
+;; Global settings (defaults)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+;; may have their own settings.
+(load-theme 'doom-one t)
+
+;; Enable flashing mode-line on errors
+(doom-themes-visual-bell-config)
+
+;; Enable custom neotree theme
+;;(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+;; Corrects (and improves) org-mode's native fontification.
+(doom-themes-org-config)
 
   ;; set the font
-  (if is-osx
-      (set-face-attribute 'default nil :family "source code pro" :weight "light"))
-;      (set-default-font "xft:Source Code Pro:size=10"))
+  ;;(set-face-attribute 'default t :family "SauceCodePro Nerd Font-10")
+  (add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font-12"))
+  ;(set-default-font "xft:Source Code Pro:size=10")
 
   ;; set a default fontset to use for displaying unicode characters
   (set-fontset-font "fontset-default" nil
@@ -321,6 +338,7 @@ Some sensible defaults
                    ;; Set min and max buffer name length
                    (setq sml/name-width '(12 . 54))
                    (setq sml/shorten-modes t)
+                   (setq sml/override-theme nil)
 
                    ;; hide minor modes
                    (eval-after-load "Projectile" '(diminish 'projectile-mode))
@@ -1487,6 +1505,7 @@ The silver searches is nice and fast for searching inside code repos
   (if (executable-find "ag")
       (req-package ag))
 #+END_SRC
+
 ** Major modes
 
 *** comint-mode                                                  :mode:major:
@@ -1525,18 +1544,13 @@ The silver searches is nice and fast for searching inside code repos
 
 **** File config
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-files '("~/Dropbox/org" "~/.emacs.d"))
+  (setq org-agenda-files '("~/Documents/org" "~/.emacs.d"))
 
-  (setq org-directory "~/Dropbox/org")
+  (setq org-directory "~/Documents/org")
 
   ;; Set default file for org-capture
   (setq org-default-notes-file (concat org-directory "/notes.org"))
 
-  ;; MobileOrg
-  (setq org-mobile-directory "~/Dropbox/mobileOrg")
-  (setq org-mobile-files '(org-agenda-files
-                           "~/Dropbox/org/trickle.org"))
-  (setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org")
 #+END_SRC
 
 **** Visuals
@@ -1613,11 +1627,12 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
   (org-babel-do-load-languages
      'org-babel-load-languages
      '((js . t)
-       (sh . t)
+       (shell . t)
        (org . t)
        (python . t)
        (ditaa . t)
-       (plantuml . t)))
+       (plantuml . t)
+       (restclient . t)))
 #+END_SRC
 
 plantuml also needs to know where to find the jar
@@ -1659,6 +1674,13 @@ plantuml also needs to know where to find the jar
 
        #+BEGIN_SRC emacs-lisp :tangle yes
          (require 'org-mime)
+       #+END_SRC
+
+****** ox-hugo
+       #+BEGIN_SRC emacs-lisp :tangle yes
+       (with-eval-after-load 'ox
+         (require 'ox-hugo))
+
        #+END_SRC
 **** TODO org-download
 Drag and drop images to org-mode
@@ -1808,7 +1830,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
         ;;mu4e-mu-binary "/usr/local/bin/mu"
         ;;mu4e-get-mail-command "~/bin/offlineimap/offlineimap.py"
         mu4e-mu-binary "/usr/bin/mu"
-        mu4e-get-mail-command "offlineimap"
+        mu4e-get-mail-command "mbsync -a"
         mu4e-update-interval 600
         mu4e-maildir "~/Maildir"
         mu4e-attachment-dir  "~/Downloads/mail-attachments"
@@ -1837,6 +1859,9 @@ Basic mu4e setup: paths to binaries and where to find and put files.
 
   ;; do not spam the minibuffer about updates
   (setq mu4e-hide-index-messages t)
+
+  ;; hide duplicates by default
+  (setq mu4e-headers-skip-duplicates t)
 #+END_SRC
 
 ****** fancy chars
@@ -1883,7 +1908,7 @@ A very basic html stripper
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; convert html messages
-  (setq mu4e-html2text-command "w3m -dump -T text/html")
+  (setq mu4e-html2text-command "w3m -dump -s -T text/html -o display_link_number=true -cols 85")
 #+END_SRC
 
 Emacs 24.4 added shr.el, which does a better job at showing HTML.
@@ -1891,7 +1916,7 @@ Emacs 24.4 added shr.el, which does a better job at showing HTML.
 
 #+BEGIN_SRC emacs-lisp :tangle no
   (require 'mu4e-contrib)
-  (setq mu4e-html2text-command 'mu4e-shr2text)
+  (setq mu4e-html2text-command 'html-to-markdown)
 #+END_SRC
 
 But I prefer to read text emails...
@@ -1928,7 +1953,7 @@ This could probably be made a bit more DRY.
 
 inspired by this email thread [[mu4e:msgid:87tx4g1n8a.fsf@gmail.com][Re: {Got} nice scrolling behaviour in header view]]
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
 (defadvice mu4e-view-headers-next (around scroll-down-mu4e-header activate)
   "Recenter the mu4e-header window around the visible header when moving onto
 next email"
@@ -1968,8 +1993,10 @@ So this is just for reference:
 ***** bookmarks
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'mu4e-bookmarks '("tag:\\\\Sent and date:1w..now" "Sent this week" ?s))
-  (add-to-list 'mu4e-bookmarks '("flag:unread and date:today..now" "Today's unread messages" ?d))
+  (add-to-list 'mu4e-bookmarks
+    '("maildir:/jeroen.mailbox/Sent OR maildir:/jeroen.tiebout.gmail/Sent OR maildir:/jeroen.tinktenk/Sent OR maildir:/sent AND date:1w..now" "Sent this week" ?s))
+  (add-to-list 'mu4e-bookmarks
+    '("flag:unread and date:today..now" "Today's unread messages" ?d))
   (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox and date:today..now" "Today's inbox" ?n))
   (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox" "Unified inbox" ?I))
   (add-to-list 'mu4e-bookmarks '("tag:-Social" "Category Social" ?S) t)
@@ -2154,13 +2181,12 @@ xdg-mime default emacs.desktop message/rfc822
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package ido
                  :require
-                 (flx flx-ido ido-vertical-mode ido-ubiquitous ido-at-point)
+                 (flx flx-ido ido-vertical-mode ido-completing-read+ ido-at-point)
                  :init
                  (progn (ido-mode t)
                         (flx-ido-mode t)
                         (ido-vertical-mode)
-                        (ido-at-point-mode)
-                        (ido-ubiquitous-mode t))
+                        (ido-at-point-mode))
                  :config
                  (setq ido-enable-flex-matching t
                        ido-case-fold nil
@@ -2169,7 +2195,8 @@ xdg-mime default emacs.desktop message/rfc822
                        ido-use-filename-at-point nil
                        ido-max-prospects 10
                        ido-use-faces nil
-                       ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+                       ido-vertical-define-keys 'C-n-C-p-up-down-left-right
+                       ido-everywhere t)
                  :bind
                  ("C-x M-f" . ido-find-file-other-window))
 #+END_SRC
@@ -2228,7 +2255,7 @@ amount, the helm buffer will be fixed size.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package helm-config
-    :require (helm async helm-ag helm-swoop)
+    :require (helm async helm-ag helm-swoop helm-flx)
     :bind (("C-c h" . helm-command-prefix)
            ("M-x" . helm-M-x)
            ("M-y" . helm-show-kill-ring)
@@ -2246,7 +2273,8 @@ amount, the helm buffer will be fixed size.
                    (global-set-key (kbd "C-c h SPC") 'helm-all-mark-rings)
                    (global-set-key (kbd "C-c h g") 'helm-do-ag)
                    (global-set-key (kbd "C-c h I") 'helm-swoop))
-    :init (helm-autoresize-mode 1))
+    :init (helm-autoresize-mode 1)
+          (helm-flx-mode +1))
 #+END_SRC
 
 ** Workspaces
@@ -2259,7 +2287,8 @@ amount, the helm buffer will be fixed size.
             ;; C-c p a now opens other file with same name - but different extension
             ;; Add this to switch between js and html file
             (progn (add-to-list 'projectile-other-file-alist '("js" . ("html")))
-                   (add-to-list 'projectile-other-file-alist '("html" . ("js"))))
+                   (add-to-list 'projectile-other-file-alist '("html" . ("js")))
+                   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
           :init
           (projectile-global-mode)
           (helm-projectile-on))
@@ -2270,6 +2299,7 @@ amount, the helm buffer will be fixed size.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package spaces)
 #+END_SRC
+
 ** Bookmarks
 I'm using the built in feature here
 C-x r m : emacs maRk Make
