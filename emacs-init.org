@@ -147,6 +147,11 @@ prevent minor-mode from showing up (or change the string used) in the modeline
   (req-package foo
       :diminish foo "foo-minor-mode"
 #+END_EXAMPLE
+** Dependency Management with =use-package=
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (eval-when-compile
+       (require 'use-package))
+   #+END_SRC
 
 ** System
 First find out wether we're working on OSX or not
