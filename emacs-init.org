@@ -283,24 +283,12 @@ Some sensible defaults
   ;; (req-package themepark-mode)
   ;; not available in package.el repos, too lazy to add it manually
 
-  (require 'doom-themes)
+  (require 'nimbus-theme)
 
-;; Global settings (defaults)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
 ;; may have their own settings.
-(load-theme 'doom-one t)
-
-;; Enable flashing mode-line on errors
-(doom-themes-visual-bell-config)
-
-;; Enable custom neotree theme
-;;(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
-
-;; Corrects (and improves) org-mode's native fontification.
-(doom-themes-org-config)
+(load-theme 'nimbus t)
 
   ;; set the font
   ;;(set-face-attribute 'default t :family "SauceCodePro Nerd Font-10")
@@ -511,7 +499,7 @@ Darkroom mode offers a write centric, no clutter interface
   ;; (setq enable-recursive-minibuffers t)
 
   ;; Don't be so stingy on the memory, we have lots now. It's the distant future.
-  (setq gc-cons-threshold 20000000)
+  (setq gc-cons-threshold 300000000)
 
   ;; Represent undo-history as an actual tree (visualize with C-x u)
   (req-package undo-tree
@@ -812,6 +800,7 @@ An interface to use a tooltip window to display guide-key info is also available
                                                     "C-x v" ;; generic version controll
                                                     "C-x 8" ;; special chars
                                                     "C-x x" ;; persp
+                                                    "C-c h" ;; helm default prefix
                                                     "H-x" ;; start apps
                                                     (js2-mode "C-c C-m") ;; js2-refactor
                                                     )
@@ -819,6 +808,7 @@ An interface to use a tooltip window to display guide-key info is also available
                      guide-key/popup-window-position 'bottom))
 
 #+END_SRC
+****** TODO Move to which key?
 ***** flycheck code verification
 ****** Usage
 http://flycheck.readthedocs.org
@@ -919,7 +909,7 @@ Zeal is the equivalent on linux.
       :bind ("C-c d" . dash-at-point))
 #+END_SRC
 ****** helm-dash
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (req-package helm-dash
     :require (helm esqlite)
     :config
@@ -1448,14 +1438,18 @@ salvaged from old config:
   (add-hook 'php-mode-hook 'flycheck-mode)
 #+END_SRC
 *** python
+on flycheck https://github.com/jorgenschaefer/elpy/issues/137#issuecomment-55403160
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; python
   (req-package elpy
     :require (company flycheck)
     :config (add-hook 'python-mode-hook 'flycheck-mode)
             (elpy-enable)
-    :init (setq elpy-company-hide-modeline nil
-                elpy-modules '(elpy-module-company elpy-module-eldoc elpy-module-pyvenv)))
+            (when (require 'flycheck nil t)
+              (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+              (add-hook 'elpy-mode-hook 'flycheck-mode))
+            (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
+    :init (setq elpy-company-hide-modeline nil))
 #+END_SRC
 *** puppet
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1497,7 +1491,14 @@ C-c C-p s    Search in Processing forum.
     (setq processing-sketchbook-dir "~/Code/processing")
     :mode "\\.pde\\'")
 #+END_SRC
-
+*** Documentation browsing
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package zeal-at-point
+    :bind
+    ("C-c d" . zeal-at-point)
+    :config
+    (add-to-list 'zeal-at-point-mode-alist '(python-mode . ("python3" "django"))))
+#+END_SRC
 ** Search
 *** Ag
 The silver searches is nice and fast for searching inside code repos
@@ -1544,7 +1545,7 @@ The silver searches is nice and fast for searching inside code repos
 
 **** File config
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-files '("~/Documents/org" "~/.emacs.d"))
+  (setq org-agenda-files '("~/Documents/org" "~/Documents/org/clients" "~/.emacs.d"))
 
   (setq org-directory "~/Documents/org")
 
@@ -1583,23 +1584,23 @@ Define some capture templates
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-capture-templates
-        (quote (("t" "todo" entry (concat org-directory "/refile.org")
+        (quote (("t" "todo" entry (file "~/Documents/org/refile.org")
                  "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("r" "respond" entry (concat org-directory "/refile.org")
+                ("r" "respond" entry (file "~/Documents/org/refile.org")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-                ("n" "note" entry (concat org-directory "/refile.org")
+                ("n" "note" entry (file "~/Documents/org/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("a" "interesting app" entry (concat org-directory "/interesting_apps.org")
+                ("a" "interesting app" entry (file "~/Documents/org/interesting_apps.org")
                  "* %? \n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (concat org-directory "/diary.org")
+                ("j" "Journal" entry (file "~/Documents/org/diary.org")
                  "* %?\n%U\n" :clock-in t :clock-resume t)
-                ("w" "org-protocol" entry (concat org-directory "/refile.org")
+                ("w" "org-protocol" entry (file "~/Documents/org/refile.org")
                  "* TODO Review %c\n%U\n" :immediate-finish t)
-                ("m" "Meeting" entry (concat org-directory "/refile.org")
+                ("m" "Meeting" entry (file "~/Documents/org/refile.org")
                  "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                ("p" "Phone call" entry (concat org-directory "/refile.org")
+                ("p" "Phone call" entry (file "~/Documents/org/refile.org")
                  "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                ("h" "Habit" entry (concat org-directory "/refile.org")
+                ("h" "Habit" entry (file "~/Documents/org/refile.org")
                  "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 #+end_src
@@ -1607,16 +1608,23 @@ Define some capture templates
 Sometimes empty logbook drawers are created.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-;; Remove empty LOGBOOK drawers on clock out
-(defun bh/remove-empty-drawer-on-clock-out ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line 0)
-    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+  ;; Remove empty LOGBOOK drawers on clock out
+  (defun bh/remove-empty-drawer-on-clock-out ()
+    (interactive)
+    (save-excursion
+      (beginning-of-line 0)
+      (org-remove-empty-drawer-at "LOGBOOK" (point))))
 
-(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+  (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 #+end_src
 
+**** Org capture Quake style
+     https://github.com/alphapapa/yequake#org-capture
+     using this only for =(yequake-org-capture)= which opens a capture frame on its own
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (req-package yequake)
+#+end_src
 
 **** Babel
 
@@ -1638,7 +1646,9 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
 plantuml also needs to know where to find the jar
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  ;; (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  (setq plantuml-executable-path "/usr/bin/plantuml")
+  (setq plantuml-default-exec-mode 'executable)
 #+end_src
 
 **** export
@@ -1680,6 +1690,13 @@ plantuml also needs to know where to find the jar
        #+BEGIN_SRC emacs-lisp :tangle yes
        (with-eval-after-load 'ox
          (require 'ox-hugo))
+
+       #+END_SRC
+
+****** org-tempo
+       enabled expansion of <s style stuff from org-structure-template-alist
+       #+BEGIN_SRC emacs-lisp :tangle yes
+       (require 'org-tempo)
 
        #+END_SRC
 **** TODO org-download
@@ -1841,7 +1858,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
 ***** visual
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'mu4e-view-mode-hook 'window-margin-mode)
+  ;;(add-hook 'mu4e-view-mode-hook 'window-margin-mode)
 
   ;; enable inline images
   (setq mu4e-view-show-images t
@@ -2409,3 +2426,5 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
   369     ;; Isearch
   370     ;;(isearch nil nil "M-s")
 #+END_EXAMPLE
+
+** TODO eyebrowse?
