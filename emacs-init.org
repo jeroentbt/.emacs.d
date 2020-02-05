@@ -705,10 +705,9 @@ IT would be nice to also move to the beginning of the heading, after the *s
 **** Kill whole line
 Easier than C-a, C-k
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; kill whole line with C-; (because ; is close to k)
-  (bind-key "C-;" 'kill-whole-line)
+  (bind-key "C-S-k" 'kill-whole-line)
 #+END_SRC
-***** TODO C-; is bound by flyspell to auto correct previous word       :bug:
+
 **** Browse kill ring
 A helm alternative exists (helm-show-kill-ring), but browse kill ring
 offer a lot more features (delete, edit, ...).
@@ -990,7 +989,15 @@ I basically just use this to highlight, none of the query replace and moving aro
                 ("C-c C->" . mc/edit-lines))) ;; adds a cursor to all lines in current region
 
 #+END_SRC
+**** iedit-mode
 
+     iedit will let you =C-;= to edit all occurences (or =tab=, =M-;= to remove some) at once
+     =C-h f iedit-mode= for more info
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (use-package iedit
+         :ensure t)
+     #+END_SRC
+***** TODO C-; is bound by flyspell to auto correct previous word       :bug:
 **** smartparens                                                 :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
     (req-package smartparens-config
