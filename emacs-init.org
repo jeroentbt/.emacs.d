@@ -284,15 +284,6 @@ Some sensible defaults
 
 **** Appearance
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; easily switch between all themes
-  ;; (req-package themepark-mode)
-  ;; not available in package.el repos, too lazy to add it manually
-
-  (require 'nimbus-theme)
-
-
-;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
-;; may have their own settings.
 (load-theme 'nimbus t)
 
   ;; set the font
