@@ -329,8 +329,7 @@ Some sensible defaults
                    (eval-after-load "Guide-Key" '(diminish 'guide-key-mode))
                    (eval-after-load "Magit-Auto-Revert" '(diminish 'magit-auto-revert-mode))
                    (eval-after-load "subword" '(diminish 'subword-mode))
-                   (eval-after-load "smartparens" '(diminish 'smartparens-mode "("))
-                   (eval-after-load "indent-guide" '(diminish 'indent-guide-mode " |")))
+                   (eval-after-load "smartparens" '(diminish 'smartparens-mode "(")))
 #+END_SRC
 **** Buffers and windows
 ***** ace-window
@@ -448,9 +447,11 @@ Darkroom mode offers a write centric, no clutter interface
 
 #+END_SRC
 **** Indent guides
+     Do not globally enable this mode, it does not play well with some other modes I
+     use and makes emacs stutter on movement.
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package indent-guide
-        :init (indent-guide-global-mode))
+  (use-package indent-guide
+    :ensure t)
 #+END_SRC
 ***** TODO bind a key to toggle indent-guide
 *** General interaction and settings
