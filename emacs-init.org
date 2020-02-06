@@ -660,7 +660,7 @@ Otherwise use universal C-u to toggle behaviour
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package ace-jump-mode
                :bind
-               ("C-c SPC" . ace-jump-mode))
+               ("C-." . ace-jump-mode))
 #+END_SRC
 **** Smarter move to beginning of line
 A nice function that knows where the business part of a line starts
