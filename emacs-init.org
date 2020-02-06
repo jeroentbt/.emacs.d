@@ -441,8 +441,9 @@ Darkroom mode offers a write centric, no clutter interface
 **** Line numbers
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-unset-key "\C-x\l")
-  ;; Toggle linum-mode, remap count lines
-  (bind-key "C-x l n" 'linum-mode)
+  ;; Toggle linum-mode, superceded now by display-line-nmbers-mode
+  (bind-key "C-x l n" 'display-line-numbers-mode)
+  (setq display-line-numbers-type 'relative)
   (bind-key "C-x l c" 'count-lines-page)
 
 #+END_SRC
