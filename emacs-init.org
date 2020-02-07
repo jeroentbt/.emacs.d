@@ -1625,10 +1625,29 @@ Sometimes empty logbook drawers are created.
 
 **** Org capture Quake style
      https://github.com/alphapapa/yequake#org-capture
-     using this only for =(yequake-org-capture)= which opens a capture frame on its own
+     One bug of note:
+     When closing the window without capturing, the latest buffer will switch.
+     https://github.com/alphapapa/yequake/issues/6
+
+
+     relevant part of i3 config:
+     #+begin_src conf
+       bindsym $mod+c exec emacsclient -n -s main -e '(yequake-toggle "org-capture")'
+       for_window [title="yequake-org-capture" class="Emacs"] floating enable
+     #+end_src
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package yequake)
+  (use-package yequake
+    :custom
+    (yequake-frames
+     '(("org-capture"
+        (buffer-fns . (yequake-org-capture))
+        (width . 0.5)
+        (height . 0.5)
+        (top . 0.5)
+        (frame-parameters . ((title . "yequake-org-capture")
+                             (undecorated . t)
+                             (internal-border-width . 15)))))))
 #+end_src
 
 **** Babel
