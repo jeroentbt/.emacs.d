@@ -304,24 +304,26 @@ Some sensible defaults
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;(size-indication-mode t)
-
+  (setq column-number-mode t)
   (req-package smart-mode-line
                :require diminish
-               :init (setq sml/theme 'dark)
                :config
+                   (setq sml/theme 'dark)
                    (sml/setup)
+
                    ;; replace common paths
                    (add-to-list 'sml/replacer-regexp-list '("^~/Projects/" ":P:"))
-                   (add-to-list 'sml/replacer-regexp-list '("^:P:Syntra" ":SVL:") t)
+                   (add-to-list 'sml/replacer-regexp-list '("^:P:Code" ":C:") t)
 
                    (setq sml/projectile-replacement-format "[%s]")
-                   (setq sml/use-projectile-p 'after-prefixes)
+                   (setq sml/use-projectile-p 'before-prefixes)
 
                    ;; Major mode stays left, everything after gets alligned right
                    (setq sml/mode-width 'right)
                    ;; Set min and max buffer name length
                    (setq sml/name-width '(12 . 54))
                    (setq sml/shorten-modes t)
+                   (setq sml/shorten-directory t)
                    (setq sml/override-theme nil)
 
                    ;; hide minor modes
