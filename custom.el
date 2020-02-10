@@ -4,11 +4,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-dabbrev-code-modes
-   (quote
-    (prog-mode batch-file-mode csharp-mode css-mode erlang-mode haskell-mode jde-mode lua-mode python-mode js-mode html-mode web-mode)))
- '(company-dabbrev-code-time-limit 0.5)
- '(company-dabbrev-time-limit 0.5)
  '(compilation-message-face (quote default))
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")

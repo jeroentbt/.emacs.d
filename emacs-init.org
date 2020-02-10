@@ -1103,25 +1103,67 @@ Looks like a nice alternative with less confusing completion
 http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_which_is_better/
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package company
-      :require (yasnippet company-quickhelp)
-      :init (global-company-mode)
-            (company-quickhelp-mode 1)
-      :config (setq company-idle-delay 0.3
-                    company-minimum-prefix-length 2
-                    company-transformers '(company-sort-by-occurrence)
-                    company-auto-complete '('company-explicit-action-p)
-                    company-auto-complete-chars '(40 41 46)
-                    company-selection-wrap-around t
-                    company-show-numbers t
-                    company-tooltip-align-annotations t
-                    company-tooltip-limit 20
-                    company-tooltip-margin 2
-                    company-tooltip-minimum-width 20)
-              (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
-              (yas-global-mode 1)
-;;                    (add-to-list 'company-backends 'company-yasnippet))
-     )
+  (use-package company
+    :ensure t
+    :config
+    (global-company-mode)
+    (setq company-idle-delay 0.3
+          company-minimum-prefix-length 2
+          company-transformers '(company-sort-by-backend-importance)
+          company-auto-complete '('company-explicit-action-p)
+          company-selection-wrap-around t
+          company-show-numbers t
+          company-tooltip-align-annotations t
+          company-tooltip-limit 20
+          company-tooltip-margin 2
+          company-tooltip-minimum-width 20
+          company-auto-complete-chars nil
+          company-dabbrev-code-modes
+          (quote
+           (prog-mode batch-file-mode csharp-mode css-mode erlang-mode haskell-mode jde-mode lua-mode python-mode js-mode html-mode web-mode))
+          company-dabbrev-code-time-limit 0.5
+          company-dabbrev-other-buffers t
+          company-dabbrev-time-limit 0.5))
+
+  (use-package yasnippet
+    :ensure t
+    :requires company
+    :init
+    ;; Add yasnippet support for all company backends
+    ;; https://github.com/syl20bnr/spacemacs/pull/179
+    (defvar company-mode/enable-yas t
+      "Enable yasnippet for all backends.")
+
+    (defun company-mode/backend-with-yas (backend)
+      (if (or (not company-mode/enable-yas)
+              (and (listp backend) (member 'company-yasnippet backend)))
+          backend
+        (append (if (consp backend) backend (list backend))
+                '(:with company-yasnippet))))
+    :config
+    (yas-global-mode 1)
+    (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
+
+
+  (use-package company-quickhelp
+    :ensure t
+    :requires company
+    :config
+    (company-quickhelp-mode t)
+    (setq company-quickhelp-use-propertized-text t
+          company-quickhelp-color-background "#112b2b"
+          company-quickhelp-color-foreground "white"))
+
+  (use-package helm-company
+    :ensure t
+    :bind (:map company-active-map
+                ("M-h" . helm-company))
+    :requires company)
+
+
+
+
+
 #+END_SRC
 
 **** yasnippet
@@ -1129,21 +1171,7 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
      The activation of yasnippet is now folded in to [[*company-mode][company-mode]].
      I have not made any customisations to yasnippet config.
 
-     This blob of elisp (found [[http://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names][here]]) however will make sure yasnippet snippets are always offered as a posibility (no matter what backend is currently in use).
 
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  ;; Add yasnippet support for all company backends
-  ;; https://github.com/syl20bnr/spacemacs/pull/179
-  (defvar company-mode/enable-yas t
-    "Enable yasnippet for all backends.")
-
-  (defun company-mode/backend-with-yas (backend)
-    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
-#+END_SRC
 **** Tramp
 Tramp is fastest over ssh (for not to large files)
 Or open files as root
