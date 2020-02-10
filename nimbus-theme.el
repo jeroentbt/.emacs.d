@@ -19,7 +19,7 @@
  '(success ((t (:foreground "#9ccc65" :bold t :underline nil :slant normal))))
  '(warning ((t (:foreground "#f57e00" :bold t :underline nil :slant normal))))
  '(font-lock-builtin-face ((t (:foreground "#598bc1"))))
- '(font-lock-comment-face ((t (:foreground "#858585" :slant italic))))
+ '(font-lock-comment-face ((t (:foreground "#575757" :slant italic))))
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-function-name-face ((t (:foreground "#1d9a79"))))
  '(font-lock-keyword-face ((t (:foreground "#598bc1"))))
