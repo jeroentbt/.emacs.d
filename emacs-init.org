@@ -499,7 +499,16 @@ Darkroom mode offers a write centric, no clutter interface
   ;; (setq enable-recursive-minibuffers t)
 
   ;; Don't be so stingy on the memory, we have lots now. It's the distant future.
-  (setq gc-cons-threshold 300000000)
+  (setq garbage-collection-messages t)
+  (defun my-minibuffer-setup-hook ()
+    (setq gc-cons-threshold most-positive-fixnum))
+
+  (defun my-minibuffer-exit-hook ()
+    (setq gc-cons-threshold 8000000))
+
+  (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+  (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
 
   ;; Represent undo-history as an actual tree (visualize with C-x u)
   (req-package undo-tree
