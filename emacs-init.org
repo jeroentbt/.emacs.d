@@ -1796,8 +1796,25 @@ Browse the orgcard with helm
   :custom
   (helm-org-format-outline-path t))
 #+end_src
+**** org-roam
+     Org Roam is supposed to be the next big thing in externalising your brain with emacs
 
-
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (use-package org-roam
+             :ensure t
+             :hook
+             (after-init . org-roam-mode)
+             :custom
+             (org-roam-directory org-directory)
+             :config
+             (setq org-roam-completion-system 'helm)
+             :bind (:map org-roam-mode-map
+                     (("C-c n l" . org-roam)
+                      ("C-c n f" . org-roam-find-file)
+                      ("C-c n g" . org-roam-show-graph))
+                     :map org-mode-map
+                     (("C-c n i" . org-roam-insert))))
+     #+end_src
 
 *** weechat                                                      :mode:major:
 Weechat needs to be running.

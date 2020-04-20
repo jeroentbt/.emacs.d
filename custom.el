@@ -92,3 +92,4 @@
  ;; If there is more than one, they won't work right.
  '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0))))
  '(erc-pal-face ((t (:inverse-video t)))))
+ '(org-roam-link ((t (:inherit org-link :foreground "green yellow")))))
