@@ -1043,8 +1043,7 @@ see [[*Icons!][Icons!]]
 
 #+begin_src emacs-lisp :tangle yes
   (use-package all-the-icons-dired
-    :config
-    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+    :hook (dired-mode . all-the-icons-dired-mode))
 #+end_src
 
 ***** dired-x
