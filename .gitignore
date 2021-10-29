@@ -16,3 +16,15 @@ persp-confs
 tramp
 /vendor/evernote-mode
 /.org-id-locations
+/bookmarks
+/elpy/
+/emacs-init.el
+/ido.last
+/lisp/
+/org-journal.cache
+/org-roam.db
+/orgcard.txt
+/persist/
+/smex-items
+/timelog
+/transient/
