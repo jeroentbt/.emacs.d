@@ -1,5 +1,5 @@
+#+TITLE: Emacs Org Configuration
 
-* Emacs Org Configuration
 * Description
 This file is tangled by init.el using =org-babel-load-file=. What this does is generate a =emacs-init.el= from the =emacs-lisp= source blocks.
 
