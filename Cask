@@ -1,6 +1,6 @@
 (source "elpy" "https://jorgenschaefer.github.io/packages/")
 (source gnu)
-(source marmalade)
+;; (source marmalade)
 (source melpa)
 (source org)
 
@@ -99,3 +99,6 @@
 (depends-on "helm-projectile")
 (depends-on "helm-orgcard")
 (depends-on "company-tern")
+(depends-on "ob-restclient")
+(depends-on "ox-hugo")
+

@@ -1,3 +1,4 @@
+
 * Emacs Org Configuration
 * Description
 This file is tangled by init.el using =org-babel-load-file=. What this does is generate a =emacs-init.el= from the =emacs-lisp= source blocks.
@@ -152,6 +153,13 @@ prevent minor-mode from showing up (or change the string used) in the modeline
      (eval-when-compile
        (require 'use-package))
    #+END_SRC
+** Manual package installation
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (add-to-list 'load-path "~/.emacs.d/lisp/")
+     (load "explain-pause-mode")
+     (explain-pause-mode t)
+   #+end_src
+
 
 ** System
 First find out wether we're working on OSX or not
@@ -445,7 +453,7 @@ Darkroom mode offers a write centric, no clutter interface
   (global-unset-key "\C-x\l")
   ;; Toggle linum-mode, superceded now by display-line-nmbers-mode
   (bind-key "C-x l n" 'display-line-numbers-mode)
-  (setq display-line-numbers-type 'relative)
+  ;; (setq display-line-numbers-type 'relative)
   (bind-key "C-x l c" 'count-lines-page)
 
 #+END_SRC
@@ -500,14 +508,14 @@ Darkroom mode offers a write centric, no clutter interface
 
   ;; Don't be so stingy on the memory, we have lots now. It's the distant future.
   (setq garbage-collection-messages t)
-  (defun my-minibuffer-setup-hook ()
-    (setq gc-cons-threshold most-positive-fixnum))
+  ;; (defun my-minibuffer-setup-hook ()
+    ;; (setq gc-cons-threshold most-positive-fixnum))
 
-  (defun my-minibuffer-exit-hook ()
-    (setq gc-cons-threshold 8000000))
-
-  (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-  (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+  ;; (defun my-minibuffer-exit-hook ()
+    ;; (setq gc-cons-threshold 80000000))
+  (setq gc-cons-threshold 80000000)
+  ;; (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+  ;; (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
 
   ;; Represent undo-history as an actual tree (visualize with C-x u)
@@ -1030,7 +1038,7 @@ We'll be using popwin to make it pop!
 #+BEGIN_SRC emacs-lisp :tangle yes
   (req-package direx
                :require
-               (direx-project popwin)
+               (popwin)
                :config
                (progn (push '(direx:direx-mode :position left :width 40 :dedicated t)
                             popwin:special-display-config)
@@ -1137,7 +1145,7 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
   (use-package yasnippet
     :ensure t
     :requires company
-    :init
+    :config
     ;; Add yasnippet support for all company backends
     ;; https://github.com/syl20bnr/spacemacs/pull/179
     (defvar company-mode/enable-yas t
@@ -1149,7 +1157,6 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
           backend
         (append (if (consp backend) backend (list backend))
                 '(:with company-yasnippet))))
-    :config
     (yas-global-mode 1)
     (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
@@ -1432,10 +1439,6 @@ salvaged from old config:
       (add-to-list 'load-path "~/.node_modules/lib/node_modules/tern/emacs"))
 
   (autoload 'tern-mode "tern.el" nil t)
-
-  (req-package company-tern
-    :require (company tern)
-    :config (add-to-list 'company-backends (company-mode/backend-with-yas 'company-tern)))
 #+END_SRC
 **** general
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1559,7 +1562,9 @@ The silver searches is nice and fast for searching inside code repos
     When the buffer gets large, emacs gets slow, we'll truncate when new lines are added
     #+BEGIN_SRC emacs-lisp :tangle yes
       ;; truncate comint buffers after x lines
-      (setq comint-buffer-maximum-size 5000)
+      (setq comint-buffer-maximum-size 5000
+            comint-scroll-to-bottom-on-input t)
+
       (add-hook 'comint-output-filter-functions 'comint-truncate-buffer)
     #+END_SRC
 
@@ -1585,6 +1590,8 @@ The silver searches is nice and fast for searching inside code repos
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c b") 'org-iswitchb)
+
+  (setq org-imenu-depth 9)
 #+END_SRC
 
 **** File config
@@ -1619,8 +1626,6 @@ The silver searches is nice and fast for searching inside code repos
                   (setq org-sticky-header-heading-star ">")
           :hook (org-mode . org-sticky-header-mode))
       #+end_src
-
-
 **** Tasks and States
 
 Borrowing heavily from [[http://doc.norang.ca/org-mode.html#TasksAndStates][norang.ca]]
@@ -1630,7 +1635,7 @@ A global set of TODO keywords
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "BUSY(b)" "|" "DONE(d)")
-                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "CALL" "MEETING"))))
 
 #+end_src
 
@@ -1639,6 +1644,7 @@ A global set of TODO keywords
 Define some capture templates
 
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'org-protocol)
   (setq org-capture-templates
         (quote (("t" "todo" entry (file "~/Documents/org/refile.org")
                  "* TODO %?\n%U\n%a\n")
@@ -1650,8 +1656,10 @@ Define some capture templates
                  "* %? \n")
                 ("j" "journal entry" entry (function org-journal-find-location)
                  "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?")
-                ("w" "org-protocol" entry (file "~/Documents/org/refile.org")
-                 "* TODO Review %c\n%U\n")
+                ("s" "org-protocol selection" entry (file "~/Documents/org/refile.org")
+                 "* %?\n  %a\n  %i")
+                ("l" "org-protocol link" entry (file "~/Documents/org/refile.org")
+                 "* %?\n  %a")
                 ("m" "Meeting" entry (file "~/Documents/org/refile.org")
                  "* MEETING with %? :MEETING:\n%U")
                 ("p" "Phone call" entry (file "~/Documents/org/refile.org")
@@ -1661,7 +1669,47 @@ Define some capture templates
 
 #+end_src
 
+
 Maybe look in to clocking from http://doc.norang.ca/org-mode#CaptureTemplates
+
+**** Org protocol
+     To get org-protocol working I had to create a desktop file and update the database
+     source: https://cestlaz.github.io/post/using-emacs-70-org-protocol/
+
+     #+begin_src conf :tangle no
+       [Desktop Entry]
+       Name=EmacsClient as org-protocol handler
+       Exec=emacsclient %u
+       Icon=emacs
+       Type=Application
+       Terminal=false
+       Categories=System;
+       MimeType=x-scheme-handler/org-protocol;
+     #+end_src
+     place this in ~/.local/share/applications
+
+     then run
+     #+begin_example sh
+       update-desktop-database ~/.local/share/applications
+     #+end_example
+
+***** test org protocol from command line
+      #+begin_example sh
+        emacsclient "org-protocol://store-link?url=URL&title=TITLE"
+      #+end_example
+
+***** Capture links from your browser by adding this bookmarklet
+      Org link capturing seems spotty at best in current firefox
+      #+begin_src js :tangle no
+        javascript:location.href='org-protocol://store-link?' +
+              new URLSearchParams({url:location.href, title:document.title});
+      #+end_src
+
+***** TODO could I get org-capture to use yequake?
+      Curently not always visible where the capture buffer will pop up.
+      workaround is to just open a buffer next to where you're capturing...
+***** Maybe look in to full page capturing using pandoc?
+      https://github.com/alphapapa/org-protocol-capture-html#org-protocol-instructions
 
 **** Org capture Quake style
      https://github.com/alphapapa/yequake#org-capture
@@ -1678,6 +1726,7 @@ Maybe look in to clocking from http://doc.norang.ca/org-mode#CaptureTemplates
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package yequake
+    :ensure t
     :custom
     (yequake-frames
      '(("org-capture"
@@ -1710,9 +1759,7 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
 plantuml also needs to know where to find the jar
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
-  (setq plantuml-executable-path "/usr/bin/plantuml")
-  (setq plantuml-default-exec-mode 'executable)
+  (setq org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
 #+end_src
 
 **** export
@@ -1800,20 +1847,25 @@ Browse the orgcard with helm
      Org Roam is supposed to be the next big thing in externalising your brain with emacs
 
      #+BEGIN_SRC emacs-lisp :tangle yes
-       (use-package org-roam
-             :ensure t
-             :hook
-             (after-init . org-roam-mode)
-             :custom
-             (org-roam-directory org-directory)
-             :config
-             (setq org-roam-completion-system 'helm)
-             :bind (:map org-roam-mode-map
-                     (("C-c n l" . org-roam)
-                      ("C-c n f" . org-roam-find-file)
-                      ("C-c n g" . org-roam-show-graph))
-                     :map org-mode-map
-                     (("C-c n i" . org-roam-insert))))
+        (use-package org-roam
+              :ensure t
+              :hook
+              (after-init . org-roam-db-autosync-mode)
+              :init
+              (setq org-roam-v2-ack t)
+              :custom
+              (org-roam-directory org-directory)
+              :config
+              (setq org-roam-completion-system 'helm)
+              :bind
+              ("C-c n f" . org-roam-node-find)
+              ("C-c n i" . org-roam-node-insert)
+              ("C-c n I" . org-id-get-create)
+              ("C-c n c" . org-roam-capture)
+              ("C-c n l" . org-roam-buffer-toggle)
+              ("C-c n L" . org-roam-buffer-display-dedicated)
+              ("C-c n g" . org-roam-graph))
+
      #+end_src
 **** org-journal
      A better journaling experience?
@@ -1826,7 +1878,7 @@ Browse the orgcard with helm
          (org-journal-date-prefix "#+TITLE: Journal entry for ")
          (org-journal-file-format "%Y-%m-%d.org")
          (org-journal-dir (concat org-directory "/journal"))
-         (org-journal-date-format "%Y-%m-%d"))
+         (org-journal-date-format "%A, %d %B %Y"))
      #+end_src
      A helper function to use org-journal in with org-capture
      #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1977,7 +2029,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
         ;;mu4e-get-mail-command "~/bin/offlineimap/offlineimap.py"
         mu4e-mu-binary "/usr/bin/mu"
         mu4e-get-mail-command "mbsync -a"
-        mu4e-update-interval 600
+        mu4e-update-interval 7200
         mu4e-maildir "~/Maildir"
         mu4e-attachment-dir  "~/Downloads/mail-attachments"
         mu4e-action-tags-header "X-Keywords" ;; thanks to offlineimap gmail
@@ -2074,7 +2126,7 @@ But I prefer to read text emails...
 ***** behaviour
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  (setq mu4e-sent-messages-behavior 'delete)
+  ;; solved in contexts now
 
   ;; don't keep message buffers around when exiting mu4e
   (setq message-kill-buffer-on-exit t)
@@ -2219,7 +2271,7 @@ So this is just for reference:
                      account-vars)
              (error "No email account found"))))
 
-  (add-hook 'mu4e-compose-pre-hook 'my/mu4e-set-account)
+  ;; (add-hook 'mu4e-compose-pre-hook 'my/mu4e-set-account)
 #+END_SRC
 
 ***** sending
@@ -2236,15 +2288,12 @@ Also, make sure gnutls are installed (for signing/encrypting messages)
         ;; message-send-mail-function 'async-smtpmail-send-it
         message-send-mail-function 'smtpmail-send-it
         starttls-use-gnutls t
-        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        smtpmail-auth-credentials
-        '(("smtp.gmail.com" 587 my/smtpmail-address nil))
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587
         ;; message queue for offline sending
         smtpmail-queue-mail nil ;; start in non-queueing mode
         smtpmail-queue-dir "~/Maildir/queue/cur"
+        ;; set to t to enable debugging...
+        smtpmail-debug-info nil
+        ;;smtpmail-debug-verb nil
         )
 
   ;; alternatively, for emacs-24 you can use:
@@ -2324,7 +2373,7 @@ xdg-mime default emacs.desktop message/rfc822
 
 ** Minor modes
 *** ido                                                          :mode:minor:
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
     (req-package ido
                  :require
                  (flx flx-ido ido-vertical-mode ido-completing-read+ ido-at-point)
@@ -2420,30 +2469,38 @@ amount, the helm buffer will be fixed size.
                    (global-set-key (kbd "C-c h g") 'helm-do-ag)
                    (global-set-key (kbd "C-c h I") 'helm-swoop))
     :init (helm-autoresize-mode 1)
-          (helm-flx-mode +1))
+          (helm-flx-mode +1)
+          (helm-mode 1))
 #+END_SRC
 
 ** Workspaces
 
 *** Projectile                                                   :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-        (req-package projectile
-          :require (helm helm-projectile)
-          :config
-            ;; C-c p a now opens other file with same name - but different extension
-            ;; Add this to switch between js and html file
-            (progn (add-to-list 'projectile-other-file-alist '("js" . ("html")))
-                   (add-to-list 'projectile-other-file-alist '("html" . ("js")))
-                   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-          :init
-          (projectile-global-mode)
-          (helm-projectile-on))
+  (req-package projectile
+    :require (helm helm-projectile)
+    :config
+      ;; C-c p a now opens other file with same name - but different extension
+      ;; Add this to switch between js and html file
+      (progn (add-to-list 'projectile-other-file-alist '("js" . ("html")))
+             (add-to-list 'projectile-other-file-alist '("html" . ("js")))
+             (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+    :init
+    (projectile-global-mode)
+    (setq projectile-completion-system 'helm)
+    (helm-projectile-on))
 #+END_SRC
 **** Keybindings                                                :keybindings:
 "C-c p" followed by a key
-*** spaces                                                       :mode:minor:
+*** Perspective                                                 :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package spaces)
+  (use-package perspective
+    :ensure t
+    :custom
+    (persp-sort (quote access))
+    (persp-state-default-file "~/.config/emacs-perspectives")
+    :config
+    (persp-mode))
 #+END_SRC
 
 ** Bookmarks
@@ -2557,3 +2614,55 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
 #+END_EXAMPLE
 
 ** TODO eyebrowse?
+
+** failed to install . My config sucks
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (use-package pallet
+         :ensure t)
+       (use-package darkroom
+         :ensure t)
+       (use-package smooth-scrolling
+         :ensure t)
+       (use-package flycheck
+         :ensure t)
+       (use-package highlight-symbol
+         :ensure t)
+       (use-package rainbow-mode
+         :ensure t)
+       (use-package paradox
+         :ensure t)
+       (use-package json-mode
+         :ensure t)
+       (use-package ag
+         :ensure t)
+       (use-package editorconfig
+         :ensure t)
+       (use-package emmet-mode
+         :ensure t)
+       (use-package gist
+         :ensure t)
+       (use-package ix
+         :ensure t)
+       (use-package diminish
+         :ensure t)
+       (use-package smartparens
+         :ensure t)
+       (use-package tern
+         :ensure t)
+       (use-package js2-refactor
+         :ensure t)
+       (use-package skewer-mode
+         :ensure t)
+       (use-package helm-orgcard
+         :ensure t)
+       (use-package erc-hl-nicks
+         :ensure t)
+       (use-package helm-ag
+         :ensure t)
+       (use-package helm-swoop
+         :ensure t)
+       (use-package helm-flx
+         :ensure t)
+       (use-package helm-projectile
+         :ensure t)
+     #+end_src
