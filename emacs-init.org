@@ -485,11 +485,11 @@ Darkroom mode offers a write centric, no clutter interface
   (global-auto-revert-mode 1)
 
   ;; Save point position between sessions
-  (req-package saveplace
-               :init
-               (setq-default save-place t)
-               :config
-               (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
+  (use-package saveplace
+    :init
+    (save-place-mode t)
+    :config
+    (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
 
   ;; this is disabled by default
   (put 'narrow-to-region 'disabled nil)
