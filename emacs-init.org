@@ -482,8 +482,7 @@ Darkroom mode offers a write centric, no clutter interface
      Do not globally enable this mode, it does not play well with some other modes I
      use and makes emacs stutter on movement.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package indent-guide
-    :ensure t)
+  (use-package indent-guide)
 #+END_SRC
 ***** TODO bind a key to toggle indent-guide
 *** General interaction and settings
@@ -810,7 +809,6 @@ Pop!
 
       #+begin_src emacs-lisp :tangle yes
         (use-package which-key
-          :ensure t
           :init
           ;; Allow C-h to trigger which-key before it is done automatically
           (setq which-key-show-early-on-C-h t)
@@ -1023,8 +1021,7 @@ I basically just use this to highlight, none of the query replace and moving aro
      iedit will let you =C-;= to edit all occurences (or =tab=, =M-;= to remove some) at once
      =C-h f iedit-mode= for more info
      #+BEGIN_SRC emacs-lisp :tangle yes
-       (use-package iedit
-         :ensure t)
+       (use-package iedit)
      #+END_SRC
 ***** TODO C-; is bound by flyspell to auto correct previous word       :bug:
 **** smartparens                                                 :mode:minor:
@@ -1145,7 +1142,6 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package company
-    :ensure t
     :config
     (global-company-mode)
     (setq company-idle-delay 0.3
@@ -1167,7 +1163,6 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
           company-dabbrev-time-limit 0.5))
 
   (use-package yasnippet
-    :ensure t
     :requires company
     :config
     ;; Add yasnippet support for all company backends
@@ -1186,7 +1181,6 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
 
 
   (use-package company-quickhelp
-    :ensure t
     :requires company
     :config
     (company-quickhelp-mode t)
@@ -1195,7 +1189,6 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
           company-quickhelp-color-foreground "white"))
 
   (use-package helm-company
-    :ensure t
     :bind (:map company-active-map
                 ("M-h" . helm-company))
     :requires company)
@@ -1644,7 +1637,6 @@ The silver searches is nice and fast for searching inside code repos
       This package displays in the header-line the Org heading for the node that’s at the top of the window. This way, if the heading for the text at the top of the window is beyond the top of the window, you don’t forget which heading the text belongs to. The display can be customized to show just the heading, the full outline path, or the full outline path in reverse.
       #+BEGIN_SRC emacs-lisp :tangle yes
         (use-package org-sticky-header
-          :ensure t
           :config (setq org-sticky-header-full-path 'full)
                   (setq org-sticky-header-always-show-header t)
                   (setq org-sticky-header-heading-star ">")
@@ -1750,7 +1742,6 @@ Maybe look in to clocking from http://doc.norang.ca/org-mode#CaptureTemplates
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package yequake
-    :ensure t
     :custom
     (yequake-frames
      '(("org-capture"
@@ -1851,14 +1842,12 @@ Browse the orgcard with helm
 ***** helm-org
 #+BEGIN_SRC emacs-lisp :tangle yes
 (use-package general
-  :ensure t
   :config
   (global-unset-key (kbd "M-SPC"))
   (general-create-definer alpha-org/general-def
     :prefix "M-SPC"))
 
 (use-package helm-org
-  :ensure t
   :general
   (alpha-org/general-def
     "ha" #'helm-org-agenda-files-headings
@@ -1872,7 +1861,6 @@ Browse the orgcard with helm
 
      #+BEGIN_SRC emacs-lisp :tangle yes
         (use-package org-roam
-              :ensure t
               :hook
               (after-init . org-roam-db-autosync-mode)
               :init
@@ -1895,7 +1883,6 @@ Browse the orgcard with helm
      A better journaling experience?
      #+BEGIN_SRC emacs-lisp :tangle yes
        (use-package org-journal
-         :ensure t
          :bind
          ("C-c n j" . org-journal-new-entry)
          :custom
@@ -2519,7 +2506,6 @@ amount, the helm buffer will be fixed size.
 *** Perspective                                                 :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package perspective
-    :ensure t
     :custom
     (persp-sort (quote access))
     (persp-state-default-file "~/.config/emacs-perspectives")
@@ -2641,52 +2627,28 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
 
 ** failed to install . My config sucks
      #+BEGIN_SRC emacs-lisp :tangle yes
-       (use-package pallet
-         :ensure t)
-       (use-package darkroom
-         :ensure t)
-       (use-package smooth-scrolling
-         :ensure t)
-       (use-package flycheck
-         :ensure t)
-       (use-package highlight-symbol
-         :ensure t)
-       (use-package rainbow-mode
-         :ensure t)
-       (use-package paradox
-         :ensure t)
-       (use-package json-mode
-         :ensure t)
-       (use-package ag
-         :ensure t)
-       (use-package editorconfig
-         :ensure t)
-       (use-package emmet-mode
-         :ensure t)
-       (use-package gist
-         :ensure t)
-       (use-package ix
-         :ensure t)
-       (use-package diminish
-         :ensure t)
-       (use-package smartparens
-         :ensure t)
-       (use-package tern
-         :ensure t)
-       (use-package js2-refactor
-         :ensure t)
-       (use-package skewer-mode
-         :ensure t)
-       (use-package helm-orgcard
-         :ensure t)
-       (use-package erc-hl-nicks
-         :ensure t)
-       (use-package helm-ag
-         :ensure t)
-       (use-package helm-swoop
-         :ensure t)
-       (use-package helm-flx
-         :ensure t)
-       (use-package helm-projectile
-         :ensure t)
+       (use-package pallet)
+       (use-package darkroom)
+       (use-package smooth-scrolling)
+       (use-package flycheck)
+       (use-package highlight-symbol)
+       (use-package rainbow-mode)
+       (use-package paradox)
+       (use-package json-mode)
+       (use-package ag)
+       (use-package editorconfig)
+       (use-package emmet-mode)
+       (use-package gist)
+       (use-package ix)
+       (use-package diminish)
+       (use-package smartparens)
+       (use-package tern)
+       (use-package js2-refactor)
+       (use-package skewer-mode)
+       (use-package helm-orgcard)
+       (use-package erc-hl-nicks)
+       (use-package helm-ag)
+       (use-package helm-swoop)
+       (use-package helm-flx)
+       (use-package helm-projectile)
      #+end_src
