@@ -7,7 +7,7 @@ This file is tangled by init.el using =org-babel-load-file=. What this does is g
 ** git
 ** cask
 An emacs package manager: http://cask.github.io/installation.html
-*** TODO Remove Cask and Pallet as dependencies
+*** TODO Remove Cask and Pallet as dependencies                   :tech:debt:
     They just complicate things...
 * Package Management
 
@@ -839,7 +839,7 @@ Pop!
       - which-key-show-top-level :: will show most key bindings without a prefix.
       - which-key-show-major-mode :: will show the currently active major-mode bindings. It’s similar to C-h m but in a which-key format.
 
-****** TODO Prefixes that used to trigger guide-key
+****** TODO Prefixes that used to trigger guide-key               :doc:learn:
        These probably merit a better place to document them, or an effort to actually learn them?
 
        - "C-c !" :: flycheck
