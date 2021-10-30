@@ -39,8 +39,8 @@ handles all our internal package dependencies and configurations.
 [[https://github.com/edvorg/req-package][req-package]] is a wrapper on top of [[https://github.com/jwiegley/use-package][use-package]], a package dependency
 management tool. The documentation for =use-package= is immensely helpful for
 figuring out how to describe package dependencies and settings. =req-package=
-adds the =:require= keyword which allows you to define dependencies between
-related packages.
+adds the =:require= keyword which allows you to define (and resolve through
+installation of those) dependencies between related packages.
 #+END_QUOTE
 
 Start using =req-package=
