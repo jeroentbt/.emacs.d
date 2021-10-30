@@ -9,12 +9,13 @@
   '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
   '("org" . "https://orgmode.org/elpa//") t)
-
-(unless package-archive-contents    ;; Refresh the packages descriptions
-  (package-refresh-contents))
 (package-initialize)
 
-(package-install 'org-plus-contrib)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(unless (package-installed-p 'org-plus-contrib)
+  (package-install 'org-plus-contrib))
 
 ;; only retangle if the org file is newer than the tangled file
 (defvar init-source-org-file 
