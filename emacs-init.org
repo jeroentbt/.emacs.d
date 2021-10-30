@@ -350,7 +350,7 @@ Darkroom mode offers a write centric, no clutter interface
         "c" 'count-lines-page
         "g" 'goto-line)
      #+END_SRC
-***** TODO toggle numbers
+***** TODO toggle numbers                                           :feature:
       Make =C-x l n= toggle between =none=, =absolute= and =relative=
 
 **** Line wrapping
@@ -374,10 +374,16 @@ Darkroom mode offers a write centric, no clutter interface
 **** Indent guides
      Do not globally enable this mode, it does not play well with some other modes I
      use and makes emacs stutter on movement.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package indent-guide)
-#+END_SRC
-***** TODO bind a key to toggle indent-guide
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (use-package indent-guide
+         :general
+         (keys/lines
+          "im" 'indent-guide-mode
+          "ig" 'indent-guide-global-mode
+          "is" 'indent-guide-show))
+     #+END_SRC
+
+***** TODO =indent-guide-show= works once, then you have to toggle the mode :bug:
 *** General interaction and settings
 
 **** Defaults
