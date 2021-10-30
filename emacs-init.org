@@ -7,7 +7,8 @@ This file is tangled by init.el using =org-babel-load-file=. What this does is g
 ** git
 ** cask
 An emacs package manager: http://cask.github.io/installation.html
-
+*** TODO Remove Cask and Pallet as dependencies
+    They just complicate things...
 * Package Management
 
 [[https://github.com/rdallasgray/pallet][Pallet]] is a very helpful package management tool for Emacs.
