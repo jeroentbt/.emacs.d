@@ -234,24 +234,24 @@ Some sensible defaults
 #+END_SRC
 **** Buffers and windows
 ***** ace-window
-Ace-window offers an ace-jump like interface for jumping to, switching and deleting windows.
-1 universal argument moves current and called window
-2 universal arguments deletes called window
+      Ace-window offers an ace-jump like interface for jumping to, switching and deleting windows.
 
-As abo-abo suggests, I'm using the home row to select the windows
+      n key (as well as another call of M-o) will switch to the previous window
 
-n key (as well as another call of M-o) will switch to the previous window
-#+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ace-window
-      :init
-      (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
-            aw-background nil
-            aw-flip-keys '("n" "M-o"))
-      (custom-set-faces
-       '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
-      :bind
-      (("M-o" . ace-window)))
-#+end_src
+      #+BEGIN_SRC emacs-lisp :tangle yes
+        (use-package ace-window
+          :init
+          (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+                aw-background nil
+                aw-flip-keys '("n" "M-o"))
+          (custom-set-faces
+           '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+          :general
+          ("M-o" 'ace-window))
+      #+end_src
+****** ace-window usage                                               :usage:
+       - /C-u M-o/ :: 1 universal argument moves current and called window
+       - /C-u C-u M-o/ :: 2 universal arguments deletes called window
 
 ***** ibuffer
 Start using ibuffer
