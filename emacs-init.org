@@ -1681,8 +1681,8 @@ Define some capture templates
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'org-protocol)
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file "~/Documents/org/refile.org")
-                 "* TODO %?\n%U\n%a\n")
+        (quote (("t" "TODO" entry (file "~/Documents/org/refile.org")
+                 "* TODO %? %^G\n  %U\n")
                 ("r" "respond" entry (file "~/Documents/org/refile.org")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
                 ("n" "note" entry (file "~/Documents/org/refile.org")
