@@ -2434,8 +2434,12 @@ Helm autoresize heights are set in percentages. If set to the same
 amount, the helm buffer will be fixed size.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package helm
-    :require (helm async helm-ag helm-swoop helm-flx)
+  (use-package async)
+  (use-package helm-ag)
+  (use-package helm-swoop)
+  (use-package helm-flx)
+  (use-package helm
+    :requires (async helm-ag helm-swoop helm-flx)
     :bind (("C-c h" . helm-command-prefix)
            ("M-x" . helm-M-x)
            ("M-y" . helm-show-kill-ring)
