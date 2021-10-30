@@ -812,30 +812,44 @@ Pop!
                  (popwin-mode t))
 #+END_SRC
 **** Some help
-***** guide-key                                                  :mode:minor:
-An interface to use a tooltip window to display guide-key info is also available:
-[[https://github.com/aki2o/guide-key-tip][guide-key-tip.el]]. I'm sticking with the regular one for now. And hope discover gets some more love.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package guide-key
-               :init
-               (guide-key-mode 1)
-               :config
-               (setq guide-key/guide-key-sequence '("C-c p" ;; projectile
-                                                    "C-c !" ;; flycheck
-                                                    "C-x r" ;; ... stuff
-                                                    "C-x 4" ;; file other window
-                                                    "C-x v" ;; generic version controll
-                                                    "C-x 8" ;; special chars
-                                                    "C-x x" ;; persp
-                                                    "C-c h" ;; helm default prefix
-                                                    "H-x" ;; start apps
-                                                    (js2-mode "C-c C-m") ;; js2-refactor
-                                                    )
-                     guide-key/recursive-key-sequence-flag t
-                     guide-key/popup-window-position 'bottom))
+***** Which-key                                                  :mode:minor:
+      [[https://github.com/justbur/emacs-which-key][Emacs package that displays available keybindings in popup]]
+      During any key sequence, do =C-h= or =?= to popup which-key.
 
-#+END_SRC
-****** TODO Move to which key?
+      #+begin_src emacs-lisp :tangle yes
+        (use-package which-key
+          :ensure t
+          :init
+          ;; Allow C-h to trigger which-key before it is done automatically
+          (setq which-key-show-early-on-C-h t)
+          ;; make sure which-key doesn't show normally but refreshes quickly after it is
+          ;; triggered.
+          (setq which-key-idle-delay 10000)
+          (setq which-key-idle-secondary-delay 0.05)
+
+          (setq which-key-sort-order 'which-key-prefix-then-key-order)
+
+          (setq which-key-max-description-length 90)
+          (setq which-key-add-column-padding 2)
+          (which-key-mode))
+      #+end_src
+
+      Other commands of interest:
+      - which-key-show-top-level :: will show most key bindings without a prefix.
+      - which-key-show-major-mode :: will show the currently active major-mode bindings. It’s similar to C-h m but in a which-key format.
+
+****** TODO Prefixes that used to trigger guide-key
+       These probably merit a better place to document them, or an effort to actually learn them?
+
+       - "C-c !" :: flycheck
+       - "C-x r" :: ... stuff
+       - "C-x 4" :: file other window
+       - "C-x v" :: generic version controll
+       - "C-x 8" :: special chars
+       - "C-x x" :: persp
+       - "C-c h" :: helm default prefix
+
+
 ***** flycheck code verification
 ****** Usage
 http://flycheck.readthedocs.org
