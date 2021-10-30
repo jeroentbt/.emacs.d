@@ -83,6 +83,19 @@ Disabled for now
     (load custom-file)
 
 #+END_SRC
+*** Binding keys
+
+    General provides a convenient method for binding keys.
+    #+begin_src emacs-lisp :tangle yes
+      (use-package general
+        :config
+        (global-unset-key (kbd "M-SPC"))
+        (general-create-definer keys/prefix/emspace
+          :prefix "M-SPC"))
+    #+end_src
+
+**** usage                                                            :usage:
+     =M-x general-describe-keybindings=
 
 *** The interface
 **** Remove UI components
@@ -1698,12 +1711,6 @@ Browse the orgcard with helm
 #+end_src
 ***** helm-org
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package general
-    :config
-    (global-unset-key (kbd "M-SPC"))
-    (general-create-definer keys/prefix/emspace
-      :prefix "M-SPC"))
-
   (use-package helm-org
     :general
     (keys/prefix/emspace
