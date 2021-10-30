@@ -3,34 +3,22 @@
 * Description
 This file is tangled by init.el using =org-babel-load-file=. What this does is generate a =emacs-init.el= from the =emacs-lisp= source blocks.
 
-* Prerequisites
-** git
-** cask
-An emacs package manager: http://cask.github.io/installation.html
-*** TODO Remove Cask and Pallet as dependencies                   :tech:debt:
-    They just complicate things...
-* Package Management
-
-[[https://github.com/rdallasgray/pallet][Pallet]] is a very helpful package management tool for Emacs.
-It utilizes a dependency management platform called [[https://github.com/cask/cask][Cask]],
-to update a centralized =Cask= file when you install or remove packages.
-
-** Cask
-Cask is initialized in =init.el= with the following:
-#+BEGIN_SRC emacs-lisp :tangle no
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-#+END_SRC
-
-** Pallet
-You can download all packages in your =Cask= file by using =M-x pallet-install=.
-However, this should not be necessary.
-
-** Install Packages
-- Install [[https://github.com/cask/cask][Cask]].
-- Run =cask install= in =$HOME/.emacs.d/=.
-
 * The config
+** Package loading and setup wih =use-package=
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (package-install 'use-package)
+     (eval-when-compile
+       (require 'use-package))
+   #+END_SRC
+
+   Use package can ensure a package is installed by using the =:ensure= keyword.
+   The following sets this up globally. Every package initiated by use-package will be installed when not present.
+
+   #+begin_src emacs-lisp :tangle yes
+     (require 'use-package-ensure)
+     (setq use-package-always-ensure t)
+   #+end_src
+
 ** Dependency Management with =req-package=
 
 Where Pallet keeps track of the packages we have installed, =req-package=
@@ -46,8 +34,7 @@ installation of those) dependencies between related packages.
 
 Start using =req-package=
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'req-package)
-  (req-package pallet)
+  (use-package req-package)
 #+END_SRC
 
 *** A word on using req-package
@@ -149,19 +136,6 @@ prevent minor-mode from showing up (or change the string used) in the modeline
   (req-package foo
       :diminish foo "foo-minor-mode"
 #+END_EXAMPLE
-** Package loading and setup wih =use-package=
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (eval-when-compile
-       (require 'use-package))
-   #+END_SRC
-
-   Use package can ensure a package is installed by using the =:ensure= keyword.
-   The following sets this up globally. Every package initiated by use-package will be installed when not present.
-
-   #+begin_src emacs-lisp :tangle yes
-     (require 'use-package-ensure)
-     (setq use-package-always-ensure t)
-   #+end_src
 
 ** Manual package installation
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1423,7 +1397,7 @@ We all make mistakes..
 #+BEGIN_EXAMPLE emacs-lisp
 ;; Alternative spell check mode that checks visible buffer
 ;; https://github.com/tlikonen/wcheck-mode
-(require 'wcheck-mode)
+(use-package wcheck-mode)
 
 
 (setq wcheck-language-data
@@ -1628,9 +1602,10 @@ The silver searches is nice and fast for searching inside code repos
 
       A nicer way to represent hierarchy
       #+BEGIN_SRC emacs-lisp :tangle yes
-        (require 'org-bullets)
-        (setq org-bullets-bullet-list '("◉" "○" "✸"))
-        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+        (use-package org-bullets
+          :config
+          (setq org-bullets-bullet-list '("◉" "○" "✸"))
+          (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
       #+end_src
 
 ***** sticky headers
@@ -1767,8 +1742,7 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
        (org . t)
        (python . t)
        (ditaa . t)
-       (plantuml . t)
-       (restclient . t)))
+       (plantuml . t)))
 #+END_SRC
 
 plantuml also needs to know where to find the jar
@@ -1789,10 +1763,10 @@ plantuml also needs to know where to find the jar
 
       Install org-with-contrib!
 
-****** reveal.js
+****** TODO reveal.js                                               :install:
        [[https://github.com/yjwen/org-reveal/][github]]
 
-       #+BEGIN_SRC emacs-lisp :tangle yes
+       #+BEGIN_SRC emacs-lisp :tangle no
          (require 'ox-reveal)
        #+end_src
 
@@ -1809,13 +1783,13 @@ plantuml also needs to know where to find the jar
        Adding ~#+OPTIONS: toc:nil~ might be a good idea.
 
        #+BEGIN_SRC emacs-lisp :tangle yes
-         (require 'org-mime)
+         (use-package org-mime)
        #+END_SRC
 
 ****** ox-hugo
        #+BEGIN_SRC emacs-lisp :tangle yes
        (with-eval-after-load 'ox
-         (require 'ox-hugo))
+         (use-package ox-hugo))
 
        #+END_SRC
 
@@ -2124,7 +2098,7 @@ Emacs 24.4 added shr.el, which does a better job at showing HTML.
 (It is also used in eww). It does feel a bit slow though
 
 #+BEGIN_SRC emacs-lisp :tangle no
-  (require 'mu4e-contrib)
+  (use-package mu4e-contrib)
   (setq mu4e-html2text-command 'html-to-markdown)
 #+END_SRC
 
@@ -2293,8 +2267,8 @@ Going with synchronous for now.
 Also, make sure gnutls are installed (for signing/encrypting messages)
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'smtpmail)
-  ;;(require 'smtpmail-async)
+  (use-package smtpmail)
+  ;;(use-package smtpmail-async)
   (setq ;; send-mail-function 'async-smtpmail-send-it
         ;; message-send-mail-function 'async-smtpmail-send-it
         message-send-mail-function 'smtpmail-send-it
@@ -2351,7 +2325,7 @@ https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
 ;; mark, C-c RET C-a
 ;; from http://www.djcbsoftware.nl/code/mu/mu4e/Attaching-files-with-dired.html#Attaching-files-with-dired
 
-(require 'gnus-dired)
+(use-package gnus-dired)
 
 ;; make the `gnus-dired-mail-buffers' function also work on
 ;; message-mode derived modes, such as mu4e-compose-mode
@@ -2541,6 +2515,7 @@ C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
     It is availble form Melpa and acitvated by doing
 
     #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package pdf-tools)
       (pdf-tools-install)
     #+end_src
 
@@ -2627,7 +2602,6 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
 
 ** failed to install . My config sucks
      #+BEGIN_SRC emacs-lisp :tangle yes
-       (use-package pallet)
        (use-package darkroom)
        (use-package smooth-scrolling)
        (use-package flycheck)
@@ -2652,3 +2626,18 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
        (use-package helm-flx)
        (use-package helm-projectile)
      #+end_src
+
+** Packages with issues after moving away from cask etc
+
+*** TODO ob-restclient in [[*Babel][Babel]]                                     :install:
+ #+begin_example emacs-lisp :tangle no
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((js . t)
+        (shell . t)
+        (org . t)
+        (python . t)
+        (ditaa . t)
+        (plantuml . t)
+        --> (restclient . t)))
+ #+end_example

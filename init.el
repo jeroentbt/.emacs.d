@@ -1,21 +1,20 @@
-;; Emacs 24 init.el
-
 ;; NOTE: The name of the Org files is important!  When a file gets tangled,
 ;; it gets the same base name as the Org file.  Thus, tangling Emacs Lisp from
 ;; a file `init.org` would generate `init.el`, obliterating this file in the
 ;; process. So your config org file should not be named "init.org".
+(require 'package)
+(add-to-list 'package-archives
+  '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+  '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+  '("org" . "https://orgmode.org/elpa//") t)
 
-;; Initialize cask to get the correct version of org-mode 
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+(unless package-archive-contents    ;; Refresh the packages descriptions
+  (package-refresh-contents))
 (package-initialize)
 
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-
+(package-install 'org-plus-contrib)
 
 ;; only retangle if the org file is newer than the tangled file
 (defvar init-source-org-file 
