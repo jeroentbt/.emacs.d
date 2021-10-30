@@ -2421,7 +2421,7 @@ indent_size = 2
 #+END_EXAMPLE
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package editorconfig
+  (use-package editorconfig
     :config (editorconfig-mode 1))
 #+END_SRC
 
