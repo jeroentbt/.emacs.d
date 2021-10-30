@@ -149,11 +149,20 @@ prevent minor-mode from showing up (or change the string used) in the modeline
   (req-package foo
       :diminish foo "foo-minor-mode"
 #+END_EXAMPLE
-** Dependency Management with =use-package=
+** Package loading and setup wih =use-package=
    #+BEGIN_SRC emacs-lisp :tangle yes
      (eval-when-compile
        (require 'use-package))
    #+END_SRC
+
+   Use package can ensure a package is installed by using the =:ensure= keyword.
+   The following sets this up globally. Every package initiated by use-package will be installed when not present.
+
+   #+begin_src emacs-lisp :tangle yes
+     (require 'use-package-ensure)
+     (setq use-package-always-ensure t)
+   #+end_src
+
 ** Manual package installation
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -540,13 +549,7 @@ Darkroom mode offers a write centric, no clutter interface
   ;; Sentences do not need double spaces to end. Period.
   (set-default 'sentence-end-double-space nil)
 
-  ;; Add parts of each file's directory to the buffer name if not unique
-  ;; not available on MELPA
-  (req-package uniquify
-               :init
-               (setq uniquify-buffer-name-style 'forward))
-
-  ;; A saner ediff
+    ;; A saner ediff
   (setq ediff-diff-options "-w")
   (setq ediff-split-window-function 'split-window-horizontally)
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -673,18 +676,6 @@ from: http://stackoverflow.com/a/13561223/1929897
       (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
     (add-hook 'visual-line-mode-hook 'my/activate-adaptive-wrap-prefix-mode))
 #+END_SRC
-***** window margin
-      :PROPERTIES:
-      :home:      [[https://github.com/aculich/window-margin.el][github]]
-      :END:
-This package will, while activating visual line mode, also use the margins to set the width of the display.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package window-margin
-    :bind ("C-x l W" . window-margin-mode))
-#+end_src
-
-
 **** Ace jump mode
 Ace jump mode! C-c C-c to switch from word to char mode once in ace jump mode.
 Otherwise use universal C-u to toggle behaviour
@@ -1038,11 +1029,9 @@ I basically just use this to highlight, none of the query replace and moving aro
 ***** TODO C-; is bound by flyspell to auto correct previous word       :bug:
 **** smartparens                                                 :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package smartparens-config
-                 :require
-                 (smartparens)
-                 :init
-                 (smartparens-global-mode))
+  (req-package smartparens
+    :init
+    (smartparens-global-mode))
 
 #+END_SRC
 
@@ -2484,7 +2473,7 @@ Helm autoresize heights are set in percentages. If set to the same
 amount, the helm buffer will be fixed size.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package helm-config
+  (req-package helm
     :require (helm async helm-ag helm-swoop helm-flx)
     :bind (("C-c h" . helm-command-prefix)
            ("M-x" . helm-M-x)
