@@ -19,124 +19,6 @@ This file is tangled by init.el using =org-babel-load-file=. What this does is g
      (setq use-package-always-ensure t)
    #+end_src
 
-** Dependency Management with =req-package=
-
-Where Pallet keeps track of the packages we have installed, =req-package=
-handles all our internal package dependencies and configurations.
-
-#+BEGIN_QUOTE
-[[https://github.com/edvorg/req-package][req-package]] is a wrapper on top of [[https://github.com/jwiegley/use-package][use-package]], a package dependency
-management tool. The documentation for =use-package= is immensely helpful for
-figuring out how to describe package dependencies and settings. =req-package=
-adds the =:require= keyword which allows you to define (and resolve through
-installation of those) dependencies between related packages.
-#+END_QUOTE
-
-Start using =req-package=
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package req-package)
-#+END_SRC
-
-*** A word on using req-package
-
-Loading of the required package is deferred if you use the
-:commands, :bind, :mode or :interpreter (which all imply :commands)
-or the :defer keyword
-
-**** :require
-load (and install when missing) dependencies
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package foo
-      :require package)
-#+END_EXAMPLE
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package foo
-      :require (package package2))
-#+END_EXAMPLE
-**** :init
-Will run immediately, even when loading is deferred.
-Keep it as simple as possible and make sure it is able to run
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package foo
-      :init
-      (progn
-          (setq foo-var t)
-          (foo-mode 1))
-#+END_EXAMPLE
-**** :idle
-Same as =init=, but will wait untill emacs is idle to execute.
-See varriable use-package-idle-interval
-
-Good for minor modes that take a long time to load
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package pabbrev
-      :commands global-pabbrev-mode
-      :idle (global-pabbrev-mode)
-      :idle-priority 3) ;; lower is higher priority
-#+END_EXAMPLE
-**** :config
-Will execute when package is actually loaded (when deferred)
-**** :bind
-Bind keys (defers)
-cons or list of conses
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package foo
-      :bind
-      (("C-c" . some-defun)
-          ("C-x" . some-other-defun))
-#+END_EXAMPLE
-**** :commands
-create autoloads for these commands (defers untill these commands are used)
-**** :mode
-add to auto-mode-alist
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package foo
-      :mode
-      ("\\.py\\'" . python-mode))
-#+END_EXAMPLE
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package foo
-      :mode "\\.py\\'")
-#+END_EXAMPLE
-**** :interpreter
-add to interpreter-mode-alist
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package foo
-      :interpreter
-      ("python" . python-mode))
-#+END_EXAMPLE
-**** :defer
-explicitly defer loading
-#+BEGIN_EXAMPLE emacs-lisp
-  (req-package foo
-      :defer t)
-#+END_EXAMPLE
-**** :if
-predicate loading of module
-#+BEGIN_EXAMPLE emacs-lisp
-  (use-package edit-server
-    :if window-system
-    :init
-    (progn
-      (add-hook 'after-init-hook 'server-start t)
-      (add-hook 'after-init-hook 'edit-server-start t)))
-#+END_EXAMPLE
-**** :disabled
-t to disable loading entirely
-**** :load-path
-load path of the package/module's parent dir
-Relative paths are prefixed with =user-emacs-directory=
-#+BEGIN_EXAMPLE emacs-lisp :tangle no
-  (req-package foo
-      :load-path "some/path"
-#+END_EXAMPLE
-**** :diminish
-prevent minor-mode from showing up (or change the string used) in the modeline
-#+BEGIN_EXAMPLE emacs-lisp :tangle no
-  (req-package foo
-      :diminish foo "foo-minor-mode"
-#+END_EXAMPLE
-
 ** Manual package installation
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -156,7 +38,7 @@ First find out wether we're working on OSX or not
   ;; configuration and thus have a different $PATH
   ;; test by doing "M-: (executable-find "flake8")"
   ;; C-h v exec-path
-  (when is-osx (progn (req-package exec-path-from-shell
+  (when is-osx (progn (use-package exec-path-from-shell
                                    :init
                                    (exec-path-from-shell-initialize))
 
@@ -308,8 +190,9 @@ Some sensible defaults
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;(size-indication-mode t)
   (setq column-number-mode t)
-  (req-package smart-mode-line
-               :require diminish
+  (use-package diminish)
+  (use-package smart-mode-line
+               :requires diminish
                :config
                    (setq sml/theme 'dark)
                    (sml/setup)
@@ -346,7 +229,7 @@ As abo-abo suggests, I'm using the home row to select the windows
 
 n key (as well as another call of M-o) will switch to the previous window
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package ace-window
+    (use-package ace-window
       :init
       (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
             aw-background nil
@@ -440,7 +323,7 @@ https://github.com/purcell/ibuffer-vc/blob/master/ibuffer-vc.el
 Darkroom mode offers a write centric, no clutter interface
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package darkroom)
+  (use-package darkroom)
 #+end_src
 
 **** Line numbers
@@ -495,7 +378,7 @@ Darkroom mode offers a write centric, no clutter interface
   (setq-default truncate-lines t)
 
   ;; Keep cursor away from edges when scrolling up/down
-  (req-package smooth-scrolling)
+  (use-package smooth-scrolling)
 
   ;; Allow recursive minibuffers
   ;; (setq enable-recursive-minibuffers t)
@@ -513,7 +396,7 @@ Darkroom mode offers a write centric, no clutter interface
 
 
   ;; Represent undo-history as an actual tree (visualize with C-x u)
-  (req-package undo-tree
+  (use-package undo-tree
                :init
                (global-undo-tree-mode)
                :config
@@ -546,8 +429,8 @@ Darkroom mode offers a write centric, no clutter interface
   ;; when ido-ubiquitous is used, smex is just used to keep
   ;; a history of last used commands.
   ;; TODO: check previous statement about smex and ido-ubiquitous
-  (req-package smex
-               :require ido
+  (use-package smex
+               :requires ido
                :init
                (smex-initialize)
                :bind
@@ -574,7 +457,7 @@ Darkroom mode offers a write centric, no clutter interface
   ;; hungry delete mode
   ;; Plain and simple, it makes backspace and C-d erase all consecutive white space
   ;; (instead of just one). Use it everywhere.
-  (req-package hungry-delete
+  (use-package hungry-delete
                :init
                (global-hungry-delete-mode))
 #+END_SRC
@@ -639,7 +522,7 @@ and your backup root is
 Visual line mode does not take indentation in to account. adaptive-wrap-prefix-mode solves that.
 from: http://stackoverflow.com/a/13561223/1929897
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package adaptive-wrap
+  (use-package adaptive-wrap
                :bind
                ("C-x l w" . visual-line-mode))
 
@@ -653,7 +536,7 @@ from: http://stackoverflow.com/a/13561223/1929897
 Ace jump mode! C-c C-c to switch from word to char mode once in ace jump mode.
 Otherwise use universal C-u to toggle behaviour
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package ace-jump-mode
+  (use-package ace-jump-mode
                :bind
                ("C-." . ace-jump-mode))
 #+END_SRC
@@ -701,7 +584,7 @@ A helm alternative exists (helm-show-kill-ring), but browse kill ring
 offer a lot more features (delete, edit, ...).
 Keeping this one in, with some finger gymnsastics.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package browse-kill-ring
+  (use-package browse-kill-ring
                :bind
                ("C-M-y" . browse-kill-ring))
 #+END_SRC
@@ -771,7 +654,7 @@ from: http://stackoverflow.com/a/9697222/1929897
 **** popwin
 Pop!
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package popwin
+    (use-package popwin
                  :init
                  (require 'popwin)
                  (popwin-mode t))
@@ -895,11 +778,11 @@ activate outside of customize
 Make colors appear on modeline
 ****** Setup
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package flycheck)
+  (use-package flycheck)
 #+END_SRC
 ***** discover
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package discover
+  (use-package discover
                :init
                (global-discover-mode 1))
 #+END_SRC
@@ -909,14 +792,14 @@ Dash is an offline documentation browser for OSX
 http://kapeli.com/dash
 Zeal is the equivalent on linux.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package dash-at-point
+  (use-package dash-at-point
       :if is-osx
       :bind ("C-c d" . dash-at-point))
 #+END_SRC
 ****** helm-dash
 #+BEGIN_SRC emacs-lisp :tangle no
-  (req-package helm-dash
-    :require (helm esqlite)
+  (use-package helm-dash
+    :requires (helm esqlite)
     :config
 
     (defun my/dash-install-docset (docset)
@@ -970,7 +853,7 @@ Zeal is the equivalent on linux.
 #+END_SRC
 **** expand-region                                               :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package expand-region
+    (use-package expand-region
                  :bind
                  ("C-=" . er/expand-region))
 #+END_SRC
@@ -978,11 +861,11 @@ Zeal is the equivalent on linux.
 **** highlight-symbol
 I basically just use this to highlight, none of the query replace and moving around stuff
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package highlight-symbol)
+  (use-package highlight-symbol)
 #+END_SRC
 **** multiple-cursors                                            :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package multiple-cursors
+  (use-package multiple-cursors
                :bind
                (("C->" . mc/mark-next-like-this)
                 ("C-<" . mc/mark-previous-like-this)
@@ -1000,7 +883,7 @@ I basically just use this to highlight, none of the query replace and moving aro
 ***** TODO C-; is bound by flyspell to auto correct previous word       :bug:
 **** smartparens                                                 :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package smartparens
+  (use-package smartparens
     :init
     (smartparens-global-mode))
 
@@ -1031,8 +914,8 @@ Dired extra. Extra features for dired
 Direx shows the dir or projects file structure.
 We'll be using popwin to make it pop!
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package direx
-               :require
+  (use-package direx
+               :requires
                (popwin)
                :config
                (progn (push '(direx:direx-mode :position left :width 40 :dedicated t)
@@ -1045,7 +928,7 @@ This functionality is offered by helm mini. See helm config
 Find recent files
 from: Magnars https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/defuns/buffer-defuns.el
 #+BEGIN_SRC emacs-lisp :tangle no
-  (req-package s)
+  (use-package s)
 
   (defvar user-home-directory (concat (expand-file-name "~") "/"))
 
@@ -1102,7 +985,7 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
 #+END_SRC
 **** Auto complete
 #+BEGIN_SRC emacs-lisp :tangle no
-  (req-package auto-complete
+  (use-package auto-complete
                :init
                ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
                (require 'auto-complete-config)
@@ -1245,7 +1128,7 @@ And a way to effectively kill emacs
 **** Rainbow mode
 Colorizes color values in your buffer
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package rainbow-mode)
+  (use-package rainbow-mode)
 #+END_SRC
 **** paradox (extended package-menu)
 To use it, simply call M-x paradox-list-packages (instead of the regular list-packages).
@@ -1253,7 +1136,7 @@ This will give you most features out of the box. If you want to be able to star 
 
 If you'd like to stop using Paradox, you may call paradox-disable and go back to using the regular list-packages.
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package paradox)
+  (use-package paradox)
 #+END_SRC
 press h for help
 **** Webjump
@@ -1284,7 +1167,7 @@ But it's fairly easy to define your own:
                        ""]))
           "My webjump sites")
 
-        (req-package webjump
+        (use-package webjump
             :config
             (setq webjump-sites
                 (append
@@ -1335,7 +1218,7 @@ Just to prevent it from trying to load it twice.")
 *** magit                                                        :mode:major:
 The git interface in emacs
 #+BEGIN_SRC emacs-lisp :tangle yes
-        (req-package magit
+        (use-package magit
                      :bind
                      ("C-x m" . magit-status)
                      :init
@@ -1344,7 +1227,7 @@ The git interface in emacs
 *** git-timemachine                                              :mode:major:
 Allows you to walk though different versions of a file
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package git-timemachine
+    (use-package git-timemachine
                  :bind
                  ("C-x M" . git-timemachine))
 #+END_SRC
@@ -1357,7 +1240,7 @@ s	Pop up git show --stat of last change of this line
 S	Pop up git show --stat -p of last change of this line
 q	Quit
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package git-messenger
+  (use-package git-messenger
       :bind
       ("C-x v p" . git-messenger:popup-message))
 #+END_SRC
@@ -1434,8 +1317,8 @@ salvaged from old config:
 **** general
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; javascript (js2-mode)
-  (req-package js2-mode
-               :require
+  (use-package js2-mode
+               :requires
                (flycheck tern js2-refactor skewer-mode)
                :mode
                "\\.js\\'"
@@ -1453,14 +1336,14 @@ salvaged from old config:
 **** json
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; json
-  (req-package json-mode)
+  (use-package json-mode)
   (add-hook 'json-mode-hook 'flycheck-mode)
 #+END_SRC
 *** web mode (html+)
 #+BEGIN_SRC emacs-lisp :tangle no
       ;; web mode
-      (req-package web-mode
-                   :require
+      (use-package web-mode
+                   :requires
                    (emmet-mode flycheck)
                    :mode
                    "\\.html\\'"
@@ -1479,8 +1362,8 @@ salvaged from old config:
 on flycheck https://github.com/jorgenschaefer/elpy/issues/137#issuecomment-55403160
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; python
-  (req-package elpy
-    :require (company flycheck)
+  (use-package elpy
+    :requires (company flycheck)
     :config (add-hook 'python-mode-hook 'flycheck-mode)
             (elpy-enable)
             (when (require 'flycheck nil t)
@@ -1492,7 +1375,7 @@ on flycheck https://github.com/jorgenschaefer/elpy/issues/137#issuecomment-55403
 *** puppet
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; puppet mode
-  (req-package puppet-mode
+  (use-package puppet-mode
                :mode "\\.pp\\'")
 
 #+END_SRC
@@ -1522,7 +1405,7 @@ C-c C-p f    Find or create sketch.
 C-c C-p s    Search in Processing forum.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package processing-mode
+  (use-package processing-mode
     :config
     (setq processing-location "/usr/share/processing/processing-java")
     (setq processing-application-dir "/usr/share/processing/processing")
@@ -1531,7 +1414,7 @@ C-c C-p s    Search in Processing forum.
 #+END_SRC
 *** Documentation browsing
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package zeal-at-point
+  (use-package zeal-at-point
     :bind
     ("C-c d" . zeal-at-point)
     :config
@@ -1542,7 +1425,7 @@ C-c C-p s    Search in Processing forum.
 The silver searches is nice and fast for searching inside code repos
 #+BEGIN_SRC emacs-lisp :tangle yes
   (if (executable-find "ag")
-      (req-package ag))
+      (use-package ag))
 #+END_SRC
 
 ** Major modes
@@ -1810,8 +1693,8 @@ Prettify org buffers
 Browse the orgcard with helm
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (req-package helm-orgcard
-      :require helm)
+    (use-package helm-orgcard
+      :requires helm)
 #+end_src
 ***** helm-org
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1885,7 +1768,7 @@ Weechat needs to be running.
 Switched to erc though. This is just for reference
 #+BEGIN_SRC emacs-lisp :tangle no
   ;; good source: https://github.com/the-kenny/.emacs.d/blob/master/site-start.d/weechat.el
-  (req-package weechat
+  (use-package weechat
                :config
                (progn (setq weechat-modules '(weechat-button
                                               weechat-complete
@@ -1925,9 +1808,9 @@ Switched to erc though. This is just for reference
 I'm using ERC to connect to a znc server.
 The =znc-servers= variable is set from a private el file'
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package znc
+  (use-package znc
                :commands (znc-erc znc-all)
-               :require
+               :requires
                erc-hl-nicks
                :config
                (my/load-secrets "erc")
@@ -1995,8 +1878,8 @@ The =znc-servers= variable is set from a private el file'
  #+END_SRC
 **** mu4e
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package mu4e
-      :require async
+  (use-package mu4e
+      :requires async
       :load-path "/usr/share/emacs/site-lisp/mu4e"
       :commands mu4e
       :config
@@ -2359,7 +2242,7 @@ xdg-mime default emacs.desktop message/rfc822
 ** Minor modes
 *** ido                                                          :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle no
-    (req-package ido
+    (use-package ido
                  :require
                  (flx flx-ido ido-vertical-mode ido-completing-read+ ido-at-point)
                  :init
@@ -2508,7 +2391,7 @@ C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
 
 **** Emmet                                                       :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package emmet-mode)
+  (use-package emmet-mode)
 #+END_SRC
 
 ** PDF
@@ -2567,13 +2450,13 @@ C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
 
 *** Gist                                                         :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package gist)
+  (use-package gist)
 
 #+END_SRC
 
 *** ix (pastebin)
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package ix)
+  (use-package ix)
 #+END_SRC
 
 ** Notifications
@@ -2582,11 +2465,6 @@ C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
 An emacs event log with weight
 [[https://github.com/djcb/sauron][github]]
 
-* The end
-Do the req-package magic and load my file of secrets
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package-finish)
-#+END_SRC
 
 * Fixing bugs
 
