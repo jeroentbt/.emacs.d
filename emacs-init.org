@@ -257,7 +257,7 @@ Some sensible defaults
 Start using ibuffer
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; use ibuffer
-  (bind-key "C-x C-b" 'ibuffer)
+  (general-define-key "C-x C-b" 'ibuffer)
 #+END_SRC
 Here we sort the buffers for a nicer ibuffer view
 #+BEGIN_SRC emacs-lisp :tangle yes
