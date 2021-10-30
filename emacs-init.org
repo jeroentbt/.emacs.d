@@ -253,6 +253,14 @@ Some sensible defaults
        - /C-u M-o/ :: 1 universal argument moves current and called window
        - /C-u C-u M-o/ :: 2 universal arguments deletes called window
 
+***** window resizing
+#+BEGIN_SRC emacs-lisp :tangle yes
+  ;; window resizing
+  (general-define-key "S-C-<left>" 'shrink-window-horizontally)
+  (general-define-key "S-C-<right>" 'enlarge-window-horizontally)
+  (general-define-key "S-C-<down>" 'shrink-window)
+  (general-define-key "S-C-<up>" 'enlarge-window)
+#+END_SRC
 ***** ibuffer
 Start using ibuffer
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -324,14 +332,6 @@ Here we sort the buffers for a nicer ibuffer view
 #+END_SRC
 ****** TODO look in to ibuffer-vc.el
 https://github.com/purcell/ibuffer-vc/blob/master/ibuffer-vc.el
-***** resizing
-#+BEGIN_SRC emacs-lisp :tangle yes
-  ;; window resizing
-  (bind-key "S-C-<left>" 'shrink-window-horizontally)
-  (bind-key "S-C-<right>" 'enlarge-window-horizontally)
-  (bind-key "S-C-<down>" 'shrink-window)
-  (bind-key "S-C-<up>" 'enlarge-window)
-#+END_SRC
 **** Darkroom
 Darkroom mode offers a write centric, no clutter interface
 
