@@ -2466,18 +2466,18 @@ amount, the helm buffer will be fixed size.
 
 *** Projectile                                                   :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (req-package projectile
-    :require (helm helm-projectile)
-    :config
-      ;; C-c p a now opens other file with same name - but different extension
-      ;; Add this to switch between js and html file
-      (progn (add-to-list 'projectile-other-file-alist '("js" . ("html")))
-             (add-to-list 'projectile-other-file-alist '("html" . ("js")))
-             (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-    :init
-    (projectile-global-mode)
-    (setq projectile-completion-system 'helm)
-    (helm-projectile-on))
+  (use-package helm-projectile)
+  (use-package projectile
+      :config
+        ;; C-c p a now opens other file with same name - but different extension
+        ;; Add this to switch between js and html file
+        (progn (add-to-list 'projectile-other-file-alist '("js" . ("html")))
+               (add-to-list 'projectile-other-file-alist '("html" . ("js")))
+               (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+      :init
+      (projectile-global-mode)
+      (setq projectile-completion-system 'helm)
+      (helm-projectile-on))
 #+END_SRC
 **** Keybindings                                                :keybindings:
 "C-c p" followed by a key
