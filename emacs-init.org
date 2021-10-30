@@ -340,14 +340,37 @@ Darkroom mode offers a write centric, no clutter interface
 #+end_src
 
 **** Line numbers
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-unset-key "\C-x\l")
-  ;; Toggle linum-mode, superceded now by display-line-nmbers-mode
-  (bind-key "C-x l n" 'display-line-numbers-mode)
-  ;; (setq display-line-numbers-type 'relative)
-  (bind-key "C-x l c" 'count-lines-page)
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (global-unset-key "\C-x\l")
+       (general-create-definer keys/lines
+          :prefix "C-x l")
+       (keys/lines
+        "n" 'display-line-numbers-mode
+        "N" 'global-display-line-numbers-mode
+        "c" 'count-lines-page
+        "g" 'goto-line)
+     #+END_SRC
+***** TODO toggle numbers
+      Make =C-x l n= toggle between =none=, =absolute= and =relative=
 
-#+END_SRC
+**** Line wrapping
+     =visual-line-mode= provides wrapping without actually modifying the text. In order for this mode to work properly, truncation needs to be disabled
+     #+begin_src emacs-lisp :tangle yes
+       (setq-default truncate-lines t)
+
+       (keys/lines
+        "w" 'visual-line-mode)
+     #+end_src
+
+     When a paragraph is indented, =visual-line-mode= tends to let the lower lines drag to the left. This is where =adaptive-wrap= comes in.
+     This simulates a *soft* =fill-paragraph= (=M-q=)
+
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (use-package adaptive-wrap
+         :config
+         (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode))
+     #+END_SRC
+
 **** Indent guides
      Do not globally enable this mode, it does not play well with some other modes I
      use and makes emacs stutter on movement.
@@ -386,9 +409,6 @@ Darkroom mode offers a write centric, no clutter interface
   ;; Easily navigate sillycased words
   (global-subword-mode 1)
 
-  ;; Don't break lines for me, please
-  ;; This is nicer with 'visual-line-mode (and adaptive wrap)
-  (setq-default truncate-lines t)
 
   ;; Keep cursor away from edges when scrolling up/down
   (use-package smooth-scrolling)
@@ -530,21 +550,7 @@ and your backup root is
         (setq initial-scratch-message "")
       #+end_src
 
-**** Better visual line mode
-***** Adaptive wrap
-Visual line mode does not take indentation in to account. adaptive-wrap-prefix-mode solves that.
-from: http://stackoverflow.com/a/13561223/1929897
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package adaptive-wrap
-               :bind
-               ("C-x l w" . visual-line-mode))
 
-  (when (fboundp 'adaptive-wrap-prefix-mode)
-    (defun my/activate-adaptive-wrap-prefix-mode ()
-      "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
-      (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
-    (add-hook 'visual-line-mode-hook 'my/activate-adaptive-wrap-prefix-mode))
-#+END_SRC
 **** Ace jump mode
 Ace jump mode! C-c C-c to switch from word to char mode once in ace jump mode.
 Otherwise use universal C-u to toggle behaviour
