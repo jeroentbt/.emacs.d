@@ -456,19 +456,6 @@ Darkroom mode offers a write centric, no clutter interface
       (dotimes (i 10)
         (when (= p (point)) ad-do-it))))
 
-  ;; Smart M-x : ido like interactivity for M-x
-  ;; when ido-ubiquitous is used, smex is just used to keep
-  ;; a history of last used commands.
-  ;; TODO: check previous statement about smex and ido-ubiquitous
-  (use-package smex
-               :requires ido
-               :init
-               (smex-initialize)
-               :bind
-               (;; ("M-x" . smex) ;; -> replace by helm
-                ("M-X" . smex-major-mode-commands)
-                ("C-c C-c M-x" . execute-extended-command)))
-
   ;; Hide mousepointer when typing
   (setq make-pointer-invisible t)
 
