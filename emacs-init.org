@@ -635,7 +635,7 @@ from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-
       (when (= orig-point (point))
         (move-beginning-of-line 1))))
 
-  (bind-key "C-a" 'my/smarter-move-beginning-of-line)
+  (general-define-key "C-a" 'my/smarter-move-beginning-of-line)
 #+END_SRC
 ***** TODO also add move to beginning of heading in org         :feature:
 C-a in org-mode is org-move-to-beginning-of-line
@@ -647,8 +647,8 @@ offer a lot more features (delete, edit, ...).
 Keeping this one in, with some finger gymnsastics.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package browse-kill-ring
-               :bind
-               ("C-M-y" . browse-kill-ring))
+               :general
+               ("C-M-y" 'browse-kill-ring))
 #+END_SRC
 **** Copy/Cut curent line if no selection
 http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html
@@ -693,8 +693,8 @@ Define the functions
 #+END_SRC
 Set the keybindings (replacing the default behaviour)
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (bind-key "M-w" 'xah-copy-line-or-region)
-  (bind-key "C-w" 'xah-cut-line-or-region)
+  (general-define-key "M-w" 'xah-copy-line-or-region)
+  (general-define-key "C-w" 'xah-cut-line-or-region)
 #+END_SRC
 **** (Un)comment region or line
 from: http://stackoverflow.com/a/9697222/1929897
@@ -708,7 +708,7 @@ from: http://stackoverflow.com/a/9697222/1929897
               (setq beg (line-beginning-position) end (line-end-position)))
           (comment-or-uncomment-region beg end)
           (next-line)))
-   (bind-key "C-c /" 'my/comment-or-uncomment-region-or-line)
+   (general-define-key "C-c /" 'my/comment-or-uncomment-region-or-line)
 #+END_SRC
 **** popwin
 Pop!
@@ -845,18 +845,21 @@ Make colors appear on modeline
                :init
                (global-discover-mode 1))
 #+END_SRC
-***** dash
-****** dash (OSX)
+***** documentation
 Dash is an offline documentation browser for OSX
 http://kapeli.com/dash
 Zeal is the equivalent on linux.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package dash-at-point
-      :if is-osx
-      :bind ("C-c d" . dash-at-point))
-#+END_SRC
+
+First a dash prefix:
+#+begin_src emacs-lisp :tangle yes
+  (general-create-definer keys/dash
+    :prefix "C-c d")
+
+#+end_src
+
 ****** helm-dash
 #+BEGIN_SRC emacs-lisp :tangle no
+  (use-package esqlite)
   (use-package helm-dash
     :requires (helm esqlite)
     :config
@@ -903,18 +906,28 @@ Zeal is the equivalent on linux.
     ;;(setq helm-dash-browser-func 'eww)
     (setq helm-dash-browser-func 'browse-url)
 
-    :bind
-    (("C-c d d" . helm-dash-at-point)
-     ("C-c d SPC" . helm-dash)
-     ("C-c d a" . helm-dash-activate-docset)
-     ("C-c d r" . helm-dash-reset-connections)))
+    :general
+    (keys/dash
+     "d" 'helm-dash-at-point
+     "SPC" 'helm-dash
+     "a" 'helm-dash-activate-docset
+     "r" 'helm-dash-reset-connections))
 
+#+END_SRC
+****** Zeal at point
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package zeal-at-point
+    :general
+    (keys/dash
+     "." 'zeal-at-point)
+    :config
+    (add-to-list 'zeal-at-point-mode-alist '(python-mode . ("python3" "django"))))
 #+END_SRC
 **** expand-region                                               :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package expand-region
-                 :bind
-                 ("C-=" . er/expand-region))
+                 :general
+                 ("C-=" 'er/expand-region))
 #+END_SRC
 
 **** highlight-symbol
@@ -925,11 +938,11 @@ I basically just use this to highlight, none of the query replace and moving aro
 **** multiple-cursors                                            :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package multiple-cursors
-               :bind
-               (("C->" . mc/mark-next-like-this)
-                ("C-<" . mc/mark-previous-like-this)
-                ("C-c C-<" . mc/mark-all-like-this)
-                ("C-c C->" . mc/edit-lines))) ;; adds a cursor to all lines in current region
+    :general
+    ("C->" 'mc/mark-next-like-this)
+    ("C-<" 'mc/mark-previous-like-this)
+    ("C-c C-<" 'mc/mark-all-like-this)
+    ("C-c C->" 'mc/edit-lines)) ;; adds a cursor to all lines in current region
 
 #+END_SRC
 **** iedit-mode
@@ -1110,15 +1123,11 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
           company-quickhelp-color-foreground "white"))
 
   (use-package helm-company
-    :bind (:map company-active-map
-                ("M-h" . helm-company))
+    :general
+    (:keymaps 'company-active-map
+     "M-h" 'helm-company)
     :requires company)
-
-
-
-
-
-#+END_SRC
+  #+END_SRC
 
 **** yasnippet
 
@@ -1186,8 +1195,8 @@ And a way to effectively kill emacs
 
   ;; I don't need to kill emacs that easily
   ;; the mnemonic is C-x REALLY QUIT
-  (bind-key "C-x r q" 'my/server-stop)
-  (bind-key "C-x C-c" 'delete-frame)
+  (general-define-key "C-x r q" 'my/server-stop)
+  (general-define-key "C-x C-c" 'delete-frame)
 #+END_SRC
 **** Rainbow mode
 Colorizes color values in your buffer
@@ -1237,8 +1246,9 @@ But it's fairly easy to define your own:
           (append
               webjump-my-sites
               webjump-sample-sites))
-      :bind   (("C-x g" . webjump)
-               ("C-x M-g" . browse-url-at-point)))
+      :general
+      ("C-x g" 'webjump)
+      ("C-x M-g" 'browse-url-at-point))
 #+END_SRC
 **** TODO history - source code navigation
 A more intuitive way of popping the mark (which I never really started
@@ -1282,18 +1292,18 @@ Just to prevent it from trying to load it twice.")
 *** magit                                                        :mode:major:
 The git interface in emacs
 #+BEGIN_SRC emacs-lisp :tangle yes
-        (use-package magit
-                     :bind
-                     ("C-x m" . magit-status)
-                     :init
-                     (setq magit-last-seen-setup-instructions "1.4.0"))
+  (use-package magit
+    :general
+    ("C-x m" 'magit-status)
+    :init
+    (setq magit-last-seen-setup-instructions "1.4.0"))
 #+END_SRC
 *** git-timemachine                                              :mode:major:
 Allows you to walk though different versions of a file
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package git-timemachine
-                 :bind
-                 ("C-x M" . git-timemachine))
+  (use-package git-timemachine
+    :general
+    ("C-x M t" 'git-timemachine))
 #+END_SRC
 *** git-messenger
 Allows you to see who's to blame for the current line
@@ -1305,8 +1315,8 @@ S	Pop up git show --stat -p of last change of this line
 q	Quit
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package git-messenger
-      :bind
-      ("C-x v p" . git-messenger:popup-message))
+    :general
+    ("C-x M m" 'git-messenger:popup-message))
 #+END_SRC
 ** Spelling
 We all make mistakes..
@@ -1328,17 +1338,16 @@ We all make mistakes..
     (let ((lang (ring-ref lang-ring -1)))
       (ring-insert lang-ring lang)
       (ispell-change-dictionary lang)))
-  (bind-key "<f7>" 'my/cycle-ispell-languages)
+  (general-define-key "<f7>" 'my/cycle-ispell-languages)
 
   ;; avoid message overload by printing every checked word
   (setq flyspell-issue-message-flag nil)
 
-  (bind-key "<f8>" 'ispell-word)
-  (bind-key "C-S-<f8>" 'flyspell-mode)
-  (bind-key "C-M-<f8>" 'flyspell-buffer)
-  (bind-key "C-<f8>" 'flyspell-check-previous-highlighted-word)
-  (bind-key "M-<f8>" 'flyspell-check-next-highlighted-word)
-
+  (general-define-key "<f8>" 'ispell-word)
+  (general-define-key "C-S-<f8>" 'flyspell-mode)
+  (general-define-key "C-M-<f8>" 'flyspell-buffer)
+  (general-define-key "C-<f8>" 'flyspell-check-previous-highlighted-word)
+  (general-define-key "M-<f8>" 'flyspell-check-next-highlighted-word)
 #+END_SRC
 *** TODO wcheck-mode
 #+BEGIN_EXAMPLE emacs-lisp
@@ -1476,14 +1485,6 @@ C-c C-p s    Search in Processing forum.
     (setq processing-sketchbook-dir "~/Code/processing")
     :mode "\\.pde\\'")
 #+END_SRC
-*** Documentation browsing
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package zeal-at-point
-    :bind
-    ("C-c d" . zeal-at-point)
-    :config
-    (add-to-list 'zeal-at-point-mode-alist '(python-mode . ("python3" "django"))))
-#+END_SRC
 ** Search
 *** Ag
 The silver searches is nice and fast for searching inside code repos
@@ -1523,11 +1524,12 @@ When the buffer gets large, emacs gets slow, we'll truncate when new lines are a
   (setq org-catch-invisible-edits (quote show-and-error))
 
   ;; keybindings!
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  ;; insert them in to org mode using C-c C-l
-  (global-set-key (kbd "C-c c") 'org-capture)
-  (global-set-key (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c b") 'org-iswitchb)
+  (general-define-key
+   "C-c l" 'org-store-link
+   ;; insert them in to org mode using C-c C-l
+   "C-c c" 'org-capture
+   "C-c a" 'org-agenda
+   "C-c b" 'org-iswitchb)
 
   (setq org-imenu-depth 9)
 #+END_SRC
@@ -1794,6 +1796,8 @@ Given all these are refile targets...
 Org Roam is supposed to be the next big thing in externalising your brain with emacs
 
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (general-create-definer keys/roam
+    :prefix "C-c n")
   (use-package org-roam
         :hook
         (after-init . org-roam-db-autosync-mode)
@@ -1803,22 +1807,24 @@ Org Roam is supposed to be the next big thing in externalising your brain with e
         (org-roam-directory org-directory)
         :config
         (setq org-roam-completion-system 'helm)
-        :bind
-        ("C-c n f" . org-roam-node-find)
-        ("C-c n i" . org-roam-node-insert)
-        ("C-c n I" . org-id-get-create)
-        ("C-c n c" . org-roam-capture)
-        ("C-c n l" . org-roam-buffer-toggle)
-        ("C-c n L" . org-roam-buffer-display-dedicated)
-        ("C-c n g" . org-roam-graph))
+        :general
+        (keys/roam
+         "f" 'org-roam-node-find
+         "i" 'org-roam-node-insert
+         "I" 'org-id-get-create
+         "c" 'org-roam-capture
+         "l" 'org-roam-buffer-toggle
+         "L" 'org-roam-buffer-display-dedicated
+         "g" 'org-roam-graph))
 
 #+end_src
 **** org-journal
 A better journaling experience?
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package org-journal
-    :bind
-    ("C-c n j" . org-journal-new-entry)
+    :general
+    (keys/roam
+     "j" 'org-journal-new-entry)
     :custom
     (org-journal-date-prefix "#+TITLE: Journal entry for ")
     (org-journal-file-format "%Y-%m-%d.org")
@@ -2316,30 +2322,6 @@ and then
 #+END_SRC
 
 ** Minor modes
-*** ido                                                          :mode:minor:
-#+BEGIN_SRC emacs-lisp :tangle no
-  (use-package ido
-               :require
-               (flx flx-ido ido-vertical-mode ido-completing-read+ ido-at-point)
-               :init
-               (progn (ido-mode t)
-                      (flx-ido-mode t)
-                      (ido-vertical-mode)
-                      (ido-at-point-mode))
-               :config
-               (setq ido-enable-flex-matching t
-                     ido-case-fold nil
-                     ido-auto-merge-work-directories-length 5
-                     ido-create-new-buffer 'always
-                     ido-use-filename-at-point nil
-                     ido-max-prospects 10
-                     ido-use-faces nil
-                     ido-vertical-define-keys 'C-n-C-p-up-down-left-right
-                     ido-everywhere t)
-               :bind
-               ("C-x M-f" . ido-find-file-other-window))
-#+END_SRC
-
 *** editorconfig                                                 :mode:minor:
 #+BEGIN_QUOTE
 EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs. The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles. EditorConfig files are easily readable and they work nicely with version control systems.
@@ -2399,23 +2381,25 @@ amount, the helm buffer will be fixed size.
   (use-package helm-flx)
   (use-package helm
     :requires (async helm-ag helm-swoop helm-flx)
-    :bind (("C-c h" . helm-command-prefix)
-           ("M-x" . helm-M-x)
-           ("M-y" . helm-show-kill-ring)
-           ("C-x f" . helm-mini)
-           ("C-x r b" . helm-bookmarks)
-           ("C-x b" . helm-buffers-list))
-    :config (progn (setq helm-M-x-fuzzy-match t
-                         helm-recentf-fuzzy-match t
-                         helm-semantic-fuzzy-match t
-                         helm-imenu-fuzzy-match t
-                         helm-buffers-fuzzy-matching t
-                         helm-autoresize-max-height 40
-                         helm-autoresize-min-height 10)
-                   (global-set-key (kbd "C-c h o") 'helm-occur)
-                   (global-set-key (kbd "C-c h SPC") 'helm-all-mark-rings)
-                   (global-set-key (kbd "C-c h g") 'helm-do-ag)
-                   (global-set-key (kbd "C-c h I") 'helm-swoop))
+    :general
+    ("C-c h" 'helm-command-prefix)
+    ("M-x" 'helm-M-x)
+    ("M-y" 'helm-show-kill-ring)
+    ("C-x f" 'helm-mini)
+    ("C-c h B" 'helm-bookmarks)
+    ("C-x b" 'helm-buffers-list)
+    ("C-c h o" 'helm-occur)
+    ("C-c h SPC" 'helm-all-mark-rings)
+    ("C-c h g" 'helm-do-ag)
+    ("C-c h s" 'helm-swoop)
+    :config
+    (setq helm-M-x-fuzzy-match t
+          helm-recentf-fuzzy-match t
+          helm-semantic-fuzzy-match t
+          helm-imenu-fuzzy-match t
+          helm-buffers-fuzzy-matching t
+          helm-autoresize-max-height 40
+          helm-autoresize-min-height 10)
     :init (helm-autoresize-mode 1)
           (helm-flx-mode +1)
           (helm-mode 1))
