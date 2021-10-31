@@ -403,6 +403,8 @@ This simulates a *soft* =fill-paragraph= (=M-q=)
     (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode))
 #+END_SRC
 
+***** TODO this does not work in an org-indent-mode buffer
+See [[*indent by default][indent by default]]
 **** Indent guides
 Do not globally enable this mode, it does not play well with some other modes I use and makes emacs stutter on movement.
 #+BEGIN_SRC emacs-lisp :tangle yes
