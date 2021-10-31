@@ -68,6 +68,12 @@ Disabled for now
   (add-to-list 'custom-theme-load-path (expand-file-name "vendor/themes"
                                                          user-emacs-directory))
 #+END_SRC
+** General dependencies
+   Some dependencies used by other packages
+
+   #+begin_src emacs-lisp :tangle yes
+     (use-package async)
+   #+end_src
 
 ** Basics
    Some essential customizations.
