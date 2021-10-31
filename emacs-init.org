@@ -232,7 +232,7 @@ Some sensible defaults
                    (eval-after-load "subword" '(diminish 'subword-mode))
                    (eval-after-load "smartparens" '(diminish 'smartparens-mode "(")))
 #+END_SRC
-**** Buffers and windows
+**** Windows
 ***** ace-window
       Ace-window offers an ace-jump like interface for jumping to, switching and deleting windows.
 
@@ -261,6 +261,14 @@ Some sensible defaults
   (general-define-key "S-C-<down>" 'shrink-window)
   (general-define-key "S-C-<up>" 'enlarge-window)
 #+END_SRC
+***** Undo/redo window config using winner
+      #+begin_src emacs-lisp :tangle yes
+        (winner-mode 1)
+      #+end_src
+****** winner usage                                                   :usage:
+       - /C-c <left>/ :: undo window change
+       - /C-c <right>/ :: redo window change
+**** Buffers
 ***** ibuffer
 Start using ibuffer
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -404,9 +412,6 @@ Darkroom mode offers a write centric, no clutter interface
   ;; Save a list of recent files visited. (open recent file with C-x f)
   (recentf-mode 1)
   (setq recentf-max-saved-items 100) ;; just 20 is too recent
-
-  ;; Undo/redo window configuration with C-c <left>/<right>
-  (winner-mode 1)
 
   ;; Never insert tabs
   ;; Tabs can be inserted with C-q C-i (quoted insert indent)
