@@ -409,10 +409,6 @@ Darkroom mode offers a write centric, no clutter interface
   ;; this is disabled by default
   (put 'narrow-to-region 'disabled nil)
 
-  ;; Save a list of recent files visited. (open recent file with C-x f)
-  (recentf-mode 1)
-  (setq recentf-max-saved-items 1000) ;; just 20 is too recent
-
   ;; Never insert tabs
   ;; Tabs can be inserted with C-q C-i (quoted insert indent)
   (set-default 'indent-tabs-mode nil)
@@ -576,8 +572,6 @@ and your backup root is
       #+BEGIN_SRC emacs-lisp :tangle yes
         (setq initial-scratch-message "")
       #+end_src
-
-
 **** Ace jump mode
 Ace jump mode! C-c C-c to switch from word to char mode once in ace jump mode.
 Otherwise use universal C-u to toggle behaviour
@@ -969,31 +963,39 @@ We'll be using popwin to make it pop!
                       (global-set-key (kbd "C-x C-j") 'direx-project:jump-to-project-root-other-window)))
 #+END_SRC
 **** recent files
-This functionality is offered by helm mini. See helm config
+***** save recent files
+      #+begin_src emacs-lisp :tangle yes
+        ;; Save a list of recent files visited. (open recent file with C-x f)
+        (recentf-mode 1)
+        (setq recentf-max-saved-items 1000) ;; just 20 is too recent
 
-Find recent files
-from: Magnars https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/defuns/buffer-defuns.el
-#+BEGIN_SRC emacs-lisp :tangle no
-  (use-package s)
+      #+end_src
+***** Open recent files                                           :deprecate:
+ This functionality is offered by helm mini. See helm config
 
-  (defvar user-home-directory (concat (expand-file-name "~") "/"))
+ Find recent files
+ from: Magnars https://github.com/magnars/.emacs.d/blob/c1a481c9ba85ab3127bb77c7b60689abbbeb5611/defuns/buffer-defuns.el
+ #+BEGIN_SRC emacs-lisp :tangle no
+   (use-package s)
 
-  (defun shorter-file-name (file-name)
-    (s-chop-prefix user-home-directory file-name))
+   (defvar user-home-directory (concat (expand-file-name "~") "/"))
 
-  (defun recentf--file-cons (file-name)
-    (cons (shorter-file-name file-name) file-name))
+   (defun shorter-file-name (file-name)
+     (s-chop-prefix user-home-directory file-name))
 
-  (defun recentf-ido-find-file ()
-    "Find a recent file using ido."
-    (interactive)
-    (let* ((recent-files (mapcar 'recentf--file-cons recentf-list))
-           (files (mapcar 'car recent-files))
-           (file (completing-read "Choose recent file: " files)))
-      (find-file (cdr (assoc file recent-files)))))
+   (defun recentf--file-cons (file-name)
+     (cons (shorter-file-name file-name) file-name))
 
-  (bind-key "C-x f" 'recentf-ido-find-file)
-#+END_SRC
+   (defun recentf-ido-find-file ()
+     "Find a recent file using ido."
+     (interactive)
+     (let* ((recent-files (mapcar 'recentf--file-cons recentf-list))
+            (files (mapcar 'car recent-files))
+            (file (completing-read "Choose recent file: " files)))
+       (find-file (cdr (assoc file recent-files)))))
+
+   (general-define-key "C-x f" 'recentf-ido-find-file)
+ #+END_SRC
 **** move and rename files & buffers
 Small conveniece defuns by steveyegge2
 https://sites.google.com/site/steveyegge2/my-dot-emacs-file
