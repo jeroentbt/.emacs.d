@@ -1543,6 +1543,21 @@ The silver searches is nice and fast for searching inside code repos
 
 **** Visuals
 
+***** indent by default
+      Org can *virtually* indent the contents of subheadings.
+      I started writing this file without this mode active, leading to significant diff in lines that were not touched (but only moved in heading depth)
+
+      One can set this buffer-local by using the =STARTUP= keyword
+      #+begin_example org
+        #+STARTUP: indent
+        #+STARTUP: noindent
+      #+end_example
+
+      To set it globally, customize =org-startup-indented=
+
+      #+begin_src emacs-lisp :tangle yes
+        (setq org-startup-indented t)
+      #+end_src
 ***** bullets
 
       A nicer way to represent hierarchy
