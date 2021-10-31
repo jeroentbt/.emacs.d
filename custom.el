@@ -34,7 +34,6 @@
  '(explain-pause-blocking-too-long-ms 500)
  '(explain-pause-mode t)
  '(flycheck-mode-line '(:eval (my/flycheck-mode-line-status-text)))
- '(helm-org-format-outline-path t t nil "Customized with use-package helm-org")
  '(helm-org-rifle-always-show-entry-contents-chars 0)
  '(helm-org-rifle-context-characters 250)
  '(helm-org-rifle-show-full-contents t)
@@ -73,17 +72,12 @@
  '(org-fontify-done-headline t)
  '(org-fontify-quote-and-verse-blocks t)
  '(org-fontify-whole-heading-line t)
- '(org-journal-date-format "%A, %d %B %Y" nil nil "Customized with use-package org-journal")
- '(org-journal-date-prefix "#+TITLE: Journal entry for " nil nil "Customized with use-package org-journal")
- '(org-journal-dir "~/Documents/org/journal" nil nil "Customized with use-package org-journal")
- '(org-journal-file-format "%Y-%m-%d.org" nil nil "Customized with use-package org-journal")
  '(org-log-into-drawer t)
   '(org-modules
      '(org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill org-tempo))
  '(org-outline-path-complete-in-steps nil)
  '(org-refile-targets '((org-agenda-files :maxlevel . 10)))
  '(org-refile-use-outline-path 'file)
- '(org-roam-directory "~/Documents/org" nil nil "Customized with use-package org-roam")
  '(org-roam-graph-executable "/usr/bin/neato")
  '(org-roam-graph-extra-config '(("overlap" . "false")))
   '(org-structure-template-alist
@@ -104,8 +98,6 @@
  '(paradox-automatically-star nil)
  '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
- '(persp-sort 'access nil nil "Customized with use-package perspective")
- '(persp-state-default-file "~/.config/emacs-perspectives" nil nil "Customized with use-package perspective")
   '(popwin:special-display-config
      '((direx:direx-mode :width 40 :position left :dedicated t)
         ("*Miniedit Help*" :noselect t)
@@ -139,17 +131,7 @@
   '(xterm-color-names
      ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
   '(xterm-color-names-bright
-     ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"])
-  '(yequake-frames
-     '(("org-capture"
-         (buffer-fns yequake-org-capture)
-         (width . 0.5)
-         (height . 0.5)
-         (top . 0.5)
-         (frame-parameters
-           (title . "yequake-org-capture")
-           (undecorated . t)
-           (internal-border-width . 15)))) nil nil "Customized with use-package yequake"))
+     ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
