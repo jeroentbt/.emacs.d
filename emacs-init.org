@@ -505,12 +505,12 @@ Do not globally enable this mode, it does not play well with some other modes I 
                (global-hungry-delete-mode))
 #+END_SRC
 ***** Search with regex
+Use regex when searching by default
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; Search always regex
-  (bind-key "C-s" 'isearch-forward-regexp)
-  (bind-key "C-r" 'isearch-backward-regexp)
-  (bind-key "C-M-s" 'isearch-forward)
-  (bind-key "C-M-r" 'isearch-backward)
+  (general-define-key "C-s" 'isearch-forward-regexp)
+  (general-define-key "C-r" 'isearch-backward-regexp)
+  (general-define-key "C-M-s" 'isearch-forward)
+  (general-define-key "C-M-r" 'isearch-backward)
 #+END_SRC
 ***** Backups
 from: http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html
