@@ -143,6 +143,11 @@ We defined earlier whether we are running on OSX. The variable =window-system= t
 
 ****** =list= is needed to flatten the sub-lists                      :elisp:
 
+***** Visible bell
+      don't beep, flash the screen
+      #+begin_src emacs-lisp :tangle yes
+        (setq visible-bell t)
+      #+end_src
 ***** the rest
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -150,8 +155,7 @@ We defined earlier whether we are running on OSX. The variable =window-system= t
     ;; font-lock-mode provides the colors for spec languages, set max fontification (1-3)
     ;; force color theme (no increments)
     ;; don't truncate on partial width
-    (setq visible-bell t
-          font-lock-maximum-decoration t
+    (setq font-lock-maximum-decoration t
           color-theme-is-global t
           truncate-partial-width-windows nil)
 
