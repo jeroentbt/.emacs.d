@@ -397,11 +397,24 @@ Make =C-x l n= toggle between =none=, =absolute= and =relative=
 When a paragraph is indented, =visual-line-mode= tends to let the lower lines drag to the left. This is where =adaptive-wrap= comes in.
 This simulates a *soft* =fill-paragraph= (=M-q=)
 
+=adaptive-wrap= however does not play nice with [[*indent by default][org-indent-mode]].
+Got the sauce for this lambda [[https://github.com/syl20bnr/spacemacs/issues/1418#issuecomment-423045689][here]].
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package adaptive-wrap
     :config
-    (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode))
+    (add-hook 'visual-line-mode-hook
+              #'(lambda ()
+                 (unless
+                     (member major-mode
+                      '(org-mode))
+                   (adaptive-wrap-prefix-mode)))))
+
 #+END_SRC
+
+***** TODO why the # in the above elisp code?                     :elisp:
+#+begin_example emacs-lisp
+  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
+#+end_example
 
 **** Indent guides
 Do not globally enable this mode, it does not play well with some other modes I use and makes emacs stutter on movement.
@@ -1535,12 +1548,11 @@ When the buffer gets large, emacs gets slow, we'll truncate when new lines are a
 
 ***** indent by default
 Org can *virtually* indent the contents of subheadings.
-I started writing this file without this mode active, leading to significant diff in lines that were not touched (but only moved in heading depth)
 
 One can set this buffer-local by using the =STARTUP= keyword
 #+begin_example org
-  ,#+STARTUP: indent
-  ,#+STARTUP: noindent
+  #+STARTUP: indent
+  #+STARTUP: noindent
 #+end_example
 
 To set it globally, customize =org-startup-indented=
@@ -1548,6 +1560,7 @@ To set it globally, customize =org-startup-indented=
 #+begin_src emacs-lisp :tangle yes
   (setq org-startup-indented t)
 #+end_src
+
 ***** bullets
 
 A nicer way to represent hierarchy
