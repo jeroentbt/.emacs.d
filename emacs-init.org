@@ -118,62 +118,79 @@ We defined earlier whether we are running on OSX. The variable =window-system= t
 #+END_SRC
 
 **** Interface defaults
-Some sensible defaults
+     Some sensible defaults
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  ;; No splash screen
-  ;; Will default to the *scratch* buffer
-  (setq inhibit-startup-message t)
+***** No splash on startup
+      Will default to the [[**scratch* buffer][*scratch* buffer]]
+      #+begin_src emacs-lisp :tangle yes
+        (setq inhibit-startup-message t)
+      #+end_src
+***** *scratch* buffer
+      Use Org-mode
+      #+BEGIN_SRC emacs-lisp :tangle yes
+        (setq initial-major-mode 'org-mode)
+        (setq initial-scratch-message
+              "#+TITLE: Scratch \n*this buffer will self destruct!* \n\n")
+      #+end_src
 
-  ;; Full path in frame title
-  (when window-system
-    (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+***** Set frame title
+      A bit of a more verbose frame title.
+      #+begin_src emacs-lisp :tangle no
+        (setq frame-title-format (list '(buffer-file-name "%f" ("%b"))
+                                       " -- "
+                                       '("" invocation-name "@" system-name)))
+      #+end_src
 
-  ;; don't beep but flash the screen
-  ;; font-lock-mode provides the colors for spec languages, set max fontification (1-3)
-  ;; force color theme (no increments)
-  ;; don't truncate on partial width
-  (setq visible-bell t
-        font-lock-maximum-decoration t
-        color-theme-is-global t
-        truncate-partial-width-windows nil)
+****** =list= is needed to flatten the sub-lists                      :elisp:
 
-  ;; Enable syntax highlighting for older Emacsen that have it off
-  (global-font-lock-mode t)
+***** the rest
 
-  ;; Highlight current line
-  (global-hl-line-mode 1)
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    ;; don't beep but flash the screen
+    ;; font-lock-mode provides the colors for spec languages, set max fontification (1-3)
+    ;; force color theme (no increments)
+    ;; don't truncate on partial width
+    (setq visible-bell t
+          font-lock-maximum-decoration t
+          color-theme-is-global t
+          truncate-partial-width-windows nil)
 
-  ;; Don't defer screen updates when performing operations
-  (setq redisplay-dont-pause t)
+    ;; Enable syntax highlighting for older Emacsen that have it off
+    (global-font-lock-mode t)
 
-  ;; Highlight matching parentheses when the point is on them.
-  (show-paren-mode 1)
+    ;; Highlight current line
+    (global-hl-line-mode 1)
 
-  (blink-cursor-mode -1)
+    ;; Don't defer screen updates when performing operations
+    (setq redisplay-dont-pause t)
 
-  ;; Show active region
-  (transient-mark-mode 1)
-  (make-variable-buffer-local 'transient-mark-mode)
-  (put 'transient-mark-mode 'permanent-local t)
-  (setq-default transient-mark-mode t)
+    ;; Highlight matching parentheses when the point is on them.
+    (show-paren-mode 1)
+
+    (blink-cursor-mode -1)
+
+    ;; Show active region
+    (transient-mark-mode 1)
+    (make-variable-buffer-local 'transient-mark-mode)
+    (put 'transient-mark-mode 'permanent-local t)
+    (setq-default transient-mark-mode t)
 
 
-  ;; Show me empty lines after buffer end
-  (set-default 'indicate-empty-lines t)
+    ;; Show me empty lines after buffer end
+    (set-default 'indicate-empty-lines t)
 
-  ;; smaller cursor
-  (setq cursor-type 'bar)
+    ;; smaller cursor
+    (setq cursor-type 'bar)
 
-  ;; Use the x clipboard (should have been enabled by default)
-  (setq x-select-enable-clipboard t)
+    ;; Use the x clipboard (should have been enabled by default)
+    (setq x-select-enable-clipboard t)
 
-  ;; after mouse selection in X11, you can paste by `yank' in emacs
-  (setq x-select-enable-primary t)
+    ;; after mouse selection in X11, you can paste by `yank' in emacs
+    (setq x-select-enable-primary t)
 
-  ;; faster keystroke echo (shows you what command you're typing)
-  (setq echo-keystrokes 0.1)
-#+END_SRC
+    ;; faster keystroke echo (shows you what command you're typing)
+    (setq echo-keystrokes 0.1)
+  #+END_SRC
 
 **** Appearance
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -565,19 +582,6 @@ and your backup root is
 
 ***** TODO look in to saving states                               :potential:
       see undo tree docs
-**** Scratch buffer
-
-***** scratch buffer mode
-
-      #+BEGIN_SRC emacs-lisp :tangle yes
-        (setq initial-major-mode 'org-mode)
-      #+end_src
-
-***** no initial message
-
-      #+BEGIN_SRC emacs-lisp :tangle yes
-        (setq initial-scratch-message "")
-      #+end_src
 **** Ace jump mode
 Ace jump mode! C-c C-c to switch from word to char mode once in ace jump mode.
 Otherwise use universal C-u to toggle behaviour
