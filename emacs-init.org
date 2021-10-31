@@ -1,8 +1,7 @@
 #+TITLE: Emacs Org Configuration
 #+STARTUP: indent
 
-* Description
-This file is tangled by init.el using =org-babel-load-file=. What this does is generate a =emacs-init.el= from the =emacs-lisp= source blocks.
+This file is tangled by init.el using =org-babel-load-file=. This generates =emacs-init.el= from the =emacs-lisp= source blocks.
 
 * The config
 ** Package loading and setup wih =use-package=
