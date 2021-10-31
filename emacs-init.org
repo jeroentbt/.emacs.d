@@ -595,13 +595,18 @@ Reimplements the undo system as a tree
 ***** TODO look in to saving states                               :potential:
 see undo tree docs
 **** Ace jump mode
-Ace jump mode! C-c C-c to switch from word to char mode once in ace jump mode.
-Otherwise use universal C-u to toggle behaviour
+Quickly ans accuratly move around the cursor with =ace-jump-mode=.
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package ace-jump-mode
-               :bind
-               ("C-." . ace-jump-mode))
+               :general
+               ("C-c SPC" 'ace-jump-mode))
 #+END_SRC
+***** ace-jump usage                                              :usage:
+- C-c SPC :: jump to word
+- C-u C-c SPC :: jump to char
+- C-u C-u C-c SPC :: jump to line
+
 **** Smarter move to beginning of line
 A nice function that knows where the business part of a line starts
 from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
