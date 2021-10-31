@@ -403,8 +403,6 @@ This simulates a *soft* =fill-paragraph= (=M-q=)
     (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode))
 #+END_SRC
 
-***** TODO this does not work in an org-indent-mode buffer
-See [[*indent by default][indent by default]]
 **** Indent guides
 Do not globally enable this mode, it does not play well with some other modes I use and makes emacs stutter on movement.
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -622,7 +620,7 @@ from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-
 
   (bind-key "C-a" 'my/smarter-move-beginning-of-line)
 #+END_SRC
-***** TODO also add move to beginning of heading in org                :idea:
+***** TODO also add move to beginning of heading in org         :feature:
 C-a in org-mode is org-move-to-beginning-of-line
 IT would be nice to also move to the beginning of the heading, after the *s
 **** Kill whole line
