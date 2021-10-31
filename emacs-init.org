@@ -427,17 +427,6 @@ Darkroom mode offers a write centric, no clutter interface
   ;; Allow recursive minibuffers
   ;; (setq enable-recursive-minibuffers t)
 
-  ;; Don't be so stingy on the memory, we have lots now. It's the distant future.
-  (setq garbage-collection-messages t)
-  ;; (defun my-minibuffer-setup-hook ()
-    ;; (setq gc-cons-threshold most-positive-fixnum))
-
-  ;; (defun my-minibuffer-exit-hook ()
-    ;; (setq gc-cons-threshold 80000000))
-  (setq gc-cons-threshold 80000000)
-  ;; (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-  ;; (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
-
   ;; Sentences do not need double spaces to end. Period.
   (set-default 'sentence-end-double-space nil)
 
@@ -526,7 +515,38 @@ and your backup root is
   (setq calendar-week-start-day 1
         european-calendar-style t)
 #+end_src
+***** Garbage collection
+      Emacs, by default, is configured to accumulate less than a MB (800000 bytes) before it collects garbage.
+      Don't be so stingy on the memory, we have lots now. It's the distant future. (expressed in bytes)
 
+      #+begin_src emacs-lisp :tangle yes
+        (setq gc-cons-threshold 80000000)
+      #+end_src
+
+****** troubleshooting garbage collection                   :troubleshooting:
+       I was having issues with an unresponsive emacs at times.
+
+       set =garbage-collection-messages= to non-nil if you want to be notified in the minibuffer whenever emacs collectsits garbage
+       #+begin_src emacs-lisp :tangle no
+         (setq garbage-collection-messages t)
+       #+end_src
+
+
+******* max memory in minibuffer
+
+        This sets up the consinement before gc up to be almost unlimited while in the minibuffer
+
+        #+begin_src emacs-lisp :tangle no
+          (defun my-minibuffer-setup-hook ()
+            (setq gc-cons-threshold most-positive-fixnum))
+
+          (defun my-minibuffer-exit-hook ()
+            (setq gc-cons-threshold 80000000))
+
+          (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+          (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
+        #+end_src
 **** Undo tree
      Reimplements the undo system as a tree
      #+begin_src emacs-lisp :tangle yes
