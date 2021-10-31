@@ -433,14 +433,6 @@ Darkroom mode offers a write centric, no clutter interface
   ;; (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
   ;; (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
-
-  ;; Represent undo-history as an actual tree (visualize with C-x u)
-  (use-package undo-tree
-               :init
-               (global-undo-tree-mode)
-               :config
-               (setq undo-tree-mode-lighter ""))
-
   ;; Sentences do not need double spaces to end. Period.
   (set-default 'sentence-end-double-space nil)
 
@@ -542,6 +534,23 @@ and your backup root is
   (setq calendar-week-start-day 1
         european-calendar-style t)
 #+end_src
+
+**** Undo tree
+     Reimplements the undo system as a tree
+     #+begin_src emacs-lisp :tangle yes
+       (use-package undo-tree
+         :init
+         (global-undo-tree-mode)
+         :config
+         (setq undo-tree-mode-lighter ""))
+     #+end_src
+
+***** undo usage                                                      :usage:
+      - /C-x u/ :: undo-tree-visualise
+        - d :: diff
+
+***** TODO look in to saving states                               :potential:
+      see undo tree docs
 **** Scratch buffer
 
 ***** scratch buffer mode
