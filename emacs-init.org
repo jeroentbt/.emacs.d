@@ -101,7 +101,7 @@ Using the following code we make sure everything gets put in and loaded from the
 
 #+END_SRC
 *** Binding keys
-General provides a convenient method for binding keys.
+[[https://github.com/noctuid/general.el#about][General]] provides a convenient method for binding keys.
 #+begin_src emacs-lisp :tangle yes
   (use-package general
     :config
