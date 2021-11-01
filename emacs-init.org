@@ -4,7 +4,9 @@
 This file is tangled by init.el using =org-babel-load-file=. This generates =emacs-init.el= from the =emacs-lisp= source blocks.
 
 * The config
-** Package loading and setup wih =use-package=
+
+** Package managment and installation
+*** Package loading and setup wih =use-package=
 #+BEGIN_SRC emacs-lisp :tangle yes
   (package-install 'use-package)
   (eval-when-compile
@@ -19,11 +21,12 @@ The following sets this up globally. Every package initiated by use-package will
   (setq use-package-always-ensure t)
 #+end_src
 
-** Manual package installation
+*** Manual package installation
+/lisp/ directory to load custom .el files form.
+They will *not* be automatically loaded!
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'load-path "~/.emacs.d/lisp/")
-  (load "explain-pause-mode")
-  (explain-pause-mode t)
 #+end_src
 ** System
 First find out wether we're working on OSX or not
@@ -2527,7 +2530,18 @@ Then to =M-x interleave= to open the pdf alongside and =i= to add a note to the 
 An emacs event log with weight
 [[https://github.com/djcb/sauron][github]]
 
+* Troubleshooting
+Some troubleshooting things are sprinkled through this file tagged with =:troubleshooting:=
+Here is some other stuff that did not find a place elsewhere
 
+** explain pauses
+#+begin_src emacs-lisp :tangle yes
+  (load "explain-pause-mode")
+  (explain-pause-mode t)
+#+end_src
+
+*** explain-pause usage                                             :usage:
+=M-x explain-pause-top=
 * Fixing bugs
 
 ** 2015-01-16 discover.el messing with keybindings
