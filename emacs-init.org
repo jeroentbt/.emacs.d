@@ -1388,6 +1388,7 @@ salvaged from old config:
 *** JavaScript
 **** Tern                                                        :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package tern)
   ;; Set up the location of the tern .el files
   (if is-osx
       (add-to-list 'load-path "~/.tern/emacs")
@@ -1398,6 +1399,8 @@ salvaged from old config:
 **** general
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; javascript (js2-mode)
+  (use-package js2-refactor)
+  (use-package skewer-mode)
   (use-package js2-mode
                :requires
                (flycheck tern js2-refactor skewer-mode)
@@ -1896,6 +1899,7 @@ Switched to erc though. This is just for reference
 I'm using ERC to connect to a znc server.
 The =znc-servers= variable is set from a private el file'
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package erc-hl-nicks)
   (use-package znc
                :commands (znc-erc znc-all)
                :requires
@@ -2559,32 +2563,6 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
 #+END_EXAMPLE
 
 ** TODO eyebrowse?
-
-** failed to install . My config sucks
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package darkroom)
-  (use-package smooth-scrolling)
-  (use-package flycheck)
-  (use-package highlight-symbol)
-  (use-package rainbow-mode)
-  (use-package json-mode)
-  (use-package ag)
-  (use-package editorconfig)
-  (use-package emmet-mode)
-  (use-package gist)
-  (use-package ix)
-  (use-package diminish)
-  (use-package smartparens)
-  (use-package tern)
-  (use-package js2-refactor)
-  (use-package skewer-mode)
-  (use-package helm-orgcard)
-  (use-package erc-hl-nicks)
-  (use-package helm-ag)
-  (use-package helm-swoop)
-  (use-package helm-flx)
-  (use-package helm-projectile)
-#+end_src
 
 ** Packages with issues after moving away from cask etc
 
