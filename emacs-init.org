@@ -2536,7 +2536,7 @@ Then to =M-x interleave= to open the pdf alongside and =i= to add a note to the 
 An emacs event log with weight
 [[https://github.com/djcb/sauron][github]]
 
-* Troubleshooting
+* Tools for troubleshooting                                 :troubleshooting:
 Some troubleshooting things are sprinkled through this file tagged with =:troubleshooting:=
 Here is some other stuff that did not find a place elsewhere
 
