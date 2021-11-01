@@ -453,7 +453,10 @@ Do not globally enable this mode, it does not play well with some other modes I 
 
 
   ;; Keep cursor away from edges when scrolling up/down
-  (use-package smooth-scrolling)
+  (use-package smooth-scrolling
+    :general
+    (keys/lines
+      "s" 'smooth-scrolling-mode))
 
   ;; Allow recursive minibuffers
   ;; (setq enable-recursive-minibuffers t)
