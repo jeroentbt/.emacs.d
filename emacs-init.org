@@ -28,6 +28,17 @@ They will *not* be automatically loaded!
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'load-path "~/.emacs.d/lisp/")
 #+end_src
+*** paradox (modernised package-menu)
+With paradox enabled, just call the regular =M-x list-packages= to get the better interface.
+If you would like to use the regular one, just call =M-x paradox-disable=.
+
+Press "h" for help to see interactive features
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package paradox
+    :config
+    (paradox-enable))
+#+END_SRC
 ** System
 First find out wether we're working on OSX or not
 
@@ -1209,15 +1220,6 @@ Colorizes color values in your buffer
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package rainbow-mode)
 #+END_SRC
-**** paradox (extended package-menu)
-To use it, simply call M-x paradox-list-packages (instead of the regular list-packages).
-This will give you most features out of the box. If you want to be able to star packages as well, just configure the paradox-github-token variable then call paradox-list-packages again.
-
-If you'd like to stop using Paradox, you may call paradox-disable and go back to using the regular list-packages.
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package paradox)
-#+END_SRC
-press h for help
 **** Webjump
 
 Webjump lets you quickly search google, wikipedia, emacs wiki, ...
@@ -2565,7 +2567,6 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
   (use-package flycheck)
   (use-package highlight-symbol)
   (use-package rainbow-mode)
-  (use-package paradox)
   (use-package json-mode)
   (use-package ag)
   (use-package editorconfig)
