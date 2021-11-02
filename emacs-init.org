@@ -2542,7 +2542,7 @@ Here is some other stuff that did not find a place elsewhere
 
 ** explain pauses
 [[https://github.com/lastquestion/explain-pause-mode][lastquestion/explain-pause-mode: top, but for Emacs.]]
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (load "explain-pause-mode")
   (explain-pause-mode t)
 #+end_src
