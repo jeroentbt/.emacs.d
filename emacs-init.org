@@ -2436,16 +2436,16 @@ amount, the helm buffer will be fixed size.
 #+END_SRC
 **** Keybindings                                                :keybindings:
 "C-c p" followed by a key
-*** Perspective                                                 :mode:minor:
-#+BEGIN_SRC emacs-lisp :tangle yes
+*** Perspective                                       :mode:minor:disabled:
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package perspective
     :custom
     (persp-sort (quote access))
     (persp-state-default-file "~/.config/emacs-perspectives")
     :config
-    (persp-mode))
+    (persp-mode nil))
 #+END_SRC
-
+**** TODO replace with [[https://github.com/alphapapa/burly.el][Burly.el ?]]
 ** Bookmarks
 I'm using the built in feature here
 C-x r m : emacs maRk Make
