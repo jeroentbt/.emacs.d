@@ -377,12 +377,14 @@ Here we sort the buffers for a nicer ibuffer view
 #+END_SRC
 ****** TODO look in to ibuffer-vc.el
 https://github.com/purcell/ibuffer-vc/blob/master/ibuffer-vc.el
-**** Darkroom
-Darkroom mode offers a write centric, no clutter interface
+
+**** Olivetti
+Olivetti mode offers a write centric, no clutter interface
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package darkroom)
+  (use-package olivetti)
 #+end_src
+
 
 **** Line numbers
 #+BEGIN_SRC emacs-lisp :tangle yes
