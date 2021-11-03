@@ -2334,6 +2334,16 @@ and then
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'auto-mode-alist '("\\.eml$" . mail-mode))
 #+END_SRC
+*** RSS feeds
+**** [[https://github.com/skeeto/elfeed][elfeed]]
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package elfeed)
+  (use-package elfeed-org
+    :config
+    (elfeed-org)
+    (setq rmh-elfeed-org-files (list "~/.elfeed.org")))
+#+end_src
 
 ** Minor modes
 *** editorconfig                                                 :mode:minor:
