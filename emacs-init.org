@@ -523,6 +523,19 @@ Do not globally enable this mode, it does not play well with some other modes I 
                :init
                (global-hungry-delete-mode))
 #+END_SRC
+
+***** Auto-save
+Emacs will create auto-save files from which you can recover (#filename.thing#)
+I'd rather not have emacs do this
+#+begin_src emacs-lisp :tangle yes
+  (setq auto-save-default nil)
+#+end_src
+But I do want to auto-save in the actual file though.
+=auto-save-visited-mode= will save every file-visiting buffer after (by default) 5 seconds
+#+begin_src emacs-lisp :tangle yes
+  (auto-save-visited-mode)
+#+end_src
+
 ***** Search with regex
 Use regex when searching by default
 #+BEGIN_SRC emacs-lisp :tangle yes
