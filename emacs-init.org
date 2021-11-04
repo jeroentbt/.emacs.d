@@ -1558,6 +1558,8 @@ When the buffer gets large, emacs gets slow, we'll truncate when new lines are a
    "C-c b" 'org-iswitchb)
 
   (setq org-imenu-depth 9)
+
+  (add-hook 'org-mode-hook 'visual-line-mode)
 #+END_SRC
 
 **** File config
