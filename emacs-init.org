@@ -1565,7 +1565,14 @@ When the buffer gets large, emacs gets slow, we'll truncate when new lines are a
 
 **** File config
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-agenda-files '("~/Documents/org" "~/Documents/org/clients" "~/Documents/org/journal" "~/.emacs.d"))
+  (setq org-agenda-files
+        (append '("~/Documents/org"
+                  "~/Documents/org/journal"
+                  "~/Documents/org/Roam"
+                  "~/.emacs.d")
+                (directory-files-recursively "~/Documents/org/clients/" "\\.org$")))
+
+
 
   (setq org-directory "~/Documents/org")
 
