@@ -2313,11 +2313,16 @@ Enabling this allows you to store links to mail messages in org mode files.
 
 #+end_src
 
-***** mu4e notifications
-#+BEGIN_SRC emacs-lisp :tangle yes
+***** mu4e notifications                                       :disabled:
+
+#+BEGIN_SRC emacs-lisp :tangle no
 (mu4e-alert-set-default-style 'libnotify)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 #+end_src
+
+****** TODO fix mu4e alerts, if I want them...
+Will probably require
+[[https://github.com/iqbalansari/mu4e-alert#libnotify][iqbalansari/mu4e-alert: Desktop notifications and modeline display for mu4e]]
 
 ***** close req-package
 #+BEGIN_SRC emacs-lisp :tangle yes
