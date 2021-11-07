@@ -1856,6 +1856,20 @@ Org Roam is supposed to be the next big thing in externalising your brain with e
          "g" 'org-roam-graph))
 
 #+end_src
+
+**** deft
+#+begin_src emacs-lisp :tangle yes
+  (use-package deft
+    :after org org-roam
+    :general
+    (keys/roam
+    "d" 'deft)
+    :custom
+    (deft-recursive t)
+    (deft-use-filter-string-for-filename t)
+    (deft-default-extension "org")
+    (deft-directory org-directory))
+#+end_src
 **** org-journal
 A better journaling experience?
 #+BEGIN_SRC emacs-lisp :tangle yes
