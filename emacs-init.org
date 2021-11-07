@@ -1301,16 +1301,17 @@ I therefor load this file only when needed.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defvar my/secrets-loaded nil
-"Is t when my secrets file (private.el.gpg) has been loaded.
+    "Is t when my secrets file (private.el.gpg) has been loaded.
 
-Just to prevent it from trying to load it twice.")
+  Just to prevent it from trying to load it twice.")
 
-    (defun my/load-secrets (where)
+  (defun my/load-secrets (&optional where)
     "Load secrets from private.el.gpg if not allready done so"
-        (unless my/secrets-loaded
-            (load (expand-file-name "private.el.gpg"
-                      user-emacs-directory))
-            (message "private.el loaded by %s" where)))
+    (interactive)
+    (unless my/secrets-loaded
+      (load (expand-file-name "private.el.gpg"
+                              user-emacs-directory))
+      (message "private.el loaded by %s" where)))
 #+END_SRC
 ** Git
 *** magit                                                        :mode:major:
