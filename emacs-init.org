@@ -1569,7 +1569,14 @@ When the buffer gets large, emacs gets slow, we'll truncate when new lines are a
 
   (add-hook 'org-mode-hook 'visual-line-mode)
 #+END_SRC
+***** Speed keys
+When speed keys are enabled, you can do lots of one-key-no-modifier moving around and more when the point is on a headline, before any of the stars.
 
+Press /?/ to show which keys do what
+
+#+begin_src emacs-lisp :tangle yes
+  (setq org-use-speed-commands t)
+#+end_src
 **** File config
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-directory "~/Documents/org")
