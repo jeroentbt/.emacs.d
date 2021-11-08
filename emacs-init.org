@@ -222,6 +222,12 @@ don't beep, flash the screen
 
 #+END_SRC
 
+***** Set font (size) interactively                               :usage:
+Interactively set font by calling =M-x menu-set-font=.
+Increase font size: C-x C-+
+Decrease font size: C-x C--
+Restore default:    C-x C-0
+
 ***** Icons!
 
 [[https://github.com/domtronn/all-the-icons.el][A utility package to collect various Icon Fonts and propertize them within Emacs.]]
