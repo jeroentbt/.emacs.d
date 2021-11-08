@@ -1591,6 +1591,10 @@ When the buffer gets large, emacs gets slow, we'll truncate when new lines are a
 
 **** Visuals
 
+***** Hide markers (bold, italic,...)
+#+begin_src emacs-lisp :tangle yes
+  (setq org-hide-emphasis-markers t)
+#+end_src
 ***** indent by default
 Org can *virtually* indent the contents of subheadings.
 
