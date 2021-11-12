@@ -1349,6 +1349,16 @@ q	Quit
     :general
     ("C-x M m" 'git-messenger:popup-message))
 #+END_SRC
+*** blamer
+[[https://github.com/Artawower/blamer.el][Artawower/blamer.el: A git blame plugin for emacs inspired by VS Code's GitLens plugin]]
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package blamer
+    :custom
+    (blamer-idle-time 0.5)
+    (blamer-min-offset 70)
+    :general
+    ("C-x M b" 'blamer-mode))
+#+END_SRC
 ** Spelling
 We all make mistakes..
 #+BEGIN_SRC emacs-lisp :tangle yes
