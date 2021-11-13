@@ -1872,6 +1872,17 @@ Org Roam is supposed to be the next big thing in externalising your brain with e
         (org-roam-directory org-directory)
         :config
         (setq org-roam-completion-system 'helm)
+        (setq org-roam-mode-section-functions
+              (list #'org-roam-backlinks-section
+                    #'org-roam-reflinks-section
+                    ;; #'org-roam-unlinked-references-section
+                    ))
+        (add-to-list 'display-buffer-alist
+               '("\\*org-roam\\*"
+                 (display-buffer-in-direction)
+                 (direction . right)
+                 (window-width . 0.33)
+                 (window-height . fit-window-to-buffer)))
         :general
         (keys/roam
          "f" 'org-roam-node-find
