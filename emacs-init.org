@@ -1658,6 +1658,17 @@ A global set of TODO keywords
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "CALL" "MEETING"))))
 
 #+end_src
+**** Org-agenda
+
+Org agenda is highly customisable, here I just start of with showing the =OWNER= property if it is set. This signifies a task is not on my list but just for me to follow up.
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-agenda-property
+    :after org
+    :custom
+    (org-agenda-property-list '("OWNER"))
+    (org-agenda-property-position 'next-line))
+#+end_src
 
 **** Capture templates
 
