@@ -2684,7 +2684,7 @@ Package cl is deprecated
 #+end_example
 
 To find out which packages have this as a dependency:
-#+begin_src elisp
+#+begin_src elisp :tangle no
   (require 'loadhist)
   (file-dependents (feature-file 'cl))
 #+end_src
