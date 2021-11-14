@@ -1933,7 +1933,8 @@ Org Roam is supposed to be the next big thing in externalising your brain with e
           org-roam-ui-open-on-start nil)
     :general
     (keys/roam
-      "u" 'org-roam-ui-open))
+      "u" 'org-roam-ui-open
+      "U" 'org-roam-ui-mode))
 #+end_src
 
 **** deft
