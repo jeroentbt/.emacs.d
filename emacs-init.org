@@ -2676,6 +2676,19 @@ Here is some other stuff that did not find a place elsewhere
 
 *** explain-pause usage                                             :usage:
 =M-x explain-pause-top=
+
+** Package x is deprecated (find dependants)
+In your =*Messages*= buffer =(C-h e)=, you might get a warning like so:
+#+begin_example
+Package cl is deprecated
+#+end_example
+
+To find out which packages have this as a dependency:
+#+begin_src elisp
+  (require 'loadhist)
+  (file-dependents (feature-file 'cl))
+#+end_src
+
 * Fixing bugs
 
 ** 2015-01-16 discover.el messing with keybindings
