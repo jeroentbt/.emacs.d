@@ -1,9 +1,0 @@
-[submodule "vendor/znc"]
-	path = vendor/znc
-	url = git@github.com:sshirokov/ZNC.el.git
-[submodule "vendor/solarized-theme"]
-	path = vendor/solarized-theme
-	url = git@github.com:jeroentbt/solarized-emacs.git
-[submodule "vendor/erc-terminal-notifier"]
-	path = vendor/erc-terminal-notifier
-	url = git@github.com:jeroentbt/erc-terminal-notifier.el.git
