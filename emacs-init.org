@@ -609,8 +609,12 @@ Reimplements the undo system as a tree
   (use-package undo-tree
     :init
     (global-undo-tree-mode)
-    :config
-    (setq undo-tree-mode-lighter ""))
+    :custom
+    (undo-tree-mode-lighter "")
+    (undo-tree-auto-save-history t)
+    (undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+    (undo-tree-enable-undo-in-region t)
+    (undo-tree-visualizer-timestamps t))
 #+end_src
 
 ***** undo usage                                                      :usage:

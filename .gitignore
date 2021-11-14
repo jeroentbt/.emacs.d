@@ -32,3 +32,4 @@ tramp
 /straight/build-cache.el
 /straight/build
 *.elc
+/undo
