@@ -1,0 +1,6 @@
+[submodule "straight/repos/emacs-websocket"]
+	path = straight/repos/emacs-websocket
+	url = https://github.com/ahyatt/emacs-websocket.git
+[submodule "straight/repos/org-roam-ui"]
+	path = straight/repos/org-roam-ui
+	url = https://github.com/org-roam/org-roam-ui.git
