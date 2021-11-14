@@ -29,3 +29,6 @@ tramp
 /timelog
 /transient/
 /url/
+/straight/build-cache.el
+/straight/build
+*.elc
