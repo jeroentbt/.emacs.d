@@ -1349,6 +1349,14 @@ q	Quit
     :general
     ("C-x M b" 'blamer-mode))
 #+END_SRC
+*** git-auto-commit
+[[https://github.com/ryuslash/git-auto-commit-mode][ryuslash/git-auto-commit-mode: Automatically commit to git after each save]]
+
+#+begin_src emacs-lisp :tangle yes
+(use-package git-auto-commit-mode)
+#+end_src
+
+Use =.dir-locals.el= files where needed.
 ** Spelling
 We all make mistakes..
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1973,7 +1981,14 @@ A helper function to use org-journal in with org-capture
     ;; will add the new entry as a child entry.
     (goto-char (point-min)))
 #+end_src
+**** auto commit on save
+By including a =.dir-locals.el= file on =org-directory=, enable the minor mode [[*git-auto-commit][git-auto-commit]]
 
+#+begin_src emacs-lisp :tangle no
+  ((nil . ((mode . git-auto-commit-mode)
+           (gac-debounce-interval . 300)
+           (gac-automatically-add-new-files-p . t))))
+#+end_src
 
 *** weechat                                                      :mode:major:
 Weechat needs to be running.

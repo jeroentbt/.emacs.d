@@ -121,6 +121,9 @@
         (slime-repl-mode)
         (slime-connection-list-mode)))
  '(projectile-tags-command "ctags -Re --tag-relative=always -f \"%s\" %s \"%s\"")
+  '(safe-local-variable-values
+     '((gac-debounce-interval . 300)
+        (gac-automatically-add-new-files-p . t)))
  '(shr-color-visible-distance-min 40)
  '(shr-color-visible-luminance-min 180)
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
