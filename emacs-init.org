@@ -2626,13 +2626,6 @@ C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
 - r rename current item
 ** Language specifics
 
-*** html & css
-
-**** Emmet                                                       :mode:minor:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package emmet-mode)
-#+END_SRC
-
 ** PDF
 
 *** PDF-tools
