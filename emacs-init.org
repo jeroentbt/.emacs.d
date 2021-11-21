@@ -350,10 +350,8 @@ Here we sort the buffers for a nicer ibuffer view
              (mode . mu4e-compose-mode)))
            ("Chat"
             (or
-             (mode . erc-mode)
-             (name . "^\\#ERC Mentions$")
-             (mode . identica-mode)
-             (mode . twitter-mode)))
+             (mode . Ement-Room)
+             (name . "^\\*Ement*")))
            ("Dired"
             (or
              (mode . dired-mode)
@@ -1989,113 +1987,19 @@ By including a =.dir-locals.el= file on =org-directory=, enable the minor mode [
            (gac-debounce-interval . 300)
            (gac-automatically-add-new-files-p . t))))
 #+end_src
-
-*** weechat                                                      :mode:major:
-Weechat needs to be running.
-Switched to erc though. This is just for reference
-#+BEGIN_SRC emacs-lisp :tangle no
-  ;; good source: https://github.com/the-kenny/.emacs.d/blob/master/site-start.d/weechat.el
-  (use-package weechat
-               :config
-               (progn (setq weechat-modules '(weechat-button
-                                              weechat-complete
-                                              weechat-tracking
-                                              ;;weechat-notifications
-                                              )
-                            weechat-host-default "localhost"
-                            weechat-port-default 9000
-                            weechat-mode-default 'plain
-                            weechat-color-list
-                            '(unspecified "black" "dark gray" "dark red" "red"
-                                          "dark green" "light green" "brown"
-                                          "yellow" "RoyalBlue3"
-                                          "light blue"
-                                          "dark magenta" "magenta" "dark cyan"
-                                          "light cyan" "gray" "white")
-                            weechat-prompt "> "
-                            ;; weechat-notification-mode t
-                            weechat-auto-monitor-buffers '("highmon" "#trickle")
-                            weechat-complete-nick-ignore-self nil
-                            weechat-button-buttonize-nicks nil
-                            weechat-tracking-types '(:highlight (".+#trickle" . :message))
-                            weechat-sync-active-buffer t
-                            )
-                      ;;(require 'gnutls)
-                      ;;(add-to-list 'gnutls-trustfiles (expand-file-name (concat user-emacs-directory "/relay.crt")))
-                      (set-face-background 'weechat-highlight-face "dark red")
-                      (set-face-foreground 'weechat-highlight-face "light grey")
-                      (add-hook 'weechat-mode-hook 'visual-line-mode)
-                      ;; (add-hook 'weechat-mode-hook (lambda nil (load-theme-buffer-local 'tango (current-buffer))))
-                      (tracking-mode)
-                      ))
-
-#+END_SRC
-*** IRC
-**** ERC and ZNC
-I'm using ERC to connect to a znc server.
-The =znc-servers= variable is set from a private el file'
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package erc-hl-nicks)
-  (use-package znc
-               :commands (znc-erc znc-all)
-               :requires
-               erc-hl-nicks
-               :config
-               (my/load-secrets "erc")
-               ;; modules..
-               (setq erc-modules '(autojoin
-                                   button
-                                   completion
-                                   fill
-                                   irccontrols
-                                   keep-place
-                                   list
-                                   match
-                                   menu
-                                   move-to-prompt
-                                   netsplit
-                                   networks
-                                   noncommands
-                                   ;; notifications
-                                   readonly
-                                   ring
-                                   scrolltobottom
-                                   smiley
-                                   stamp
-                                   track))
-               (add-hook 'erc-mode-hook 'erc-hl-nicks-mode)
-               (add-hook 'erc-mode-hook 'visual-line-mode)
-               (setq erc-timestamp-only-if-changed-flag nil ;; always timestamp
-                     erc-timestamp-format "%H:%M:%S "
-                     erc-fill-prefix nil ;; don't force indentation
-                     erc-insert-timestamp-function 'erc-insert-timestamp-left ;; put the timestamp left
-                     erc-hide-list '("JOIN" "PART" "QUIT") ;; hide pesky stuff
-                     erc-input-line-position -1
-                     erc-prompt ">"
-                     erc-current-nick-highlight-type (quote all) ;; highlight full message to me
-                     erc-fill-column 85
-                     ;; matches
-                     ;;erc-text-matched-hook '(erc-log-matches
-                     ;;                        erc-terminal-notifier-text-matched)
-                     erc-match-exclude-server-buffer t ;; don't bother matching the server buffer
-                     ;; log matches
-                     erc-log-matches-flag t ;; log mentions and keywords in their own buffer
-                     erc-log-matches-types-alist '((keyword . "#ERC Keywords")
-                                                   (current-nick . "#ERC Mentions"))
-                     )
-
-               (make-variable-buffer-local 'erc-fill-column)
-               (add-hook 'window-configuration-change-hook
-                         '(lambda ()
-                            (save-excursion
-                              (walk-windows
-                               (lambda (w)
-                                 (let ((buffer (window-buffer w)))
-                                   (set-buffer buffer)
-                                   (when (eq major-mode 'erc-mode)
-                                     (setq erc-fill-column (- (window-width w) 2))))))))))
-
-#+END_SRC
+*** Chat (Matrix)
+#+begin_src emacs-lisp :tangle yes
+  (use-package plz
+    :straight (plz :type git
+                :host github
+                :repo "alphapapa/plz.el"))
+  (use-package ement
+    :straight (ement :type git
+                     :host github
+                     :repo "alphapapa/ement.el")
+    :after plz
+    :requires plz)
+#+end_src
 *** Mail
 **** general
 ***** citation
