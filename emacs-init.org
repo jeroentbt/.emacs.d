@@ -1428,17 +1428,7 @@ salvaged from old config:
 (global-set-key (kbd "C-c M-f") 'fold-this-unfold-all)
 #+END_SRC
 *** JavaScript
-**** Tern                                                        :mode:minor:
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package tern)
-  ;; Set up the location of the tern .el files
-  (if is-osx
-      (add-to-list 'load-path "~/.tern/emacs")
-      (add-to-list 'load-path "~/.node_modules/lib/node_modules/tern/emacs"))
 
-  (autoload 'tern-mode "tern.el" nil t)
-#+END_SRC
-**** general
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; javascript (js2-mode)
   (use-package js2-refactor)
@@ -1459,7 +1449,7 @@ salvaged from old config:
   ;; (add-hook 'js2-mode-hook 'hs-minor-mode)
   ;; repeat for js3-mode /TODO there must be a better way to define these
 #+END_SRC
-**** json
+*** json
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; json
   (use-package json-mode)
@@ -1470,12 +1460,11 @@ salvaged from old config:
   ;; web mode
   (use-package web-mode
                :requires
-               (emmet-mode flycheck)
+               (flycheck)
                :mode
                "\\.html\\'"
                ;; (list "\\.html\\'" "\\.txp\\'")
                :init
-               (add-hook 'web-mode-hook 'emmet-mode)
                (add-hook 'web-mode-hook 'flycheck-mode))
 
 #+END_SRC
@@ -1519,24 +1508,6 @@ Flyscheck can use [[http://www.shellcheck.net/][shellcheck]] as a checker. Make 
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'sh-mode-hook 'flycheck-mode)
-#+END_SRC
-*** processing
-
-C-c C-p r    Run a sketch.
-C-c C-p b    Compile a sketch into .class files.
-C-c C-p p    Run a sketch full screen.
-C-c C-p e    Export sketch.
-C-c C-p d    Find in reference.
-C-c C-p f    Find or create sketch.
-C-c C-p s    Search in Processing forum.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package processing-mode
-    :config
-    (setq processing-location "/usr/share/processing/processing-java")
-    (setq processing-application-dir "/usr/share/processing/processing")
-    (setq processing-sketchbook-dir "~/Code/processing")
-    :mode "\\.pde\\'")
 #+END_SRC
 ** Search
 *** Ag
@@ -2548,8 +2519,6 @@ C-x r b : jump to bookmark -> Now opens helm-bookmarks (see helm config)
 - D mark for removal
 - x execute removal
 - r rename current item
-** Language specifics
-
 ** PDF
 
 *** PDF-tools
