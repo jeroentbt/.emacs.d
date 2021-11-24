@@ -1406,6 +1406,19 @@ We all make mistakes..
 #+END_EXAMPLE
 
 ** Coding
+
+*** Tree-sitter (buffer-local up-to-date syntax tree)
+Triggered by [[https://www.masteringemacs.org/article/tree-sitter-complications-of-parsing-languages][this post on Mastering Emacs]]. [[https://tree-sitter.github.io/tree-sitter/][Tree-sitter]] builds a syntax tree, used for folding, highlighting etc.
+[[https://emacs-tree-sitter.github.io/][tree-sitter.el]] currently supports [[https://emacs-tree-sitter.github.io/syntax-highlighting/queries/][querying]] the syntax tree and syntax highlighting
+
+Install and enable =tree-sitter= for all supported major-modes (list them by checking the variable ~tree-sitter-major-mode-language-alist~) 
+#+begin_src emacs-lisp :tangle yes
+  (use-package tree-sitter
+    :config
+    (global-tree-sitter-mode)
+    (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+  (use-package tree-sitter-langs)
+#+end_src
 *** TODO code folding
 salvaged from old config:
 #+BEGIN_SRC emacs-lisp :tangle no
