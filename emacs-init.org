@@ -1608,6 +1608,13 @@ Press /?/ to show which keys do what
 #+begin_src emacs-lisp :tangle yes
   (setq org-hide-emphasis-markers t)
 #+end_src
+
+but also show them interactively, when cursor is on element
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-appear
+    :hook
+    (org-mode . org-appear-mode))
+#+end_src
 ***** indent by default
 Org can *virtually* indent the contents of subheadings.
 
