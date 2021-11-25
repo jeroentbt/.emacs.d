@@ -1424,6 +1424,26 @@ Install and enable =tree-sitter= for all supported major-modes (list them by che
     (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
   (use-package tree-sitter-langs)
 #+end_src
+
+**** Move around, combobulating the tree
+#+begin_quote
+Combobulate
+(Verb) To put together in a somewhat mysterious manner. To bring something out of a state of confusion or disarray. To manufacture by some unusual or novel means. Antonym: discombobulate. 
+#+end_quote
+
+#+begin_src emacs-lisp :tangle yes
+    (use-package combobulate
+      :straight (combobulate
+                 :type git
+                 :host github
+                 :repo "mickeynp/combobulate")
+      ;; Ensure `combobulate-mode` is activated when you launch a mode it supports
+      :hook
+      (python-mode . combobulate-mode))
+#+end_src
+
+***** usage                                                       :usage:
+- /C-o o/ :: combobulate menu
 *** TODO code folding
 salvaged from old config:
 #+BEGIN_SRC emacs-lisp :tangle no
