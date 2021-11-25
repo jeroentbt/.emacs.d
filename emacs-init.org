@@ -621,18 +621,23 @@ Reimplements the undo system as a tree
 
 ***** TODO look in to saving states                               :potential:
 see undo tree docs
-**** Ace jump mode
-Quickly ans accuratly move around the cursor with =ace-jump-mode=.
+**** Avy
+Quickly and accuratly move around the cursor with =avy=.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package ace-jump-mode
-               :general
-               ("C-c SPC" 'ace-jump-mode))
+  (general-create-definer keys/goto
+     :prefix "M-g")
+  (use-package avy
+    :general
+    (keys/goto
+      "j" 'avy-goto-word-1
+      "g" 'avy-goto-char-timer
+      "c" 'avy-goto-char-2
+      "l" 'avy-goto-line
+      "r" 'avy-resume
+      "C" 'goto-char
+      "L" 'goto-line))
 #+END_SRC
-***** ace-jump usage                                              :usage:
-- C-c SPC :: jump to word
-- C-u C-c SPC :: jump to char
-- C-u C-u C-c SPC :: jump to line
 
 **** Smarter move to beginning of line
 A nice function that knows where the business part of a line starts
