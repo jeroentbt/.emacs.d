@@ -638,7 +638,8 @@ Quickly and accuratly move around the cursor with =avy=.
       "C" 'goto-char
       "L" 'goto-line))
 #+END_SRC
-
+***** usage                                                       :usage:
+- M-g :: goto prefix, ? for more
 **** Smarter move to beginning of line
 A nice function that knows where the business part of a line starts
 from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
@@ -1444,6 +1445,8 @@ Combobulate
 
 ***** usage                                                       :usage:
 - /C-o o/ :: combobulate menu
+- /C-o j/ :: avy goto navigable part
+  
 *** TODO code folding
 salvaged from old config:
 #+BEGIN_SRC emacs-lisp :tangle no
