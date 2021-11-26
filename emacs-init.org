@@ -1562,8 +1562,7 @@ When the buffer gets large, emacs gets slow, we'll truncate when new lines are a
    "C-c l" 'org-store-link
    ;; insert them in to org mode using C-c C-l
    "C-c c" 'org-capture
-   "C-c a" 'org-agenda
-   "C-c b" 'org-iswitchb)
+   "C-c a" 'org-agenda)
 
   (setq org-imenu-depth 9)
 
@@ -2469,7 +2468,7 @@ amount, the helm buffer will be fixed size.
     ("C-c h" 'helm-command-prefix)
     ("M-x" 'helm-M-x)
     ("M-y" 'helm-show-kill-ring)
-    ("C-c h B" 'helm-bookmarks)
+    ("C-c b" 'helm-bookmarks)
     ("C-x b" 'helm-buffers-list)
     ("C-c h o" 'helm-occur)
     ("C-c h SPC" 'helm-all-mark-rings)
