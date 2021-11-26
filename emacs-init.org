@@ -1030,7 +1030,6 @@ Open recent file with C-x f
 
 #+begin_src emacs-lisp :tangle yes
   (use-package recentf
-    :require (helm)
     :config
     (setq recentf-max-saved-items 10000
           recentf-max-menu-items 5000)
