@@ -76,7 +76,7 @@
   '(org-modules
      '(org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill org-tempo))
  '(org-outline-path-complete-in-steps nil)
- '(org-refile-targets '((org-agenda-files :maxlevel . 10)))
+ '(org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :tag . "")))
  '(org-refile-use-outline-path 'file)
  '(org-roam-graph-executable "/usr/bin/neato")
  '(org-roam-graph-extra-config '(("overlap" . "false")))
@@ -96,7 +96,7 @@
   '(package-selected-packages
      '(all-the-icons neotree mu4e-column-faces org-super-agenda hcl-mode tron-legacy-theme org-journal python-docstring tdd git-gutter rainbow-delimiters org-sticky-header helm-org-rifle company iedit company-fuzzy helm-company rainbow-identifiers clues-theme noctilux-theme monokai-theme spacemacs-theme solarized-theme yequake org-drill ace-mc plantuml-mode ace-window zeal-at-point async company-quickhelp darkroom diminish esqlite flx helm helm-ag helm-projectile helm-swoop ido-completing-read+ js2-refactor yasnippet nimbus-theme window-margin ox-hugo go-mode go-projectile ansi yafolding helm-flx markdown-mode+ company-tern helm-orgcard challenger-deep-theme kotlin-mode el-get html-to-markdown org-plus-contrib jekyll-modes ob-restclient restclient markdown-mode yaml-mode doom-themes org-mime znc zenburn-theme web-mode undo-tree tern spaces spacegray-theme smooth-scrolling smex smartparens smart-mode-line skewer-mode req-package rainbow-mode puppet-mode projectile pdf-tools paradox pallet ox-reveal org-bullets magit json-mode jedi ix interleave indent-guide ido-vertical-mode ido-ubiquitous ido-at-point hungry-delete highlight-symbol heroku-theme guide-key git-timemachine git-messenger gist flycheck flx-ido expand-region erc-hl-nicks emmet-mode elpy editorconfig discover-js2-refactor direx dash-at-point color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized buffer-move browse-kill-ring anti-zenburn-theme ample-theme ag adaptive-wrap ace-jump-mode))
  '(paradox-automatically-star nil)
- '(paradox-github-token t)
+ '(paradox-github-token t t)
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
   '(popwin:special-display-config
      '((direx:direx-mode :width 40 :position left :dedicated t)
@@ -142,4 +142,17 @@
  ;; If there is more than one, they won't work right.
  '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0))))
  '(erc-pal-face ((t (:inverse-video t))))
- '(org-roam-link ((t (:inherit org-link :foreground "green yellow")))))
+ '(fixed-pitch ((t (:family "SauceCodePro Nerd Font" :height 140))))
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit (shadow fixed-pitch)))))
+ '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+ '(org-drawer ((t (:inherit fixed-pitch))))
+ '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+ '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-property-value ((t (:inherit fixed-pitch))) t)
+ '(org-roam-link ((t (:inherit org-link :foreground "green yellow"))))
+ '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+ '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+ '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+ '(variable-pitch ((t (:family "ETBembo" :height 170 :weight light)))))
