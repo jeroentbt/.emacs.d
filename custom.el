@@ -76,7 +76,7 @@
   '(org-modules
      '(org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill org-tempo))
  '(org-outline-path-complete-in-steps nil)
- '(org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :tag . "")))
+ '(org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
  '(org-refile-use-outline-path 'file)
  '(org-roam-graph-executable "/usr/bin/neato")
  '(org-roam-graph-extra-config '(("overlap" . "false")))
