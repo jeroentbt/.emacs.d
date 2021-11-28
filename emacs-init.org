@@ -674,6 +674,12 @@ from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-
 C-a in org-mode is org-move-to-beginning-of-line
 IT would be nice to also move to the beginning of the heading, after the *s
 
+This is apparently a thing: org-special-ctrl-a/e
+But the above remapping overrides it (works on home and end keys)
+
+#+begin_src emacs-lisp :tangle yes
+  (setq org-special-ctrl-a/e t)
+#+end_src
 **** Browse kill ring
 A helm alternative exists (helm-show-kill-ring), but browse kill ring
 offer a lot more features (delete, edit, ...).
