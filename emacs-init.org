@@ -1901,7 +1901,7 @@ Org Roam is supposed to be the next big thing in externalising your brain with e
         :init
         (setq org-roam-v2-ack t)
         :custom
-        (org-roam-directory org-directory)
+        (org-roam-directory (concat (file-name-as-directory org-directory) "Roam"))
         :config
         (setq org-roam-completion-system 'helm)
         (setq org-roam-mode-section-functions
