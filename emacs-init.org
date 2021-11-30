@@ -2233,17 +2233,21 @@ So this is just for reference:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'mu4e-bookmarks
-    '("maildir:/jeroen.mailbox/Sent OR maildir:/jeroen.tiebout.gmail/Sent OR maildir:/jeroen.tinktenk/Sent OR maildir:/sent AND date:1w..now" "Sent this week" ?s))
+               '( :name  "Unread - lists"
+                  :query "flag:unread AND flag:list AND NOT flag:trashed"
+                  :key   ?l))
   (add-to-list 'mu4e-bookmarks
-    '("flag:unread and date:today..now" "Today's unread messages" ?d))
-  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox and date:today..now" "Today's inbox" ?n))
-  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox" "Unified inbox" ?I))
-  (add-to-list 'mu4e-bookmarks '("tag:-Social" "Category Social" ?S) t)
-  (add-to-list 'mu4e-bookmarks '("tag:-Promotions" "Category Promotions" ?P) t)
-  (add-to-list 'mu4e-bookmarks '("tag:-Updates" "Category Updates" ?U) t)
-  (add-to-list 'mu4e-bookmarks '("tag:-Forums" "Category Forums" ?F) t)
-  (add-to-list 'mu4e-bookmarks '("tag:\\\\Inbox NOT tag:-Social NOT tag:-Forums NOT tag:-Updates NOT tag:-Promotions" "Unified inbox Clean" ?i))
-  (add-to-list 'mu4e-bookmarks '("flag:flagged" "Flagged" ?+))
+               '( :name  "Unread - no lists, today"
+                  :query "flag:unread and date:today..now AND NOT flag:trashed"
+                  :key   ?d))
+  (add-to-list 'mu4e-bookmarks
+               '( :name  "Unread - no lists"
+                  :query "flag:unread AND NOT flag:list AND NOT flag:trashed"
+                  :key   ?b))
+  (add-to-list 'mu4e-bookmarks
+               '( :name  "Flagged"
+                  :query "flag:flagged"
+                  :key   ?+) t)
 #+END_SRC
 
 ***** actions
