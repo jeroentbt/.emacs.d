@@ -8,10 +8,19 @@ This file is tangled by init.el using =org-babel-load-file=. This generates =ema
 
 ** Package managment and installation
 *** Package loading and setup wih =use-package=
-This uses [[https://github.com/raxod502/straight.el#git-backend][raxod502/straight.el]] for package installation by default (see [[file:init.el::setq straight-use-package-by-default t][init.el]])
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (straight-use-package 'use-package)
+  (package-install 'use-package)
+  (eval-when-compile
+    (require 'use-package))
 #+END_SRC
+
+Use package can ensure a package is installed by using the =:ensure= keyword.
+The following sets this up globally. Every package initiated by use-package will be installed when not present.
+
+#+begin_src emacs-lisp :tangle yes
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t)
+#+end_src
 
 *** Manual package installation
 /lisp/ directory to load custom .el files form.
@@ -20,7 +29,17 @@ They will *not* be automatically loaded!
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'load-path "~/.emacs.d/lisp/")
 #+end_src
+*** paradox (modernised package-menu)
+With paradox enabled, just call the regular =M-x list-packages= to get the better interface.
+If you would like to use the regular one, just call =M-x paradox-disable=.
 
+Press "h" for help to see interactive features
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package paradox
+    :config
+    (paradox-enable))
+#+END_SRC
 ** System
 First find out wether we're working on OSX or not
 

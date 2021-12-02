@@ -2,31 +2,20 @@
 ;; it gets the same base name as the Org file.  Thus, tangling Emacs Lisp from
 ;; a file `init.org` would generate `init.el`, obliterating this file in the
 ;; process. So your config org file should not be named "init.org".
+(require 'package)
+(add-to-list 'package-archives
+  '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+  '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+  '("org" . "https://orgmode.org/elpa//") t)
+(package-initialize)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; set up and enable straight.el
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq package-enable-at-startup nil)
-(setq straight-use-package-by-default t)
+(unless package-archive-contents
+  (package-refresh-contents))
 
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; / straight.el
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; install org in order to be able to tangle
-(straight-use-package 'org-contrib)
+(unless (package-installed-p 'org-plus-contrib)
+  (package-install 'org-plus-contrib))
 
 ;; only retangle if the org file is newer than the tangled file
 (defvar init-source-org-file
