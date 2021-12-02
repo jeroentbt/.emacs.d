@@ -21,13 +21,10 @@ The following sets this up globally. Every package initiated by use-package will
   (require 'use-package-ensure)
   (setq use-package-always-ensure t)
 #+end_src
-
-*** Manual package installation
-/lisp/ directory to load custom .el files form.
-They will *not* be automatically loaded!
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'load-path "~/.emacs.d/lisp/")
+*** Local or remote source with Quelpa
+#+begin_src emacs-lisp :tangle yes
+  (use-package quelpa)
+  (use-package quelpa-use-package)
 #+end_src
 *** paradox (modernised package-menu)
 With paradox enabled, just call the regular =M-x list-packages= to get the better interface.
@@ -1499,14 +1496,12 @@ Combobulate
 #+end_quote
 
 #+begin_src emacs-lisp :tangle yes
-    (use-package combobulate
-      :straight (combobulate
-                 :type git
-                 :host github
-                 :repo "mickeynp/combobulate")
-      ;; Ensure `combobulate-mode` is activated when you launch a mode it supports
-      :hook
-      (python-mode . combobulate-mode))
+  (use-package combobulate
+    :quelpa (combobulate
+             :fetcher github
+             :repo "mickeynp/combobulate")
+    :hook
+    (python-mode . combobulate-mode))
 #+end_src
 
 ***** usage                                                       :usage:
@@ -2047,8 +2042,6 @@ Org Roam is supposed to be the next big thing in externalising your brain with e
 
 #+begin_src elisp :tangle yes
   (use-package org-roam-ui
-    :straight
-      (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
     :after org-roam
     :hook
     (after-init . org-roam-ui-mode)
@@ -2110,13 +2103,13 @@ By including a =.dir-locals.el= file on =org-directory=, enable the minor mode [
 *** Chat (Matrix)
 #+begin_src emacs-lisp :tangle yes
   (use-package plz
-    :straight (plz :type git
-                :host github
-                :repo "alphapapa/plz.el"))
+    :quelpa (plz
+             :fetcher github
+             :repo "alphapapa/plz.el"))
   (use-package ement
-    :straight (ement :type git
-                     :host github
-                     :repo "alphapapa/ement.el")
+    :quelpa (ement
+             :fetcher github
+             :repo "alphapapa/ement.el")
     :after plz
     :requires plz)
 #+end_src

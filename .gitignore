@@ -33,3 +33,6 @@ tramp
 !/straight/versions
 *.elc
 /undo
+/async-bytecomp.log
+*.cache
+/quelpa/

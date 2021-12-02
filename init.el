@@ -15,7 +15,7 @@
   (package-refresh-contents))
 
 (unless (package-installed-p 'org-plus-contrib)
-  (package-install 'org-plus-contrib))
+  (package-install 'org-contrib))
 
 ;; only retangle if the org file is newer than the tangled file
 (defvar init-source-org-file
