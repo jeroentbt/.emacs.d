@@ -2172,35 +2172,6 @@ mu4e can use fancy characters in the header view
   (setq mu4e-use-fancy-chars 'marks)
 #+END_SRC
 
-But they are not really that nice, especially the threading stuff.
-
-Fixed in 0.9.13
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  (when (and (eq t mu4e-use-fancy-chars)
-             (member "FontAwesome" (font-family-list)))
-  ;; marks for headers of the form; each is a cons-cell (basic . fancy)
-  ;; each of which is basic ascii char and something fancy, respectively
-        ;; (setq mu4e-headers-draft-mark     (purecopy '("D" . "⚒")) ;"Draft.")
-            ;; mu4e-headers-flagged-mark   (purecopy '("F" . "⚑")) ;"Flagged.")
-            ;; mu4e-headers-new-mark       (purecopy '("N" . "⭑")) ;"New.")
-            ;; mu4e-headers-passed-mark    (purecopy '("P" . "")) ;"Passed (fwd).")
-            ;; mu4e-headers-replied-mark   (purecopy '("R" . "")) ; Replied
-            ;; mu4e-headers-seen-mark      (purecopy '("S" . "✔")) ;"Seen.")
-            ;; mu4e-headers-trashed-mark   (purecopy '("T" . "♻")) ;"Trashed.")
-            ;; mu4e-headers-attach-mark    (purecopy '("a" . "")) ; W/ attachments
-            ;; mu4e-headers-encrypted-mark (purecopy '("x" . "⚴")) ;"Encrypted.") 
-            ;; mu4e-headers-signed-mark    (purecopy '("s" . "☡")) ;"Signed.") 
-            ;; mu4e-headers-unread-mark    (purecopy '("u" . "☐")) ;"Unread.")
-
-            ;; thread prefix marks
-    (setq  mu4e-headers-has-child-prefix    (purecopy '("+"  . "+"))  ;"Parent.")
-           mu4e-headers-empty-parent-prefix (purecopy '("-"  . "-"))  ;"Orphan.")
-           mu4e-headers-first-child-prefix  (purecopy '("\\" . "\\")) ;"First child.")
-           mu4e-headers-duplicate-prefix    (purecopy '("="  . "="))  ;"Duplicate.")
-           mu4e-headers-default-prefix       (purecopy '("|"  . "|")))) ;"Default."
-#+END_SRC
-
 ****** html to text conversion
 
 A very basic html stripper
