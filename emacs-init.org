@@ -194,8 +194,16 @@ don't beep, flash the screen
   
   ;; set a default fontset to use for displaying unicode characters
   (set-fontset-font "fontset-default" nil
-                    (font-spec :size 16 :name "Noto"))
-  
+                    "Noto" nil 'append)
+  (set-fontset-font "fontset-default" 'symbol
+                    "Noto Sans Symbols2" nil 'append)
+  (set-fontset-font "fontset-default" 'symbol
+                    "NotoEmoji Nerd Font Mono" nil 'prepend)
+  (set-fontset-font "fontset-default" 'symbol
+                    "Noto Color Emoji" nil 'append)
+  (set-fontset-font "fontset-default" nil
+                    "DejaVu" nil 'append)
+
   (custom-theme-set-faces
    'user
    '(variable-pitch ((t (:family "ETBembo"
