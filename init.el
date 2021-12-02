@@ -4,11 +4,11 @@
 ;; process. So your config org file should not be named "init.org".
 (require 'package)
 (add-to-list 'package-archives
+  '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
+(add-to-list 'package-archives
   '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
   '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-  '("org" . "https://orgmode.org/elpa//") t)
 (package-initialize)
 
 (unless package-archive-contents
