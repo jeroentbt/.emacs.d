@@ -1697,14 +1697,10 @@ Not sure about these yet
 #+end_src
 
 ****** title
-Hide the =#+title:= keyword and make it BIG
+Hide the =#+title:= keyword
 
 #+begin_src emacs-lisp :tangle yes
   (setq org-hidden-keywords '(title))
-  (set-face-attribute 'org-document-title nil
-                      :height 2.01
-                      :foreground 'unspecified
-                      :inherit 'org-level-8)
 #+end_src
 
 ***** Hide markers (bold, italic,...)
