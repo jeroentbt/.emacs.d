@@ -615,10 +615,7 @@ Use regex when searching by default
 ***** Backups
 from: http://ergoemacs.org/emacs/emacs_set_backup_into_a_directory.html
 This function will mirror all directories at the given backup dir.
-For example, if you are editing a file /Users/j/web/xyz/myfile.txt,
-and your backup root is
-/Users/j/.emacs.d/emacs-backup/, then the backup will be at
-/Users/j/.emacs.d/emacs-backup/Users/j/web/xyz/myfile.txt~.
+For example, if you are editing a file =~/web/xyz/myfile.txt=, and your backup root is =~/.emacs.d/emacs-backup/=, then the backup will be at =~/.emacs.d/emacs-backup/Users/j/web/xyz/myfile.txt=.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; make backup to a designated dir, mirroring the full path
