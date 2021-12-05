@@ -598,9 +598,10 @@ I'd rather not have emacs do this
   (setq auto-save-default nil)
 #+end_src
 But I do want to auto-save in the actual file though.
-=auto-save-visited-mode= will save every file-visiting buffer after (by default) 5 seconds
+=auto-save-visited-mode= will save every file-visiting buffer after being idle for 2 minutes
 #+begin_src emacs-lisp :tangle yes
   (auto-save-visited-mode)
+  (setq auto-save-timeout 120)
 #+end_src
 
 ***** Search with regex
@@ -685,11 +686,12 @@ Reimplements the undo system as a tree
     (global-undo-tree-mode)
     :custom
     (undo-tree-mode-lighter "")
-    (undo-tree-auto-save-history t)
+    (undo-tree-auto-save-history nil)
     (undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
     (undo-tree-enable-undo-in-region t)
     (undo-tree-visualizer-timestamps t))
 #+end_src
+using =undo-tree-auto-save-history= has proven to not play that well with autosaving. Disabling it for now
 
 ***** undo usage                                                      :usage:
 - /C-x u/ :: undo-tree-visualise
