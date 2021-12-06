@@ -703,6 +703,8 @@ Quickly and accuratly move around the cursor with =avy=.
   (general-create-definer keys/goto
      :prefix "M-g")
   (use-package avy
+    :config
+    (setq avy-all-windows 'all-frames)
     :general
     (keys/goto
       "j" 'avy-goto-word-1
@@ -715,6 +717,7 @@ Quickly and accuratly move around the cursor with =avy=.
 #+END_SRC
 ***** usage                                                       :usage:
 - M-g :: goto prefix, ? for more
+  Once candidates are visible, type a post character (again type ? to see options), then complete the candidate
 **** Smarter move to beginning of line
 A nice function that knows where the business part of a line starts
 from: http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
