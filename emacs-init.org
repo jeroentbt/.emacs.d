@@ -357,7 +357,36 @@ n key (as well as another call of M-o) will switch to the previous window
 ****** ace-window usage                                               :usage:
 - /C-u M-o/ :: 1 universal argument moves current and called window
 - /C-u C-u M-o/ :: 2 universal arguments deletes called window
+or use the dispatch keys, which you can consult by typing =?=
 
+#+begin_src emacs-lisp :results replace
+  (print (mapconcat
+          (lambda (action)
+            (cl-destructuring-bind (key fn &optional description) action
+              (format "%s: %s"
+                      (char-to-string key)
+                      (or description fn))))
+          aw-dispatch-alist
+          "\n"))
+#+end_src
+
+#+RESULTS:
+#+begin_example
+x: Delete Window
+m: Swap Windows
+M: Move Window
+c: Copy Window
+j: Select Buffer
+n: aw-flip-window
+u: Switch Buffer Other Window
+e: Execute Command Other Window
+F: Split Fair Window
+v: Split Vert Window
+b: Split Horz Window
+o: Delete Other Windows
+T: Transpose Frame
+?: aw-show-dispatch-help
+#+end_example
 ***** window resizing
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; window resizing
