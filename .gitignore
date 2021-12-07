@@ -36,3 +36,4 @@ tramp
 /async-bytecomp.log
 *.cache
 /quelpa/
+/history

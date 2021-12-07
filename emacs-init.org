@@ -387,6 +387,8 @@ o: Delete Other Windows
 T: Transpose Frame
 ?: aw-show-dispatch-help
 #+end_example
+
+you can also trigger these through [[*embark to ace-window][embark]]
 ***** window resizing
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; window resizing
@@ -1152,7 +1154,7 @@ Open recent file with C-x f
     (recentf-mode 1)
     (run-at-time nil (* 5 60) 'recentf-save-list)
     :general
-    ("C-x f" 'helm-mini))
+    ("C-x f" 'consult-recent-file))
 #+end_src
 
 **** move and rename files & buffers
@@ -2019,9 +2021,9 @@ Browse the orgcard with helm
   (use-package helm-org
     :general
     (keys/prefix/emspace
-      "ha" #'helm-org-agenda-files-headings
-      "hb" #'helm-org-in-buffer-headings
-      "hp" #'helm-org-parent-headings)
+      "ha" #'consult-org-agenda
+      "hb" #'consult-org-heading
+      "hp" #'helm-org-parent-heading)
     :custom
     (helm-org-format-outline-path t))
 #+end_src
@@ -2567,7 +2569,8 @@ And editorconfig-core needs to be installed
     :config (editorconfig-mode 1))
 #+END_SRC
 
-*** helm
+*** Completion and selection
+**** helm
 
 Helm is an incremental completion and selection framework for emacs.
 Read more here: http://emacs-helm.github.io/helm/
@@ -2584,10 +2587,10 @@ amount, the helm buffer will be fixed size.
     :requires (async helm-ag helm-swoop helm-flx)
     :general
     ("C-c h" 'helm-command-prefix)
-    ("M-x" 'helm-M-x)
-    ("M-y" 'helm-show-kill-ring)
-    ("C-c b" 'helm-bookmarks)
-    ("C-x b" 'helm-buffers-list)
+    ;;("M-x" 'helm-M-x)
+    ;;("M-y" 'helm-show-kill-ring)
+    ;;("C-c b" 'helm-bookmarks)
+    ;;("C-x b" 'helm-buffers-list)
     ("C-c h o" 'helm-occur)
     ("C-c h SPC" 'helm-all-mark-rings)
     ("C-c h g" 'helm-do-ag)
@@ -2602,14 +2605,245 @@ amount, the helm buffer will be fixed size.
           helm-autoresize-min-height 10)
     :init (helm-autoresize-mode 1)
           (helm-flx-mode +1)
-          (helm-mode 1))
+          ;;(helm-mode 1))
+          )
 #+END_SRC
+**** Helm alternative
+All the kids rave about vertico/consult/marginalia/embark these days. Let's see what it's all abouth and if it can replace some or all of my helm stuff...
+***** Vertico
+[[https://github.com/minad/vertico][minad/vertico: vertico.el - VERTical Interactive COmpletion]]
 
+Provides the list of candidates
+#+begin_src emacs-lisp :tangle yes
+  (use-package vertico
+    :init
+    (vertico-mode)
+    (setq vertico-count 15)
+    (setq vertico-resize t))
+#+end_src
+
+And it takes history in to account, save this history beyond your current session
+#+begin_src emacs-lisp :tangle yes
+  (use-package savehist
+    :init
+    (savehist-mode))
+#+end_src
+
+***** Orderless
+Provides a way to drill down on candidates
+#+begin_src emacs-lisp :tangle yes
+    (use-package orderless
+      :init
+      (setq completion-styles '(substring partial-completion flex
+                                orderless)
+            completion-category-defaults nil
+            completion-category-overrides '((file (styles partial-completion)))
+            completion-ignore-case t))
+#+end_src
+
+***** Marginalia
+Provides annotations on the candidates
+#+begin_src emacs-lisp :tangle yes
+  (use-package marginalia
+    :general
+    ("M-A" 'marginalia-cycle)
+    :init
+    (marginalia-mode))
+#+end_src
+
+***** Consult
+Provides commands for completion
+#+begin_src emacs-lisp :tangle yes
+
+  (use-package consult
+    :general
+    ;;("C-c h" 'consult-history)
+    ("C-c m" 'consult-mode-command)
+    ("C-c b" 'consult-bookmark)
+    ("C-c k" 'consult-kmacro)
+
+    ("C-x M-:" 'consult-complex-command)     ;; orig. repeat-complex-command
+    ("C-x b" 'consult-buffer)                ;; orig. switch-to-buffer
+    ("C-x 4 b" 'consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+    ("C-x 5 b" 'consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+
+    ("M-#" 'consult-register-load)
+    ("M-'" 'consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+    ("C-M-#" 'consult-register)
+
+    ("M-y" 'consult-yank-pop)                ;; orig. yank-pop
+    ("<help> a" 'consult-apropos)            ;; orig. apropos-command
+
+    ;; ("M-g e" 'consult-compile-error)
+    ;; ("M-g f" 'consult-flymake)               ;; Alternative: consult-flycheck
+    ;; ("M-g g" 'consult-goto-line)             ;; orig. goto-line
+    ;; ("M-g M-g" 'consult-goto-line)           ;; orig. goto-line
+    ("M-g o" 'consult-outline)               ;; Alternative: consult-org-heading
+    ("M-g m" 'consult-mark)
+    ("M-g SPC" 'consult-global-mark)
+    ("M-g i" 'consult-imenu)
+    ("M-g I" 'consult-imenu-multi)
+
+    ("M-s f" 'consult-find)
+    ("M-s F" 'consult-locate)
+    ("M-s g" 'consult-grep)
+    ("M-s G" 'consult-git-grep)
+    ("M-s r" 'consult-ripgrep)
+    ("M-s l" 'consult-line)
+    ("M-s L" 'consult-line-multi)
+    ("M-s m" 'consult-multi-occur)
+    ("M-s k" 'consult-keep-lines)
+    ("M-s u" 'consult-focus-lines)
+
+    ("M-s e" 'consult-isearch-history)
+    (:keymaps 'isearch-mode-map
+              "M-e" 'consult-isearch-history         ;; orig. isearch-edit-string
+              "M-s e" 'consult-isearch-history       ;; orig. isearch-edit-string
+              "M-s l" 'consult-line                  ;; needed by consult-line to detect isearch
+              "M-s L" 'consult-line-multi)           ;; needed by consult-line to detect isearch
+
+    ;; Enable automatic preview at point in the *Completions* buffer. This is
+    ;; relevant when you use the default completion UI. You may want to also
+    ;; enable `consult-preview-at-point-mode` in Embark Collect buffers.
+    :hook (completion-list-mode . consult-preview-at-point-mode)
+
+
+    :init
+    ;; Optionally configure the register formatting. This improves the register
+    ;; preview for `consult-register', `consult-register-load',
+    ;; `consult-register-store' and the Emacs built-ins.
+    (setq register-preview-delay 0
+          register-preview-function #'consult-register-format)
+
+    ;; Optionally tweak the register preview window.
+    ;; This adds thin lines, sorting and hides the mode line of the window.
+    (advice-add #'register-preview :override #'consult-register-window)
+
+    ;; Optionally replace `completing-read-multiple' with an enhanced version.
+    (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
+
+    ;; Use Consult to select xref locations with preview
+    (setq xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref)
+
+    ;; Configure other variables and modes in the :config section,
+    ;; after lazily loading the package.
+    :config
+
+    ;; Optionally configure preview. The default value
+    ;; is 'any, such that any key triggers the preview.
+    ;; (setq consult-preview-key 'any)
+    ;; (setq consult-preview-key (kbd "M-."))
+    ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
+    ;; For some commands and buffer sources it is useful to configure the
+    ;; :preview-key on a per-command basis using the `consult-customize' macro.
+    (consult-customize
+     consult-theme
+     :preview-key '(:debounce 0.2 any)
+     consult-ripgrep consult-git-grep consult-grep
+     consult-bookmark consult-recent-file consult-xref
+     consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
+     :preview-key (kbd "M-."))
+
+    ;; Optionally configure the narrowing key.
+    ;; Both < and C-+ work reasonably well.
+    (setq consult-narrow-key "<") ;; (kbd "C-+")
+
+    ;; Optionally make narrowing help available in the minibuffer.
+    ;; You may want to use `embark-prefix-help-command' or which-key instead.
+    ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+
+    ;; Optionally configure a function which returns the project root directory.
+    ;; There are multiple reasonable alternatives to chose from.
+    ;;;; 1. project.el (project-roots)
+    (setq consult-project-root-function
+          (lambda ()
+            (when-let (project (project-current))
+              (car (project-roots project)))))
+    ;;;; 2. projectile.el (projectile-project-root)
+    ;; (autoload 'projectile-project-root "projectile")
+    ;; (setq consult-project-root-function #'projectile-project-root)
+    ;;;; 3. vc.el (vc-root-dir)
+    ;; (setq consult-project-root-function #'vc-root-dir)
+    ;;;; 4. locate-dominating-file
+    ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
+  )
+#+end_src
+
+consult-dir
+#+begin_src emacs-lisp :tangle yes
+  (use-package consult-dir
+    :ensure t
+    :config
+    (setq consult-dir-project-list-function #'consult-dir-projectile-dirs)
+    (setq consult-dir-default-command #'dired)
+    :general
+    ("C-x C-d" 'consult-dir)
+    (:keymaps 'vertico-map
+              "C-x C-d" 'consult-dir
+              "C-x C-j" 'consult-dir-jump-file))
+#+end_src
+
+***** Embark
+#+begin_src emacs-lisp :tangle yes
+  (use-package embark
+    :ensure t
+
+    :general
+    ("C-." 'embark-act)
+    ("M-." 'embark-dwim)
+    ("C-h B" 'embark-bindings)
+
+    :init
+
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
+
+    :config
+
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none)))))
+
+  ;; Consult users will also want the embark-consult package.
+  (use-package embark-consult
+    :ensure t
+    :after (embark consult)
+    :demand t ; only necessary if you have the hook below
+    ;; if you want to have consult previews as you move around an
+    ;; auto-updating embark collect buffer
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode))
+#+end_src
+
+****** TODO embark to [[*ace-window][ace-window]]
+#+begin_src emacs-lisp :tangle yes
+  (eval-when-compile
+    (defmacro my/embark-ace-action (fn)
+      `(defun ,(intern (concat "my/embark-ace-" (symbol-name fn))) ()
+         (interactive)
+         (with-demoted-errors "%s"
+           (require 'ace-window)
+           (let ((aw-dispatch-always t))
+             (aw-switch-to-window (aw-select nil))
+             (call-interactively (symbol-function ',fn)))))))
+
+  (general-define-key
+   :keymaps 'embark-file-map
+   "o" '(my/embark-ace-action 'find-file)
+   :keymaps 'embark-buffer-map
+   "o" '(my/embark-ace-action 'switch-to-buffer)
+   :keymaps 'embark-bookmark-map
+   "o" '(my/embark-ace-action 'bookmark-jump))
+#+end_src
 ** Workspaces
 
 *** Projectile                                                   :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package helm-projectile)
+  (use-package consult-projectile
+    :requires consult)
   (use-package projectile
       :config
         ;; C-c p a now opens other file with same name - but different extension
@@ -2619,8 +2853,7 @@ amount, the helm buffer will be fixed size.
                (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
       :init
       (projectile-global-mode)
-      (setq projectile-completion-system 'helm)
-      (helm-projectile-on))
+      (setq projectile-completion-system 'helm))
 #+END_SRC
 **** Keybindings                                                :keybindings:
 "C-c p" followed by a key
