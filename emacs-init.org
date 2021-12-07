@@ -521,11 +521,6 @@ Got the sauce for this lambda [[https://github.com/syl20bnr/spacemacs/issues/141
 
 #+END_SRC
 
-***** TODO why the # in the above elisp code?                     :elisp:
-#+begin_example emacs-lisp
-  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
-#+end_example
-
 **** Indent guides
 Do not globally enable this mode, it does not play well with some other modes I use and makes emacs stutter on movement.
 #+BEGIN_SRC emacs-lisp :tangle yes
