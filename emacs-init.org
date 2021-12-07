@@ -348,8 +348,7 @@ n key (as well as another call of M-o) will switch to the previous window
   (use-package ace-window
     :init
     (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
-          aw-background nil
-          aw-flip-keys '("n" "M-o"))
+          aw-background nil)
     (custom-set-faces
      '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
     :general
