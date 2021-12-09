@@ -1157,6 +1157,19 @@ Open recent file with C-x f
     ("C-x f" 'consult-recent-file))
 #+end_src
 
+***** inhibit message
+
+#+begin_src emacs-lisp :tangle yes
+  (defun no-msg (function)
+    "Prevent FUNCTION from showing `Wrote <FILE>' messages.
+  \(The messages are still logged to `*Messages*'.)"
+    (let ((inhibit-message  t))
+      (funcall function)))
+
+  (advice-add 'recentf-save-list :around 'no-msg)
+#+end_src
+
+
 **** move and rename files & buffers
 Small conveniece defuns by steveyegge2
 https://sites.google.com/site/steveyegge2/my-dot-emacs-file
