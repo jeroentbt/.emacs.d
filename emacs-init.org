@@ -2579,6 +2579,7 @@ And editorconfig-core needs to be installed
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package editorconfig
+    :diminish
     :config (editorconfig-mode 1))
 #+END_SRC
 
