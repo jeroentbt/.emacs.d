@@ -1911,10 +1911,6 @@ Org link capturing seems spotty at best in current firefox
   javascript:location.href='org-protocol://store-link?' +
         new URLSearchParams({url:location.href, title:document.title});
 #+end_src
-
-***** TODO could I get org-capture to use yequake?
-Curently not always visible where the capture buffer will pop up.
-workaround is to just open a buffer next to where you're capturing...
 ***** Maybe look in to full page capturing using pandoc?
 https://github.com/alphapapa/org-protocol-capture-html#org-protocol-instructions
 
