@@ -1834,6 +1834,37 @@ A global set of TODO keywords
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "CALL" "MEETING"))))
 
 #+end_src
+
+***** Task dependencies
+****** The built-in way
+Check the docs of =org-enforce-todo-dependencies=!
+#+begin_src emacs-lisp :tangle yes
+  (setq org-enforce-todo-dependencies t)
+  (setq org-agenda-dim-blocked-tasks t)
+#+end_src
+
+****** edna
+Might be a bit overkill for me, now, but giving it a a try.
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-edna
+    :hook
+    (org-mode . org-edna-mode)
+    :general
+    ("C-c e e" 'org-edna-edit))
+
+  (use-package org-linker
+    :ensure nil
+    :quelpa (org-linker :repo "toshism/org-linker" :fetcher github))
+
+  (use-package org-linker-edna
+    :ensure nil
+    :quelpa (org-linker-edna :repo "toshism/org-linker-edna" :fetcher github)
+    :requires (org-linker)
+    :general
+    ("C-c e l" 'org-linker-edna))
+#+end_src
+
 **** Org-agenda
 
 Org agenda is highly customisable, here I just start of with showing the =OWNER= property if it is set. This signifies a task is not on my list but just for me to follow up.
