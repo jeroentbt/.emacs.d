@@ -728,8 +728,7 @@ using =undo-tree-auto-save-history= has proven to not play that well with autosa
 - /C-x u/ :: undo-tree-visualise
   - d :: diff
 
-***** TODO look in to saving states                               :potential:
-see undo tree docs
+
 **** Avy
 Quickly and accuratly move around the cursor with =avy=.
 
