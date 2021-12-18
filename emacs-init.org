@@ -2988,6 +2988,9 @@ To find out which packages have this as a dependency:
   (file-dependents (feature-file 'cl))
 #+end_src
 
+** toggle-debug-on-error
+M-x toggle-debug-on-error
+
 * Fixing bugs
 
 ** 2015-01-16 discover.el messing with keybindings
