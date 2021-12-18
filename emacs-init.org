@@ -1708,16 +1708,6 @@ Press /?/ to show which keys do what
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq org-directory "~/Documents/org")
 
-  (setq org-agenda-files
-        (append '("~/.emacs.d")
-                (seq-filter
-                 (lambda(path)
-                   (not (string-match "/Archive/" path)))
-                 (seq-uniq
-                  (mapcar 'file-name-directory
-                          (directory-files-recursively "~/Documents/org/" "\\.org$"))))))
-
-
   ;; Set default file for org-capture
   (setq org-default-notes-file (concat org-directory "/notes.org"))
 
@@ -1866,6 +1856,25 @@ Might be a bit overkill for me, now, but giving it a a try.
 #+end_src
 
 **** Org-agenda
+
+***** Agenda Files
+
+Agenda files are referenced in other parts of this config (eg as refile targets)
+
+#+begin_src emacs-lisp :tangle yes
+    (setq org-agenda-files
+            (append '("~/.emacs.d")
+                    (seq-filter
+                     (lambda(path)
+                       (not (or (string-match "/Archive/" path)
+                                (string-match "/journal/" path)
+                                (string-match "/imported/" path))))
+                     (seq-uniq
+                      (mapcar 'file-name-directory
+                              (directory-files-recursively "~/Documents/org/" "\\.org$"))))))
+#+end_src
+
+***** Agenda Properties
 
 Org agenda is highly customisable, here I just start of with showing the =OWNER= property if it is set. This signifies a task is not on my list but just for me to follow up.
 
