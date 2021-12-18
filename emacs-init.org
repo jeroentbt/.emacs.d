@@ -2049,9 +2049,6 @@ enabled expansion of <s style stuff from org-structure-template-alist
 **** TODO org-download
 Drag and drop images to org-mode
 [[https://github.com/abo-abo/org-download][github]] / [[https://www.youtube.com/watch?v%3DdAojpHR-6Uo][youtube demo]]
-**** TODO org-beautify-theme
-Prettify org buffers
-[[https://github.com/jonnay/emagicians-starter-kit/blob/master/themes/org-beautify-theme.org][github]] / [[http://www.jonnay.net/bloggity-blog/2014/12/29_making-org-mode-typography-suck-a-little-less.html][blogpost]]
 **** some help
 ***** helm-orgcard
 Browse the orgcard with helm
