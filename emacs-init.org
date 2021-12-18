@@ -1385,10 +1385,6 @@ But it's fairly easy to define your own:
       ("C-x g" 'webjump)
       ("C-x M-g" 'browse-url-at-point))
 #+END_SRC
-**** TODO history - source code navigation
-A more intuitive way of popping the mark (which I never really started
-using)
-[[https://github.com/boyw165/history][github]]
 
 **** open as sudo
 
