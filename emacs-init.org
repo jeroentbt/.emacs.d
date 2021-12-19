@@ -1979,6 +1979,14 @@ relevant part of i3 config:
                              (internal-border-width . 15)))))))
 #+end_src
 
+**** Refile
+#+begin_src emacs-lisp :tangle yes
+  (setq org-refile-targets '((nil :maxlevel . 5)
+                             (org-agenda-files :maxlevel . 5)))
+  (setq org-refile-use-outline-path 'file)
+  (add-to-list 'org-speed-commands (cons "W" 'avy-org-refile-as-child))
+#+end_src
+
 **** Babel
 
 Org-babel allows you to add src blocks etc.
