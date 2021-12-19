@@ -1690,6 +1690,9 @@ When the buffer gets large, emacs gets slow, we'll truncate when new lines are a
   (setq org-imenu-depth 9)
 
   (add-hook 'org-mode-hook 'visual-line-mode)
+
+  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+  (setq org-id-method 'ts)
 #+END_SRC
 ***** Speed keys
 When speed keys are enabled, you can do lots of one-key-no-modifier moving around and more when the point is on a headline, before any of the stars.
