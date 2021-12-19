@@ -1865,8 +1865,7 @@ Agenda files are referenced in other parts of this config (eg as refile targets)
                     (seq-filter
                      (lambda(path)
                        (not (or (string-match "/Archive/" path)
-                                (string-match "/journal/" path)
-                                (string-match "/imported/" path))))
+                                (string-match "/journal/" path))))
                      (seq-uniq
                       (mapcar 'file-name-directory
                               (directory-files-recursively "~/Documents/org/" "\\.org$"))))))
@@ -1985,6 +1984,16 @@ relevant part of i3 config:
                              (org-agenda-files :maxlevel . 5)))
   (setq org-refile-use-outline-path 'file)
   (add-to-list 'org-speed-commands (cons "W" 'avy-org-refile-as-child))
+#+end_src
+
+***** TODO filter imported as refile targets
+
+I'm reading in some work calendars through ics imports. These files contain a =filetag= "=ics=". The function =my/skip-ics-for-refile= could return nil and move point to the end of the buffer in my current setup.
+
+#+begin_src emacs-lisp :tangle yes
+  (defun my/skip-ics-for-refile ()
+    t)
+  (setq org-refile-target-verify-function #'my/skip-ics-for-refile)
 #+end_src
 
 **** Babel
