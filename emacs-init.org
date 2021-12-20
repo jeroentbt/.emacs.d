@@ -390,13 +390,38 @@ T: Transpose Frame
 
 you can also trigger these through [[*embark to ace-window][embark]]
 ***** window resizing
+****** implemented with Transient
+
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; window resizing
-  (general-define-key "S-C-<left>" 'shrink-window-horizontally)
-  (general-define-key "S-C-<right>" 'enlarge-window-horizontally)
-  (general-define-key "S-C-<down>" 'shrink-window)
-  (general-define-key "S-C-<up>" 'enlarge-window)
+  (use-package transient
+    :config
+    (define-transient-command my/window-resizer ()
+      :transient-suffix 'transient--do-stay
+      :transient-non-suffix 'transient--do-warn
+      [["resize"
+        ("<left>" "shrink-window-horizontally" shrink-window-horizontally)
+        ("<right>" "enlarge-window-horizontally" enlarge-window-horizontally)
+        ("<down>" "shrink-window" shrink-window)
+        ("<up>" "enlarge-window" enlarge-window)]
+       ["jump"
+        ("o" "other window" other-window)
+        ("q" "quit" transient-quit-one)]]))
+  (general-define-key "C-x w" #'my/window-resizer)
 #+END_SRC
+
+****** implemented as a Hydra                                 :disabled:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+    (defhydra hydra-window-resizer (global-map "C-x w")
+      "resize window"
+      ("<left>" shrink-window-horizontally)
+      ("<right>" enlarge-window-horizontally)
+      ("<down>" shrink-window)
+      ("<up>" enlarge-window)
+      ("o" other-window)
+      ("q" nil "quit"))
+#+END_SRC
+
 ***** Undo/redo window config using winner
 #+begin_src emacs-lisp :tangle yes
   (winner-mode 1)
