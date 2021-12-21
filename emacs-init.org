@@ -1842,9 +1842,9 @@ Borrowing heavily from [[http://doc.norang.ca/org-mode.html#TasksAndStates][nora
 A global set of TODO keywords
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "NEXT(n)" "BUSY(b)" "|" "DONE(d)")
-                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "CALL" "MEETING"))))
+    (setq org-todo-keywords
+          (quote ((sequence "TODO(t)" "NEXT(n)" "BUSY(b)" "|" "DONE(d)")
+                  (sequence "SOMEDAY(s)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "CALL" "MEETING"))))
 
 #+end_src
 
