@@ -1245,10 +1245,10 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
           company-tooltip-limit 20
           company-tooltip-margin 2
           company-tooltip-minimum-width 20
-          company-auto-complete-chars nil
+          company-auto-commit-chars nil
           company-dabbrev-code-modes
           (quote
-           (prog-mode batch-file-mode csharp-mode css-mode erlang-mode haskell-mode jde-mode lua-mode python-mode js-mode html-mode web-mode))
+           (prog-mode batch-file-mode csharp-mode css-mode erlang-mode haskell-mode jde-mode lua-mode python-mode js-mode html-mode web-mode emacs-lisp-mode plantuml-mode))
           company-dabbrev-code-time-limit 0.5
           company-dabbrev-other-buffers t
           company-dabbrev-time-limit 0.5))
@@ -1274,7 +1274,14 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
     :requires company
     :config
     (company-quickhelp-mode t)
-    (setq company-quickhelp-use-propertized-text t))
+    (setq company-quickhelp-use-propertized-text t
+          company-quickhelp-color-background nil
+          company-quickhelp-color-foreground nil
+          company-quickhelp-delay nil)
+    :general
+    (:keymaps 'company-active-map
+              "M-h" #'company-quickhelp-manual-begin
+              "C-M-h" #'company-show-doc-buffer))
   #+END_SRC
 
 ***** SOMEDAY look in to Corfu
