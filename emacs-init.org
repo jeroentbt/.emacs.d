@@ -1230,8 +1230,7 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
 
 #+END_SRC
 **** Auto complete
-
-Using  company-mode
+***** Using  company-mode
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package company
@@ -1277,6 +1276,8 @@ Using  company-mode
     (company-quickhelp-mode t)
     (setq company-quickhelp-use-propertized-text t))
   #+END_SRC
+
+***** SOMEDAY look in to Corfu
 
 **** yasnippet
 
