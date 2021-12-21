@@ -1230,18 +1230,8 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
 
 #+END_SRC
 **** Auto complete
-#+BEGIN_SRC emacs-lisp :tangle no
-  (use-package auto-complete
-               :init
-               ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-               (require 'auto-complete-config)
-               (ac-config-default))
 
-#+END_SRC
-
-***** company-mode
-Looks like a nice alternative with less confusing completion
-http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_which_is_better/
+Using  company-mode
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package company
