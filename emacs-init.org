@@ -1271,20 +1271,11 @@ Using  company-mode
     (yas-global-mode 1)
     (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
-
   (use-package company-quickhelp
     :requires company
     :config
     (company-quickhelp-mode t)
-    (setq company-quickhelp-use-propertized-text t
-          company-quickhelp-color-background "#112b2b"
-          company-quickhelp-color-foreground "white"))
-
-  (use-package helm-company
-    :general
-    (:keymaps 'company-active-map
-     "M-h" 'helm-company)
-    :requires company)
+    (setq company-quickhelp-use-propertized-text t))
   #+END_SRC
 
 **** yasnippet
