@@ -1250,7 +1250,6 @@ http://www.reddit.com/r/emacs/comments/2ekw22/autocompletemode_vs_companymode_wh
     (setq company-idle-delay 0.3
           company-minimum-prefix-length 2
           company-transformers '(company-sort-by-backend-importance)
-          company-auto-complete '('company-explicit-action-p)
           company-selection-wrap-around t
           company-show-numbers t
           company-tooltip-align-annotations t
