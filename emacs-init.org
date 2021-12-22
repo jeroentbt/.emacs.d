@@ -1823,6 +1823,18 @@ This package displays in the header-line the Org heading for the node that’s a
      '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
      '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 #+end_src
+***** Inline images
+By explicitly setting the width here, we enable setting it on a per image basis using attributes. 
+#+begin_src emacs-lisp :tangle yes
+(setq org-image-actual-width (list 600))
+#+end_src
+
+This would make the image much smaller.
+#+begin_example org
+#+attr_org: :width 20
+#+end_example
+****** toggle inline images                                      :usage:
+- =C-c C-x C-v= :: ~org-toggle-inline-images~
 **** Tasks and States
 
 Borrowing heavily from [[http://doc.norang.ca/org-mode.html#TasksAndStates][norang.ca]]
