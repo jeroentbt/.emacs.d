@@ -7,20 +7,6 @@
   '(ansi-color-names-vector
      ["#454545" "#d65946" "#6aaf50" "#baba36" "#598bc1" "#ab75c3" "#68a5e9" "#bdbdb3"])
  '(column-number-mode t)
- '(company-auto-commit-chars nil)
- '(company-auto-complete-chars nil)
-  '(company-dabbrev-code-modes
-     '(prog-mode batch-file-mode csharp-mode css-mode erlang-mode haskell-mode jde-mode lua-mode python-mode js-mode html-mode web-mode))
- '(company-dabbrev-code-time-limit 0.5)
- '(company-dabbrev-other-buffers t)
- '(company-dabbrev-time-limit 0.5)
- '(company-quickhelp-color-background "black")
- '(company-quickhelp-color-foreground "white")
- '(company-quickhelp-use-propertized-text t)
- '(company-tooltip-align-annotations t)
- '(company-tooltip-flip-when-above nil)
- '(company-tooltip-offset-display 'scrollbar)
- '(company-transformers '(company-sort-by-backend-importance))
  '(compilation-message-face 'default)
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
@@ -64,7 +50,6 @@
         ("\\?\\?\\?+" . "#dc752f")))
  '(lsp-ui-doc-border "#93a1a1")
  '(magit-diff-use-overlays nil)
- '(mu4e-view-use-gnus t)
   '(nrepl-message-colors
      '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8" "#2aa198" "#d33682" "#6c71c4"))
  '(org-archive-location "~/Documents/org/_Archive.org::* From %s")
@@ -94,9 +79,9 @@
         ("sp" . "src python :results output")
         ("v" . "verse")))
   '(package-selected-packages
-     '(all-the-icons neotree mu4e-column-faces org-super-agenda hcl-mode tron-legacy-theme org-journal python-docstring tdd git-gutter rainbow-delimiters org-sticky-header helm-org-rifle company iedit company-fuzzy helm-company rainbow-identifiers clues-theme noctilux-theme monokai-theme spacemacs-theme solarized-theme yequake org-drill ace-mc plantuml-mode ace-window zeal-at-point async company-quickhelp darkroom diminish esqlite flx helm helm-ag helm-projectile helm-swoop ido-completing-read+ js2-refactor yasnippet nimbus-theme window-margin ox-hugo go-mode go-projectile ansi yafolding helm-flx markdown-mode+ company-tern helm-orgcard challenger-deep-theme kotlin-mode el-get html-to-markdown org-plus-contrib jekyll-modes ob-restclient restclient markdown-mode yaml-mode doom-themes org-mime znc zenburn-theme web-mode undo-tree tern spaces spacegray-theme smooth-scrolling smex smartparens smart-mode-line skewer-mode req-package rainbow-mode puppet-mode projectile pdf-tools paradox pallet ox-reveal org-bullets magit json-mode jedi ix interleave indent-guide ido-vertical-mode ido-ubiquitous ido-at-point hungry-delete highlight-symbol heroku-theme guide-key git-timemachine git-messenger gist flycheck flx-ido expand-region erc-hl-nicks emmet-mode elpy editorconfig discover-js2-refactor direx dash-at-point color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized buffer-move browse-kill-ring anti-zenburn-theme ample-theme ag adaptive-wrap ace-jump-mode))
+     '(keycast-mode keycast mpv helm-org-ql org-ql ov org-linker-edna org-linker org-edna all-the-icons neotree mu4e-column-faces org-super-agenda hcl-mode tron-legacy-theme org-journal python-docstring tdd git-gutter rainbow-delimiters org-sticky-header helm-org-rifle company iedit company-fuzzy helm-company rainbow-identifiers clues-theme noctilux-theme monokai-theme spacemacs-theme solarized-theme yequake org-drill ace-mc plantuml-mode ace-window zeal-at-point async company-quickhelp darkroom diminish esqlite flx helm helm-ag helm-projectile helm-swoop ido-completing-read+ js2-refactor yasnippet nimbus-theme window-margin ox-hugo go-mode go-projectile ansi yafolding helm-flx markdown-mode+ company-tern helm-orgcard challenger-deep-theme kotlin-mode el-get html-to-markdown org-plus-contrib jekyll-modes ob-restclient restclient markdown-mode yaml-mode doom-themes org-mime znc zenburn-theme web-mode undo-tree tern spaces spacegray-theme smooth-scrolling smex smartparens smart-mode-line skewer-mode req-package rainbow-mode puppet-mode projectile pdf-tools paradox pallet ox-reveal org-bullets magit json-mode jedi ix interleave indent-guide ido-vertical-mode ido-ubiquitous ido-at-point hungry-delete highlight-symbol heroku-theme guide-key git-timemachine git-messenger gist flycheck flx-ido expand-region erc-hl-nicks emmet-mode elpy editorconfig discover-js2-refactor direx dash-at-point color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized buffer-move browse-kill-ring anti-zenburn-theme ample-theme ag adaptive-wrap ace-jump-mode))
  '(paradox-automatically-star nil)
- '(paradox-github-token t t)
+ '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
   '(popwin:special-display-config
      '((direx:direx-mode :width 40 :position left :dedicated t)
@@ -122,7 +107,11 @@
         (slime-connection-list-mode)))
  '(projectile-tags-command "ctags -Re --tag-relative=always -f \"%s\" %s \"%s\"")
   '(safe-local-variable-values
-     '((gac-debounce-interval . 300)
+     '((eval progn
+         (org-babel-goto-named-src-block "startup")
+         (org-babel-execute-src-block)
+         (outline-hide-sublevels 2))
+        (gac-debounce-interval . 300)
         (gac-automatically-add-new-files-p . t)))
  '(shr-color-visible-distance-min 40)
  '(shr-color-visible-luminance-min 180)
