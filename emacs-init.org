@@ -1878,6 +1878,57 @@ Might be a bit overkill for me, now, but giving it a a try.
     ("C-c e l" 'org-linker-edna))
 #+end_src
 
+**** Attachments
+
+Attachments will be copied to an "attachments" directory next to the org file (unless a different =DIR= property is set).
+
+#+begin_src emacs-lisp :tangle yes
+  (setq org-attach-method 'cp)
+  (setq org-attach-preferred-new-method 'id)
+  (setq org-attach-id-dir "attachments/")
+  (setq org-attach-id-to-path-function-list
+        '(org-attach-id-ts-folder-format
+          org-attach-id-uuid-folder-format))
+  (setq org-attach-store-link-p 'attached)
+
+  (setq org-attach-auto-tag "Attachment")
+  (add-to-list 'org-tags-exclude-from-inheritance "Attachment")
+#+end_src
+
+And we'll use git-annex
+
+#+begin_src emacs-lisp :tangle yes
+  (setq org-attach-git-annex-auto-get 'ask)
+  (setq org-attach-git-annex-cutoff 32)
+  (setq org-attach-archive-delete 'query)
+#+end_src
+
+***** More on git-annex
+#+begin_src emacs-lisp :tangle yes
+  (use-package git-annex)
+  (use-package magit-annex)
+#+end_src
+
+#+RESULTS:
+
+***** Attaching images with org-download
+
+Drag an image in to an org buffer, ~org-download-yank~ or ~org-download-screenshot~.
+#+begin_src emacs-lisp :tangle yes
+    (use-package org-download
+      :config
+      (setq org-download-method 'attach
+            org-download-backend "curl \"%s\" -o \"%s\""
+            org-download-image-org-width 600
+            org-download-screenshot-method "scrot -s %s"))
+#+end_src
+
+**** Tags
+
+#+begin_src emacs-lisp :tangle yes
+  (setq org-use-tag-inheritance t)
+#+end_src
+
 **** Org-agenda
 
 ***** Agenda Files
