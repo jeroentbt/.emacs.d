@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: block export
+# key: <E
+# --
+#+begin_export ${1:language}
+$0
+#+end_export

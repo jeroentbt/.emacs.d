@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: inline image width
+# key: imgw
+# --
+#+attr_org: :width ${1:600}$0

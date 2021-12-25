@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: block src elisp
+# key: <se
+# --
+#+begin_src emacs-lisp${1: :tangle ${2:yes}}
+$0
+#+end_src

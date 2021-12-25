@@ -2084,13 +2084,6 @@ Adding ~#+OPTIONS: toc:nil~ might be a good idea.
     (use-package ox-hugo))
 
 #+END_SRC
-
-****** org-tempo
-enabled expansion of <s style stuff from org-structure-template-alist
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'org-tempo)
-
-#+END_SRC
 **** TODO org-download
 Drag and drop images to org-mode
 [[https://github.com/abo-abo/org-download][github]] / [[https://www.youtube.com/watch?v%3DdAojpHR-6Uo][youtube demo]]
@@ -3094,3 +3087,7 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
       (plantuml . t)
       --> (restclient . t)))
  #+end_example
+
+
+
+

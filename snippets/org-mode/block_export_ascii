@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: block export ascii
+# key: <a
+# --
+#+begin_export ascii
+$0
+#+end_export

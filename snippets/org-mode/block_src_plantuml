@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: block src plantuml
+# key: <spuml
+# --
+#+begin_src plantuml :file ${1:file}.png
+$0
+#+end_src
