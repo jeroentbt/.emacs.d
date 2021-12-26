@@ -273,6 +273,7 @@ After first installation, you will need to install the required fonts
           ;; 'bg-only, 'deuteranopia, 'fg-only-deuteranopia
           modus-themes-deuteranopia t
           modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
+
           modus-themes-org-agenda
           '((header-block . (variable-pitch scale-title))
             (header-date . (grayscale bold-today underline-today scale-heading))
@@ -286,6 +287,8 @@ After first installation, you will need to install the required fonts
             (3 . (overline 1.20))
             (4 . (overline 1.15))
             (t . (rainbow semibold 1.1))))
+
+
     ;; Load the theme files before enabling a theme
     (modus-themes-load-themes)
     :config
