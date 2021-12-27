@@ -1143,6 +1143,16 @@ see [[*Icons!][Icons!]]
     :hook (dired-mode . all-the-icons-dired-mode))
 #+end_src
 
+***** wdired                                                      :usage:
+=C-x C-q= in a dired buffer to make it editable
+
+#+begin_src emacs-lisp :tangle yes
+  (setq wdired-allow-to-change-permissions t
+        wdired-allow-to-redirect-links t
+        wdired-confirm-overwrite t
+        wdired-create-parent-directories t)
+#+end_src
+
 ***** dired-x
 Dired extra. Extra features for dired
 #+BEGIN_SRC emacs-lisp :tangle yes
