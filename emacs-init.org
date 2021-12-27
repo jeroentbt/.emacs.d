@@ -1154,6 +1154,24 @@ see [[*Icons!][Icons!]]
     :hook (dired-mode . all-the-icons-dired-mode))
 #+end_src
 
+***** dired hacks
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package dired-collapse
+    :hook (dired-mode . dired-collapse-mode))
+
+  (use-package dired-filter
+    :config
+    (setq dired-filter-prefix "/"))
+
+  (use-package dired-subtree)
+#+end_src
+
+****** TODO ~dired-filter-group-mode~
+
+****** TODO map dired-subtree commands
+Transient behind ","?
+With actions analogous to org speed commands?
 ***** wdired                                                      :usage:
 =C-x C-q= in a dired buffer to make it editable
 
