@@ -1135,6 +1135,17 @@ Making it behave somewhat like a two-pane file manager
   (setq dired-dwim-target t)
 #+END_SRC
 
+Other dired settings
+
+#+begin_src emacs-lisp :tangle yes
+  (setq dired-kill-when-opening-new-dired-buffer t ; added in emacs 28
+        dired-clean-confirm-killing-deleted-buffers nil
+        dired-recursive-copies 'always
+        dired-recursive-deletes 'always
+        delete-by-moving-to-trash t
+        dired-listing-switches "-AGhlv --group-directories-first --time-style=long-iso")
+#+end_src
+
 Icons in dired!
 see [[*Icons!][Icons!]]
 
