@@ -1792,6 +1792,12 @@ Not sure about these yet
   (setq org-n-level-faces 4)
 #+end_src
 
+Nicer ellipsis
+#+begin_src emacs-lisp :tangle yes
+  (setq org-ellipsis " ▾")
+
+#+end_src
+
 ****** title
 Hide the =#+title:= keyword
 
