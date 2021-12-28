@@ -1886,12 +1886,17 @@ This would make the image much smaller.
 Borrowing heavily from [[http://doc.norang.ca/org-mode.html#TasksAndStates][norang.ca]]
 
 A global set of TODO keywords
-
+! queries for a log entry
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq org-todo-keywords
-          (quote ((sequence "TODO(t)" "NEXT(n)" "BUSY(b)" "|" "DONE(d)")
-                  (sequence "SOMEDAY(s)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "CALL" "MEETING"))))
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "NEXT(n)" "BUSY(b)" "|" "DONE(d)")
+                (sequence "SOMEDAY(s)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "CALL" "MEETING"))))
+  (setq org-log-into-drawer t)
+#+end_src
 
+Log when done
+#+begin_src emacs-lisp :tangle yes
+  (setq org-log-done 'time)
 #+end_src
 
 ***** Task dependencies
