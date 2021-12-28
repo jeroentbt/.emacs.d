@@ -1894,6 +1894,11 @@ This would make the image much smaller.
 #+end_example
 ****** toggle inline images                                      :usage:
 - =C-c C-x C-v= :: ~org-toggle-inline-images~
+****** remote inline images
+#+begin_src emacs-lisp :tangle yes
+  (setq org-display-remote-inline-images 'download)
+#+end_src
+
 **** Tasks and States
 
 Borrowing heavily from [[http://doc.norang.ca/org-mode.html#TasksAndStates][norang.ca]]
