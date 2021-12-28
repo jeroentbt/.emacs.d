@@ -1810,6 +1810,16 @@ but also show them interactively, when cursor is on element
     :hook
     (org-mode . org-appear-mode))
 #+end_src
+
+***** toggle link display
+You can edit (and thus view) links by simply removing the last (invisible) "]" or by calling ~org-insert-link~. This toggle might help to just see where a link points to behind its description
+
+#+begin_src emacs-lisp :tangle yes
+  (general-define-key
+     :keymaps 'org-mode-map
+     "C-c L" #'org-toggle-link-display)
+#+end_src
+
 ***** indent by default
 Org can *virtually* indent the contents of subheadings.
 
