@@ -1178,6 +1178,12 @@ see [[*Icons!][Icons!]]
 ****** TODO map dired-subtree commands
 Transient behind ","?
 With actions analogous to org speed commands?
+***** colorfull dired
+#+begin_src emacs-lisp :tangle yes
+  (use-package diredfl
+    :hook (dired-mode . diredfl-mode))
+#+end_src
+
 ***** wdired                                                      :usage:
 =C-x C-q= in a dired buffer to make it editable
 
