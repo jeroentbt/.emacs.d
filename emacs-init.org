@@ -636,6 +636,12 @@ Do not globally enable this mode, it does not play well with some other modes I 
 Allow recursive minibuffers
 #+begin_src emacs-lisp :tangle yes
   (setq enable-recursive-minibuffers t)
+  (minibuffer-depth-indicate-mode 1)
+#+end_src
+
+Don't spell out default
+#+begin_src emacs-lisp :tangle yes
+  (setq minibuffer-eldef-shorten-default t)
 #+end_src
 
 Do not allow cursor in the prompt
