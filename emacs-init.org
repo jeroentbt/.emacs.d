@@ -579,12 +579,6 @@ Do not globally enable this mode, it does not play well with some other modes I 
   ;; Easily navigate sillycased words
   (global-subword-mode 1)
 
-
-  ;; Keep cursor away from edges when scrolling up/down
-  (use-package smooth-scrolling
-    :general
-    (keys/lines
-      "s" 'smooth-scrolling-mode))
   ;; Sentences do not need double spaces to end. Period.
   (set-default 'sentence-end-double-space nil)
 
@@ -735,6 +729,24 @@ This sets up the consinement before gc up to be almost unlimited while in the mi
   (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
 #+end_src
+**** Scrolling
+
+Keep cursor away from edges when scrolling up/down
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package smooth-scrolling
+    :general
+    (keys/lines
+      "s" 'smooth-scrolling-mode))
+#+end_src
+
+Also (and always) add some margin using a default variable
+
+#+begin_src emacs-lisp :tangle yes
+  (setq scroll-margin 2)
+#+end_src
+
+
 **** Undo tree
 Reimplements the undo system as a tree
 #+begin_src emacs-lisp :tangle yes
