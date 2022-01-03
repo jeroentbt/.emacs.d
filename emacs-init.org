@@ -207,7 +207,7 @@ don't beep, flash the screen
 **** Appearance
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font-12"))
-  
+
   ;; set a default fontset to use for displaying unicode characters
   (set-fontset-font "fontset-default" nil
                     "Noto" nil 'append)
@@ -227,7 +227,7 @@ don't beep, flash the screen
                          :weight light))))
    '(fixed-pitch ((t ( :family "SauceCodePro Nerd Font"
                        :height 140)))))
-  
+
 #+END_SRC
 
 ***** Set font (size) interactively                               :usage:
@@ -1583,7 +1583,7 @@ We all make mistakes..
 Triggered by [[https://www.masteringemacs.org/article/tree-sitter-complications-of-parsing-languages][this post on Mastering Emacs]]. [[https://tree-sitter.github.io/tree-sitter/][Tree-sitter]] builds a syntax tree, used for folding, highlighting etc.
 [[https://emacs-tree-sitter.github.io/][tree-sitter.el]] currently supports [[https://emacs-tree-sitter.github.io/syntax-highlighting/queries/][querying]] the syntax tree and syntax highlighting
 
-Install and enable =tree-sitter= for all supported major-modes (list them by checking the variable ~tree-sitter-major-mode-language-alist~) 
+Install and enable =tree-sitter= for all supported major-modes (list them by checking the variable ~tree-sitter-major-mode-language-alist~)
 #+begin_src emacs-lisp :tangle yes
   (use-package tree-sitter
     :config
@@ -1595,7 +1595,7 @@ Install and enable =tree-sitter= for all supported major-modes (list them by che
 **** Move around, combobulating the tree
 #+begin_quote
 Combobulate
-(Verb) To put together in a somewhat mysterious manner. To bring something out of a state of confusion or disarray. To manufacture by some unusual or novel means. Antonym: discombobulate. 
+(Verb) To put together in a somewhat mysterious manner. To bring something out of a state of confusion or disarray. To manufacture by some unusual or novel means. Antonym: discombobulate.
 #+end_quote
 
 #+begin_src emacs-lisp :tangle yes
@@ -1610,7 +1610,7 @@ Combobulate
 ***** usage                                                       :usage:
 - /C-o o/ :: combobulate menu
 - /C-o j/ :: avy goto navigable part
-  
+
 *** TODO code folding
 salvaged from old config:
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -1892,7 +1892,7 @@ This package displays in the header-line the Org heading for the node that’s a
      '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 #+end_src
 ***** Inline images
-By explicitly setting the width here, we enable setting it on a per image basis using attributes. 
+By explicitly setting the width here, we enable setting it on a per image basis using attributes.
 #+begin_src emacs-lisp :tangle yes
 (setq org-image-actual-width (list 600))
 #+end_src
@@ -3216,7 +3216,3 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
       (plantuml . t)
       --> (restclient . t)))
  #+end_example
-
-
-
-
