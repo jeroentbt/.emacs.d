@@ -1688,7 +1688,8 @@ on flycheck https://github.com/jorgenschaefer/elpy/issues/137#issuecomment-55403
 #+END_SRC
 *** yaml
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'yaml-mode-hook 'flycheck-mode)
+  (use-package yaml-mode
+    :hook (yaml-mode-hook . flycheck-mode))
 #+END_SRC
 *** shell
 
@@ -1701,6 +1702,14 @@ Flyscheck can use [[http://www.shellcheck.net/][shellcheck]] as a checker. Make 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'sh-mode-hook 'flycheck-mode)
 #+END_SRC
+*** Hashicorp
+#+begin_src emacs-lisp :tangle yes
+  (use-package hcl-mode)
+#+end_src
+*** Plantuml
+#+begin_src emacs-lisp :tangle yes
+  (use-package plantuml-mode)
+#+end_src
 ** Search
 *** Ag
 The silver searches is nice and fast for searching inside code repos
