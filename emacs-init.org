@@ -2850,7 +2850,8 @@ Provides the list of candidates
     :init
     (vertico-mode)
     (setq vertico-count 15)
-    (setq vertico-resize t))
+    (setq vertico-resize t)
+    (setq vertico-cycle t))
 #+end_src
 
 And it takes history in to account, save this history beyond your current session
