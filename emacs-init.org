@@ -3180,6 +3180,36 @@ Then to =M-x interleave= to open the pdf alongside and =i= to add a note to the 
 An emacs event log with weight
 [[https://github.com/djcb/sauron][github]]
 
+** Working with video
+
+Using [[https://github.com/kljohann/mpv.el][kljohann/mpv.el: control mpv for easy note taking]]
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package mpv
+    :config
+
+    ;; mpv: style links
+    (org-link-set-parameters "mpv" :follow #'mpv-play)
+    (defun org-mpv-complete-link (&optional arg)
+      (replace-regexp-in-string
+       "file:" "mpv:"
+       (org-link-complete-file arg)
+       t t))
+
+    ;; insert timestamp of video as org-timer-item
+    (defun my:mpv/org-metareturn-insert-playback-position ()
+    (when-let ((item-beg (org-in-item-p)))
+      (when (and (not org-timer-start-time)
+                 (mpv-live-p)
+                 (save-excursion
+                   (goto-char item-beg)
+                   (and (not (org-invisible-p)) (org-at-item-timer-p))))
+        (mpv-insert-playback-position t))))
+    (add-hook 'org-metareturn-hook #'my:mpv/org-metareturn-insert-playback-position)
+
+    (setq mpv-default-options '("--script-opts=osc-visibility=always"))
+#+end_src
+
 * Tools for troubleshooting                                 :troubleshooting:
 Some troubleshooting things are sprinkled through this file tagged with =:troubleshooting:=
 Here is some other stuff that did not find a place elsewhere
