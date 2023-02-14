@@ -2600,6 +2600,21 @@ So this is just for reference:
 
 ****** TODO fix trashing
 
+****** Find messages by same sender
+ #+begin_src emacs-lisp :tangle yes
+   (add-to-list 'mu4e-view-actions
+                  '("find-sender-unread" . mu4e-action-find-sender-unread) t)
+   (add-to-list 'mu4e-headers-actions
+                  '("find-sender-unread" . mu4e-action-find-sender-unread) t)
+
+   (defun mu4e-action-find-sender-unread (msg)
+     "Find all unread messages from the same sender as the current message."
+     (let* ((sender-info (mu4e-message-field msg :from))
+            (sender-email (plist-get (car sender-info) :email )))
+       (mu4e-headers-search (concat "flag:unread from:" (regexp-quote sender-email)))))
+ #+end_src
+
+
 ***** composing
 
 ****** Define from which account the mail will be sent
