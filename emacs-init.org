@@ -260,7 +260,7 @@ After first installation, you will need to install the required fonts
 ***** Theme
 #+begin_src emacs-lisp :tangle yes
   (use-package modus-themes
-    :init
+    :config
     ;; Add all your customizations prior to loading the themes
     (setq modus-themes-italic-constructs t
           modus-themes-bold-constructs nil
@@ -269,20 +269,20 @@ After first installation, you will need to install the required fonts
           modus-themes-intense-markup t
           modus-themes-success-deuteranopia t
           modus-themes-fringes nil ; {nil,'subtle,'intense}
-          modus-themes-lang-checkers 'faint
+          modus-themes-lang-checkers '(faint)
           modus-themes-mode-line '(padded accented borderless 3)
-          modus-themes-syntax 'faint
+          modus-themes-syntax '(faint)
           modus-themes-hl-line '(underline accented)
           modus-themes-paren-match '(bold intense)
           modus-themes-links nil
           modus-themes-prompts '(intense bold)
-          modus-themes-completions 'moderate ; try some {nil,'moderate,'opinionated}
+          modus-themes-completions '(moderate) ; try some {nil,'moderate,'opinionated}
           modus-themes-mail-citations nil
           modus-themes-region '(bg-only no-extend)
           ;; Options for `modus-themes-diffs': nil, 'desaturated,
           ;; 'bg-only, 'deuteranopia, 'fg-only-deuteranopia
           modus-themes-deuteranopia t
-          modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
+          modus-themes-org-blocks '(gray-background) ; {nil,'gray-background,'tinted-background}
 
           modus-themes-org-agenda
           '((header-block . (variable-pitch scale-title))
@@ -299,12 +299,7 @@ After first installation, you will need to install the required fonts
             (t . (semibold 1.1))))
 
 
-    ;; Load the theme files before enabling a theme
-    (modus-themes-load-themes)
-    :config
-    ;; Load the theme of your choice:
-    ;; (modus-themes-load-operandi)
-    (modus-themes-load-vivendi)
+    (load-theme 'modus-vivendi)
     :bind ("<f5>" . modus-themes-toggle))
 #+end_src
 **** Mode Line
