@@ -1794,7 +1794,7 @@ Press /?/ to show which keys do what
 #+end_src
 **** File config
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (setq org-directory "~/Documents/org")
+  (setq org-directory "~/org")
 
   ;; Set default file for org-capture
   (setq org-default-notes-file (concat org-directory "/notes.org"))
@@ -2036,15 +2036,16 @@ Drag an image in to an org buffer, ~org-download-yank~ or ~org-download-screensh
 Agenda files are referenced in other parts of this config (eg as refile targets)
 
 #+begin_src emacs-lisp :tangle yes
-    (setq org-agenda-files
-            (append '("~/.emacs.d")
-                    (seq-filter
-                     (lambda(path)
-                       (not (or (string-match "/Archive/" path)
-                                (string-match "/journal/" path))))
-                     (seq-uniq
-                      (mapcar 'file-name-directory
-                              (directory-files-recursively "~/Documents/org/" "\\.org$"))))))
+  (setq org-agenda-files
+          (append '("~/.emacs.d")
+                  (seq-filter
+                   (lambda(path)
+                     (not (or (string-match "/Archive/" path)
+                              (string-match "/journal/" path))))
+                   (seq-uniq
+                    (mapcar 'file-name-directory
+
+                            (directory-files-recursively org-directory "\\.org$"))))))
 #+end_src
 
 ***** Agenda Properties
@@ -2066,25 +2067,25 @@ Define some capture templates
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'org-protocol)
   (setq org-capture-templates
-        (quote (("t" "TODO" entry (file "~/Documents/org/refile.org")
+        (quote (("t" "TODO" entry (file (concat org-directory "refile.org"))
                  "* TODO %? %^G\n  %U\n")
-                ("r" "respond" entry (file "~/Documents/org/refile.org")
+                ("r" "respond" entry (file (concat org-directory "refile.org"))
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
-                ("n" "note" entry (file "~/Documents/org/refile.org")
+                ("n" "note" entry (file (concat org-directory "refile.org" ))
                  "* %? :NOTE:\n%U\n%a\n")
-                ("a" "interesting app" entry (file "~/Documents/org/interesting_apps.org")
+                ("a" "interesting app" entry (file (concat org-directory "interesting_apps.org"))
                  "* %? \n")
                 ("j" "journal entry" entry (function org-journal-find-location)
                  "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?")
-                ("s" "org-protocol selection" entry (file "~/Documents/org/refile.org")
+                ("s" "org-protocol selection" entry (file (concat org-directory "refile.org"))
                  "* %?\n  %a\n  %i")
-                ("l" "org-protocol link" entry (file "~/Documents/org/refile.org")
+                ("l" "org-protocol link" entry (file (concat org-directory "refile.org"))
                  "* %?\n  %a")
-                ("m" "Meeting" entry (file "~/Documents/org/refile.org")
+                ("m" "Meeting" entry (file (concat org-directory "refile.org"))
                  "* MEETING with %? :MEETING:\n%U")
-                ("p" "Phone call" entry (file "~/Documents/org/refile.org")
+                ("p" "Phone call" entry (file (concat org-directory "refile.org"))
                  "* PHONE %? :PHONE:\n%U")
-                ("h" "Habit" entry (file "~/Documents/org/refile.org")
+                ("h" "Habit" entry (file (concat org-directory "refile.org"))
                  "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 #+end_src
