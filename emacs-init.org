@@ -2404,7 +2404,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
         ;;mu4e-get-mail-command "~/bin/offlineimap/offlineimap.py"
         mu4e-mu-binary "/usr/bin/mu"
         mu4e-get-mail-command "mbsync -a"
-        mu4e-update-interval 7200
+        ;; mu4e-update-interval 7200
         mu4e-maildir "~/Maildir"
         mu4e-attachment-dir  "~/Downloads/mail-attachments"
         mu4e-action-tags-header "X-Keywords" ;; thanks to offlineimap gmail
