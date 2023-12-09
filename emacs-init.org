@@ -3246,7 +3246,7 @@ Using [[https://github.com/kljohann/mpv.el][kljohann/mpv.el: control mpv for eas
         (mpv-insert-playback-position t))))
     (add-hook 'org-metareturn-hook #'my:mpv/org-metareturn-insert-playback-position)
 
-    (setq mpv-default-options '("--script-opts=osc-visibility=always"))
+    (setq mpv-default-options '("--script-opts=osc-visibility=always")))
 #+end_src
 
 * Tools for troubleshooting                                 :troubleshooting:
