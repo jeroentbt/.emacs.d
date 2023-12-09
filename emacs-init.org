@@ -2135,12 +2135,16 @@ then run
   emacsclient "org-protocol://store-link?url=URL&title=TITLE"
 #+end_example
 
-***** Capture links from your browser by adding this bookmarklet
-Org link capturing seems spotty at best in current firefox
+***** Capture web addresses from your browser by adding this bookmarklet
+
 #+begin_src js :tangle no
   javascript:location.href='org-protocol://store-link?' +
         new URLSearchParams({url:location.href, title:document.title});
 #+end_src
+
+To disable the dialogue box asking if it is ok to open using org-protocol
+in firefox ~about:config~ add: ~network.protocol-handler.external.org-protocol~ and set it to ~True~
+
 ***** Maybe look in to full page capturing using pandoc?
 https://github.com/alphapapa/org-protocol-capture-html#org-protocol-instructions
 
