@@ -390,9 +390,9 @@ T: Transpose Frame
 
 you can also trigger these through [[*embark to ace-window][embark]]
 ***** window resizing
-****** implemented with Transient
+****** implemented with Transient                             :disabled:
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package transient
     :config
     (define-transient-command my/window-resizer ()
