@@ -2504,6 +2504,9 @@ But I prefer to read text emails...
   ;; apply marks when leaving headers buffer
   (setq mu4e-headers-leave-behavior 'apply)
 
+  ;; rename files when moving to support mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
   ;; Spellcheck FTW
   (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
 
