@@ -1702,6 +1702,21 @@ on flycheck https://github.com/jorgenschaefer/elpy/issues/137#issuecomment-55403
             (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
     :init (setq elpy-company-hide-modeline nil))
 #+END_SRC
+**** Poetry
+[[https://python-poetry.org/][Poetry - Python dependency management and packaging made easy]]
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package poetry
+    :ensure t
+    ;; :init
+    ;; imperfect tracking strategy causes lags in builds
+    ;; (setq poetry-tracking-strategy 'switch-buffer)
+    :hook
+    ;; activate poetry-tracking-mode when python-mode is active
+    (python-mode . poetry-tracking-mode)
+    )
+#+end_src
+
 *** puppet
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; puppet mode
