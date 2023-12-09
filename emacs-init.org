@@ -1365,6 +1365,12 @@ C-x C-f /some.server.com:/etc/someconf
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq tramp-default-method "ssh")
 #+END_SRC
+
+***** Tramp and zsh do not play nice
+#+begin_src emacs-lisp :tangle yes
+  (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+#+end_src
+
 ***** sudo a file on a remote host
 This little line of magic lets you connect to a remote host and sudo in to a file.
 The variable tramp-default-proxies-alist is available only after tramp has loaded, hence eval-after-load
