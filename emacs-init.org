@@ -1708,9 +1708,9 @@ on flycheck https://github.com/jorgenschaefer/elpy/issues/137#issuecomment-55403
 #+begin_src emacs-lisp :tangle yes
   (use-package poetry
     :ensure t
-    ;; :init
+    :init
     ;; imperfect tracking strategy causes lags in builds
-    ;; (setq poetry-tracking-strategy 'switch-buffer)
+    (setq poetry-tracking-strategy 'switch-buffer)
     :hook
     ;; activate poetry-tracking-mode when python-mode is active
     (python-mode . poetry-tracking-mode)
