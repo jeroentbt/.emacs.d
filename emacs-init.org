@@ -3266,6 +3266,9 @@ To find out which packages have this as a dependency:
 ** toggle-debug-on-error
 M-x toggle-debug-on-error
 
+** profiler
+~M-x profiler-start~ will start a profiler sessions showing you where emacs spent its time
+
 * Fixing bugs
 
 ** 2015-01-16 discover.el messing with keybindings
