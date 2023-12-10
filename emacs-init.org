@@ -2206,7 +2206,8 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
        (org . t)
        (python . t)
        (ditaa . t)
-       (plantuml . t)))
+       (plantuml . t)
+       (restclient . t)))
 #+END_SRC
 
 plantuml also needs to know where to find the jar
@@ -2781,6 +2782,13 @@ and then
     (elfeed-org)
     (setq rmh-elfeed-org-files (list "~/.elfeed.org")))
 #+end_src
+*** Restclient
+[[https://github.com/pashky/restclient.el][pashky/restclient.el: HTTP REST client tool for emacs]]
+#+begin_src emacs-lisp :tangle yes
+  (use-package ob-restclient
+    :requires restclient)
+#+end_src
+
 
 ** Minor modes
 *** editorconfig                                                 :mode:minor:
