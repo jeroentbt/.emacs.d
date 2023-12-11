@@ -169,6 +169,8 @@ don't beep, flash the screen
 ***** the rest
 
 #+BEGIN_SRC emacs-lisp :tangle yes
+  ;; focus follows mouse
+  (setq mouse-autoselect-window t)
   ;; don't beep but flash the screen
   ;; font-lock-mode provides the colors for spec languages, set max fontification (1-3)
   ;; force color theme (no increments)
@@ -260,7 +262,7 @@ After first installation, you will need to install the required fonts
 ***** Theme
 #+begin_src emacs-lisp :tangle yes
   (use-package modus-themes
-    :init
+    :config
     ;; Add all your customizations prior to loading the themes
     (setq modus-themes-italic-constructs t
           modus-themes-bold-constructs nil
@@ -269,20 +271,20 @@ After first installation, you will need to install the required fonts
           modus-themes-intense-markup t
           modus-themes-success-deuteranopia t
           modus-themes-fringes nil ; {nil,'subtle,'intense}
-          modus-themes-lang-checkers 'faint
+          modus-themes-lang-checkers '(faint)
           modus-themes-mode-line '(padded accented borderless 3)
-          modus-themes-syntax 'faint
+          modus-themes-syntax '(faint)
           modus-themes-hl-line '(underline accented)
           modus-themes-paren-match '(bold intense)
           modus-themes-links nil
           modus-themes-prompts '(intense bold)
-          modus-themes-completions 'moderate ; try some {nil,'moderate,'opinionated}
+          modus-themes-completions '(moderate) ; try some {nil,'moderate,'opinionated}
           modus-themes-mail-citations nil
           modus-themes-region '(bg-only no-extend)
           ;; Options for `modus-themes-diffs': nil, 'desaturated,
           ;; 'bg-only, 'deuteranopia, 'fg-only-deuteranopia
           modus-themes-deuteranopia t
-          modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
+          modus-themes-org-blocks '(gray-background) ; {nil,'gray-background,'tinted-background}
 
           modus-themes-org-agenda
           '((header-block . (variable-pitch scale-title))
@@ -297,14 +299,10 @@ After first installation, you will need to install the required fonts
             (3 . (overline 1.20))
             (4 . (overline 1.15))
             (t . (semibold 1.1))))
-
-
-    ;; Load the theme files before enabling a theme
-    (modus-themes-load-themes)
     :config
     ;; Load the theme of your choice:
     ;; (modus-themes-load-operandi)
-    (modus-themes-load-vivendi)
+    (load-theme 'modus-videndi :no-confirm)
     :bind ("<f5>" . modus-themes-toggle))
 #+end_src
 **** Mode Line
@@ -395,9 +393,9 @@ T: Transpose Frame
 
 you can also trigger these through [[*embark to ace-window][embark]]
 ***** window resizing
-****** implemented with Transient
+****** implemented with Transient                             :disabled:
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package transient
     :config
     (define-transient-command my/window-resizer ()
@@ -1240,7 +1238,7 @@ Open recent file with C-x f
 
 #+begin_src emacs-lisp :tangle yes
   (use-package recentf
-    :config
+    :init
     (setq recentf-max-saved-items 10000
           recentf-max-menu-items 5000)
     (recentf-mode 1)
@@ -1370,6 +1368,12 @@ C-x C-f /some.server.com:/etc/someconf
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq tramp-default-method "ssh")
 #+END_SRC
+
+***** Tramp and zsh do not play nice
+#+begin_src emacs-lisp :tangle yes
+  (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+#+end_src
+
 ***** sudo a file on a remote host
 This little line of magic lets you connect to a remote host and sudo in to a file.
 The variable tramp-default-proxies-alist is available only after tramp has loaded, hence eval-after-load
@@ -1701,6 +1705,21 @@ on flycheck https://github.com/jorgenschaefer/elpy/issues/137#issuecomment-55403
             (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
     :init (setq elpy-company-hide-modeline nil))
 #+END_SRC
+**** Poetry
+[[https://python-poetry.org/][Poetry - Python dependency management and packaging made easy]]
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package poetry
+    :ensure t
+    :init
+    ;; imperfect tracking strategy causes lags in builds
+    (setq poetry-tracking-strategy 'switch-buffer)
+    :hook
+    ;; activate poetry-tracking-mode when python-mode is active
+    (python-mode . poetry-tracking-mode)
+    )
+#+end_src
+
 *** puppet
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; puppet mode
@@ -2044,7 +2063,8 @@ Agenda files are referenced in other parts of this config (eg as refile targets)
                                 (string-match "/journal/" path))))
                      (seq-uniq
                       (mapcar 'file-name-directory
-                              (directory-files-recursively "~/org/" "\\.org$"))))))
+
+                            (directory-files-recursively org-directory "\\.org$"))))))
 #+end_src
 
 ***** Agenda Properties
@@ -2066,25 +2086,25 @@ Define some capture templates
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'org-protocol)
   (setq org-capture-templates
-        (quote (("t" "TODO" entry (file "~/org/refile.org")
+        (quote (("t" "TODO" entry (file (concat org-directory "refile.org"))
                  "* TODO %? %^G\n  %U\n")
-                ("r" "respond" entry (file "~/org/refile.org")
+                ("r" "respond" entry (file (concat org-directory "refile.org"))
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
-                ("n" "note" entry (file "~/org/refile.org")
+                ("n" "note" entry (file (concat org-directory "refile.org" ))
                  "* %? :NOTE:\n%U\n%a\n")
-                ("a" "interesting app" entry (file "~/org/interesting_apps.org")
+                ("a" "interesting app" entry (file (concat org-directory "interesting_apps.org"))
                  "* %? \n")
                 ("j" "journal entry" entry (function org-journal-find-location)
                  "** %(format-time-string org-journal-time-format)%^{Title}\n%i%?")
-                ("s" "org-protocol selection" entry (file "~/org/refile.org")
+                ("s" "org-protocol selection" entry (file (concat org-directory "refile.org"))
                  "* %?\n  %a\n  %i")
-                ("l" "org-protocol link" entry (file "~/org/refile.org")
+                ("l" "org-protocol link" entry (file (concat org-directory "refile.org"))
                  "* %?\n  %a")
-                ("m" "Meeting" entry (file "~/org/refile.org")
+                ("m" "Meeting" entry (file (concat org-directory "refile.org"))
                  "* MEETING with %? :MEETING:\n%U")
-                ("p" "Phone call" entry (file "~/org/refile.org")
+                ("p" "Phone call" entry (file (concat org-directory "refile.org"))
                  "* PHONE %? :PHONE:\n%U")
-                ("h" "Habit" entry (file "~/org/refile.org")
+                ("h" "Habit" entry (file (concat org-directory "refile.org"))
                  "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 #+end_src
@@ -2118,12 +2138,16 @@ then run
   emacsclient "org-protocol://store-link?url=URL&title=TITLE"
 #+end_example
 
-***** Capture links from your browser by adding this bookmarklet
-Org link capturing seems spotty at best in current firefox
+***** Capture web addresses from your browser by adding this bookmarklet
+
 #+begin_src js :tangle no
   javascript:location.href='org-protocol://store-link?' +
         new URLSearchParams({url:location.href, title:document.title});
 #+end_src
+
+To disable the dialogue box asking if it is ok to open using org-protocol
+in firefox ~about:config~ add: ~network.protocol-handler.external.org-protocol~ and set it to ~True~
+
 ***** Maybe look in to full page capturing using pandoc?
 https://github.com/alphapapa/org-protocol-capture-html#org-protocol-instructions
 
@@ -2185,7 +2209,8 @@ The code in SRC blocks can be evaluated, languages have to be permitted though.
        (org . t)
        (python . t)
        (ditaa . t)
-       (plantuml . t)))
+       (plantuml . t)
+       (restclient . t)))
 #+END_SRC
 
 plantuml also needs to know where to find the jar
@@ -2404,7 +2429,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
         ;;mu4e-get-mail-command "~/bin/offlineimap/offlineimap.py"
         mu4e-mu-binary "/usr/bin/mu"
         mu4e-get-mail-command "mbsync -a"
-        mu4e-update-interval 7200
+        ;; mu4e-update-interval 7200
         mu4e-maildir "~/Maildir"
         mu4e-attachment-dir  "~/Downloads/mail-attachments"
         mu4e-action-tags-header "X-Keywords" ;; thanks to offlineimap gmail
@@ -2424,7 +2449,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
     (imagemagick-register-types))
 
   (setq mu4e-headers-fields '((:human-date . 15) (:flags . 4) (:mailing-list . 8) (:from-or-to . 22) (:thread-subject))
-        mu4e-headers-date-format "%a %y/%m/%d %p"
+        mu4e-headers-date-format "%a %y-%m-%d %p"
         mu4e-headers-time-format "%T")
 
   ;; show full email
@@ -2483,6 +2508,9 @@ But I prefer to read text emails...
   ;; apply marks when leaving headers buffer
   (setq mu4e-headers-leave-behavior 'apply)
 
+  ;; rename files when moving to support mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
   ;; Spellcheck FTW
   (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
 
@@ -2523,31 +2551,20 @@ epa-mail-mode allows you to:
 
 #+end_src
 
-***** maildirs
-
-I'm currently using offlineimap to sync all mail and then use tags (also see [[*tags][tags]])
-So this is just for reference:
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  ;; (setq mu4e-maildir-shortcuts
-  ;;      '( (my/mu4e-maildir-pers . ?j)
-  ;;         (my/mu4e-maildir-pro . ?t)))
-#+END_SRC
-
 ***** bookmarks
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'mu4e-bookmarks
                '( :name  "Unread - lists"
-                  :query "flag:unread AND flag:list AND NOT flag:trashed"
+                  :query "flag:unread AND flag:list AND NOT (flag:trashed OR maildir:/*/Trash)"
                   :key   ?l))
   (add-to-list 'mu4e-bookmarks
                '( :name  "Unread - no lists, today"
-                  :query "flag:unread and date:today..now AND NOT flag:trashed"
+                  :query "flag:unread and date:today..now AND NOT flag:trashed AND NOT maildir:/*/Spam"
                   :key   ?d))
   (add-to-list 'mu4e-bookmarks
                '( :name  "Unread - no lists"
-                  :query "flag:unread AND NOT flag:list AND NOT flag:trashed"
+                  :query "flag:unread AND NOT flag:list AND NOT flag:trashed AND NOT maildir:/*/Spam"
                   :key   ?b))
   (add-to-list 'mu4e-bookmarks
                '( :name  "Flagged"
@@ -2599,6 +2616,21 @@ So this is just for reference:
 #+END_SRC
 
 ****** TODO fix trashing
+
+****** Find messages by same sender
+ #+begin_src emacs-lisp :tangle yes
+   (add-to-list 'mu4e-view-actions
+                  '("find-sender-unread" . mu4e-action-find-sender-unread) t)
+   (add-to-list 'mu4e-headers-actions
+                  '("find-sender-unread" . mu4e-action-find-sender-unread) t)
+
+   (defun mu4e-action-find-sender-unread (msg)
+     "Find all unread messages from the same sender as the current message."
+     (let* ((sender-info (mu4e-message-field msg :from))
+            (sender-email (plist-get (car sender-info) :email )))
+       (mu4e-headers-search (concat "flag:unread from:" (regexp-quote sender-email)))))
+ #+end_src
+
 
 ***** composing
 
@@ -2753,6 +2785,13 @@ and then
     (elfeed-org)
     (setq rmh-elfeed-org-files (list "~/.elfeed.org")))
 #+end_src
+*** Restclient
+[[https://github.com/pashky/restclient.el][pashky/restclient.el: HTTP REST client tool for emacs]]
+#+begin_src emacs-lisp :tangle yes
+  (use-package ob-restclient
+    :requires restclient)
+#+end_src
+
 
 ** Minor modes
 *** editorconfig                                                 :mode:minor:
@@ -2952,7 +2991,7 @@ Provides commands for completion
     (advice-add #'register-preview :override #'consult-register-window)
 
     ;; Optionally replace `completing-read-multiple' with an enhanced version.
-    (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
+    ;;(advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
 
     ;; Use Consult to select xref locations with preview
     (setq xref-show-xrefs-function #'consult-xref
@@ -2971,11 +3010,10 @@ Provides commands for completion
     ;; :preview-key on a per-command basis using the `consult-customize' macro.
     (consult-customize
      consult-theme
-     :preview-key '(:debounce 0.2 any)
      consult-ripgrep consult-git-grep consult-grep
      consult-bookmark consult-recent-file consult-xref
      consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
-     :preview-key (kbd "M-."))
+     :preview-key '("M-."))
 
     ;; Optionally configure the narrowing key.
     ;; Both < and C-+ work reasonably well.
@@ -3207,7 +3245,7 @@ Using [[https://github.com/kljohann/mpv.el][kljohann/mpv.el: control mpv for eas
         (mpv-insert-playback-position t))))
     (add-hook 'org-metareturn-hook #'my:mpv/org-metareturn-insert-playback-position)
 
-    (setq mpv-default-options '("--script-opts=osc-visibility=always"))
+    (setq mpv-default-options '("--script-opts=osc-visibility=always")))
 #+end_src
 
 * Tools for troubleshooting                                 :troubleshooting:
@@ -3239,6 +3277,9 @@ To find out which packages have this as a dependency:
 ** toggle-debug-on-error
 M-x toggle-debug-on-error
 
+** profiler
+~M-x profiler-start~ will start a profiler sessions showing you where emacs spent its time
+
 * Fixing bugs
 
 ** 2015-01-16 discover.el messing with keybindings
@@ -3257,15 +3298,3 @@ solution: uncomment following lines from [[file:~/.emacs.d/.cask/24.4.1/elpa/dis
 
 ** Packages with issues after moving away from cask etc
 
-*** TODO ob-restclient in [[*Babel][Babel]]                                     :install:
- #+begin_example emacs-lisp :tangle no
-   (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((js . t)
-      (shell . t)
-      (org . t)
-      (python . t)
-      (ditaa . t)
-      (plantuml . t)
-      --> (restclient . t)))
- #+end_example
