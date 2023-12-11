@@ -300,9 +300,11 @@ After first installation, you will need to install the required fonts
             (4 . (overline 1.15))
             (t . (semibold 1.1))))
     :config
-    ;; Load the theme of your choice:
-    ;; (modus-themes-load-operandi)
-    (load-theme 'modus-videndi :no-confirm)
+    ;; Load the themes without enabling
+    (load-theme 'modus-videndi t t)
+    (load-theme 'modus-operandi t t)
+    ;; enable the dark one
+    (enable-theme 'modus-vivendi)
     :bind ("<f5>" . modus-themes-toggle))
 #+end_src
 **** Mode Line
