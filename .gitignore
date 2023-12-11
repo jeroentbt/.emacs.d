@@ -37,3 +37,4 @@ tramp
 *.cache
 /quelpa/
 /history
+games/tetris-scores*

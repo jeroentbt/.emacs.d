@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: block src restclient
+# key: <srest
+# --
+#+begin_src restclient
+$0
+#+end_src
