@@ -19,7 +19,6 @@
  '(elpy-test-runner 'elpy-test-pytest-runner)
  '(explain-pause-blocking-too-long-ms 500)
  '(explain-pause-mode t)
- '(flycheck-mode-line '(:eval (my/flycheck-mode-line-status-text)))
  '(helm-org-rifle-always-show-entry-contents-chars 0)
  '(helm-org-rifle-context-characters 250)
  '(helm-org-rifle-show-full-contents t)
