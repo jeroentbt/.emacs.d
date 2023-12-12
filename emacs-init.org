@@ -333,15 +333,15 @@ To clean up some minor modes indicators, [[http://www.emacswiki.org/emacs/Dimini
                    ;; Set min and max buffer name length
                    (setq sml/name-width '(12 . 44))
                    (setq sml/shorten-modes t)
-                   (setq sml/shorten-directory t)
-
-                   ;; hide minor modes
-                   (eval-after-load "Projectile" '(diminish 'projectile-mode))
-                   (eval-after-load "Guide-Key" '(diminish 'guide-key-mode))
-                   (eval-after-load "Magit-Auto-Revert" '(diminish 'magit-auto-revert-mode))
-                   (eval-after-load "subword" '(diminish 'subword-mode))
-                   (eval-after-load "smartparens" '(diminish 'smartparens-mode "(")))
+                   (setq sml/shorten-directory t))
 #+END_SRC
+***** Diminish minor modes that are not explicitly loaded anywhere else
+#+begin_src emacs-lisp :tangle yes
+  (eval-after-load "face-remap" '(diminish 'buffer-face-mode))
+  (eval-after-load "hs-minor-mode" '(diminish 'hs-minor-mode))
+  (diminish 'eldoc-mode)
+#+end_src
+
 **** Windows
 ***** ace-window
 Ace-window offers an ace-jump like interface for jumping to, switching and deleting windows.
@@ -587,6 +587,7 @@ Do not globally enable this mode, it does not play well with some other modes I 
 
   ;; Easily navigate sillycased words
   (global-subword-mode 1)
+  (eval-after-load "subword" '(diminish 'subword-mode))
 
   ;; Sentences do not need double spaces to end. Period.
   (set-default 'sentence-end-double-space nil)
@@ -631,8 +632,9 @@ Do not globally enable this mode, it does not play well with some other modes I 
   ;; Plain and simple, it makes backspace and C-d erase all consecutive white space
   ;; (instead of just one). Use it everywhere.
   (use-package hungry-delete
-               :init
-               (global-hungry-delete-mode))
+    :diminish hungry-delete-mode
+    :init
+    (global-hungry-delete-mode))
 #+END_SRC
 
 ***** Minnibuffer
@@ -922,6 +924,7 @@ During any key sequence, do =C-h= or =?= to popup which-key.
 
 #+begin_src emacs-lisp :tangle yes
   (use-package which-key
+    :diminish which-key-mode
     :init
     ;; Allow C-h to trigger which-key before it is done automatically
     (setq which-key-show-early-on-C-h t)
@@ -1087,6 +1090,7 @@ iedit will let you =C-;= to edit all occurences (or =tab=, =M-;= to remove some)
 **** smartparens                                                 :mode:minor:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package smartparens
+    :diminish smartparens-mode
     :init
     (smartparens-global-mode))
 #+END_SRC
@@ -1237,6 +1241,7 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package company
+    :diminish company-mode
     :config
     (global-company-mode)
     (setq company-idle-delay 0.3
@@ -1257,6 +1262,7 @@ https://sites.google.com/site/steveyegge2/my-dot-emacs-file
           company-dabbrev-time-limit 0.5))
 
   (use-package yasnippet
+    :diminish yas-minor-mode
     :requires company
     :config
     ;; Add yasnippet support for all company backends
@@ -1646,11 +1652,11 @@ on flycheck https://github.com/jorgenschaefer/elpy/issues/137#issuecomment-55403
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; python
   (use-package elpy
+    :diminish elpy-mode
     :requires (company flycheck)
     :config (elpy-enable)
             (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-            (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
-    :init (setq elpy-company-hide-modeline nil))
+            (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)))
 #+END_SRC
 **** Poetry
 [[https://python-poetry.org/][Poetry - Python dependency management and packaging made easy]]
@@ -1830,6 +1836,7 @@ To set it globally, customize =org-startup-indented=
 
 #+begin_src emacs-lisp :tangle yes
   (setq org-startup-indented t)
+  (eval-after-load "org-indent" '(diminish 'org-indent-mode))
 #+end_src
 
 ***** bullets
@@ -3050,6 +3057,7 @@ consult-dir
   (use-package consult-projectile
     :requires consult)
   (use-package projectile
+      :diminish projectile-mode
       :config
         ;; C-c p a now opens other file with same name - but different extension
         ;; Add this to switch between js and html file
