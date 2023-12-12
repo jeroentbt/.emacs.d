@@ -2718,13 +2718,6 @@ Also, make sure gnutls are installed (for signing/encrypting messages)
   ;;     smtpmail-smtp-service 587)
 #+END_SRC
 
-***** mu4e and org
-mu4e allows you to store links to mail messages by default. See [[info:mu4e#Org-mode links][mu4e#Org-mode links]]
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'org-mu4e)
-
-#+end_src
 
 ***** mu4e notifications                                       :disabled:
 
