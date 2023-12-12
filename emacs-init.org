@@ -299,7 +299,6 @@ After first installation, you will need to install the required fonts
             (3 . (overline 1.20))
             (4 . (overline 1.15))
             (t . (semibold 1.1))))
-    :config
     ;; Load the themes without enabling
     (load-theme 'modus-videndi t t)
     (load-theme 'modus-operandi t t)
