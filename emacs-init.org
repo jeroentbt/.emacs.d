@@ -329,7 +329,7 @@ To clean up some minor modes indicators, [[http://www.emacswiki.org/emacs/Dimini
                    (setq sml/use-projectile-p 'before-prefixes)
 
                    ;; Major mode stays left, everything after gets alligned right
-                   (setq sml/mode-width 'right)
+                   (setq sml/mode-width 'full)
                    ;; Set min and max buffer name length
                    (setq sml/name-width '(12 . 44))
                    (setq sml/shorten-modes t)
@@ -530,7 +530,7 @@ Make =C-x l n= toggle between =none=, =absolute= and =relative=
 =visual-line-mode= provides wrapping without actually modifying the text. In order for this mode to work properly, truncation needs to be disabled
 #+begin_src emacs-lisp :tangle yes
   (setq-default truncate-lines t)
-
+  (diminish 'visual-line-mode)
   (keys/lines
    "w" 'visual-line-mode)
 #+end_src
