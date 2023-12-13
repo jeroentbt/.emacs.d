@@ -329,12 +329,17 @@ To clean up some minor modes indicators, [[http://www.emacswiki.org/emacs/Dimini
                    (setq sml/use-projectile-p 'before-prefixes)
 
                    ;; Major mode stays left, everything after gets alligned right
-                   (setq sml/mode-width 'full)
+                   (setq sml/mode-width 'right)
+                   (setq sml/extra-filler -6) ;; bugfix
                    ;; Set min and max buffer name length
                    (setq sml/name-width '(12 . 44))
                    (setq sml/shorten-modes t)
                    (setq sml/shorten-directory t))
 #+END_SRC
+***** WAITING trancation bugfix                                     :bug:
+see [[https://github.com/Malabarba/smart-mode-line/issues/261][Modeline trucation in Emacs 29 · Issue #261 · Malabarba/smart-mode-line]]
+fixed for now by adding ~(setq sml/extra-filler -6)~ in the code above
+
 ***** Diminish minor modes that are not explicitly loaded anywhere else
 #+begin_src emacs-lisp :tangle yes
   (eval-after-load "face-remap" '(diminish 'buffer-face-mode))
