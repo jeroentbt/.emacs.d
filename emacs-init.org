@@ -973,7 +973,6 @@ But guide-key should have your back
     :ensure t
     :init (global-flycheck-mode))
 #+END_SRC
-****** Modeline
 
 ***** discover
 #+BEGIN_SRC emacs-lisp :tangle yes
