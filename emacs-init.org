@@ -2402,7 +2402,7 @@ Basic mu4e setup: paths to binaries and where to find and put files.
     (imagemagick-register-types))
 
   (setq mu4e-headers-fields '((:human-date . 15) (:flags . 4) (:mailing-list . 8) (:from-or-to . 22) (:thread-subject))
-        mu4e-headers-date-format "%a %y-%m-%d %p"
+        mu4e-headers-date-format "%a %Y-%m-%d %p"
         mu4e-headers-time-format "%T")
 
   ;; show full email
