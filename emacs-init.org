@@ -336,7 +336,7 @@ To clean up some minor modes indicators, [[http://www.emacswiki.org/emacs/Dimini
                    (setq sml/shorten-modes t)
                    (setq sml/shorten-directory t))
 #+END_SRC
-***** WAITING trancation bugfix                                     :bug:
+***** WAITING truncation bugfix                                     :bug:
 see [[https://github.com/Malabarba/smart-mode-line/issues/261][Modeline trucation in Emacs 29 · Issue #261 · Malabarba/smart-mode-line]]
 fixed for now by adding ~(setq sml/extra-filler -6)~ in the code above
 
