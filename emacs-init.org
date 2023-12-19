@@ -2523,6 +2523,10 @@ epa-mail-mode allows you to:
                '( :name  "Flagged"
                   :query "flag:flagged"
                   :key   ?+) t)
+  (add-to-list 'mu4e-bookmarks
+               '( :name  "Sent"
+                  :query "maildir:/.*Sent.*/"
+                  :key   ?s))
 #+END_SRC
 
 ***** actions
