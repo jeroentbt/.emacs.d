@@ -2523,6 +2523,10 @@ epa-mail-mode allows you to:
                '( :name  "Flagged"
                   :query "flag:flagged"
                   :key   ?+) t)
+  (add-to-list 'mu4e-bookmarks
+               '( :name  "Sent"
+                  :query "maildir:/.*Sent.*/"
+                  :key   ?s))
 #+END_SRC
 
 ***** actions
@@ -2683,8 +2687,6 @@ https://bitbucket.org/seanfarley/dotfiles/src/69cbcf0dd9d6cb2c7aaa18e7a196315035
 reference
 https://github.com/djcb/mu/blob/master/mu4e/mu4e-actions.el
 
-****** TODO org and mu4e
-[[mu4e:msgid:m2pphdpjyc.fsf@gmail.com][yet another mu4e/org solution]]
 ***** TODO mail attachments with dired
 #+BEGIN_EXAMPLE emacs-lisp
 ;; Attach files via dired
