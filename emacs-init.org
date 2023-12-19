@@ -3227,6 +3227,19 @@ M-x toggle-debug-on-error
 ** profiler
 ~M-x profiler-start~ will start a profiler sessions showing you where emacs spent its time
 
+** Kick emacs
+This script is on my path as ~kick_emacs~
+
+#+begin_src shell
+  #!/bin/sh
+
+  # when emacs hangs, sending SIGUSR2 can kick it back in to reality
+  # this sets debug-on-quit, which is why we immediatly undo it
+  pkill -SIGUSR2 -i emacs ; emacsclient -e '(setq debug-on-quit nil)'
+
+#+end_src
+
+
 * Fixing bugs
 
 ** 2015-01-16 discover.el messing with keybindings
