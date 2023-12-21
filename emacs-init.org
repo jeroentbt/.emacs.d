@@ -2509,15 +2509,15 @@ epa-mail-mode allows you to:
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-to-list 'mu4e-bookmarks
                '( :name  "Unread - lists"
-                  :query "flag:unread AND flag:list AND NOT (flag:trashed OR maildir:/*/Trash)"
+                  :query "flag:unread AND flag:list AND NOT flag:trashed AND NOT maildir:/.*/Trash/"
                   :key   ?l))
   (add-to-list 'mu4e-bookmarks
                '( :name  "Unread - no lists, today"
-                  :query "flag:unread and date:today..now AND NOT flag:trashed AND NOT maildir:/*/Spam"
+                  :query "flag:unread and date:today..now AND NOT flag:trashed AND NOT maildir:/.*/Spam/"
                   :key   ?d))
   (add-to-list 'mu4e-bookmarks
                '( :name  "Unread - no lists"
-                  :query "flag:unread AND NOT flag:list AND NOT flag:trashed AND NOT maildir:/*/Spam"
+                  :query "flag:unread AND NOT flag:list AND NOT flag:trashed AND NOT maildir:/.*/Spam/"
                   :key   ?b))
   (add-to-list 'mu4e-bookmarks
                '( :name  "Flagged"
