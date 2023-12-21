@@ -2574,6 +2574,13 @@ epa-mail-mode allows you to:
 
 ****** TODO fix trashing
 
+******* a cron job to delete old messages from trash
+Once I fix trashing...
+#+begin_src shell
+mu find maildir:/mailbox/Trash AND date:40y..90d --sortfield=date --fields=l | xargs mu remove
+#+end_src
+
+
 ****** Find messages by same sender
  #+begin_src emacs-lisp :tangle yes
    (add-to-list 'mu4e-view-actions
